@@ -1,0 +1,1 @@
+Folder berisi gambar, grafik, atau _resources_ lain yang diperlukan untuk tugas akhir.

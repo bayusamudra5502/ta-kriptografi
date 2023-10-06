@@ -1,0 +1,103 @@
+%--------------------------------------------------------------------%
+%
+% Berkas utama templat LaTeX.
+%
+% author Petra Barus, Peb Ruswono Aryan, Faris Rizki Ekananda
+%
+%--------------------------------------------------------------------%
+%
+% Berkas ini berisi struktur utama dokumen LaTeX yang akan dibuat.
+%
+%--------------------------------------------------------------------%
+
+\documentclass[bahasa, 12pt, a4paper, onecolumn, oneside, final]{report}
+
+\input{config/if-itb-thesis.sty}
+
+\makeatletter
+
+\makeatother
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+%Basic configuration
+\title{{{INSERT TOPIK HERE}}}
+\date{}
+\author{
+  {{INSERT NAME HERE}} \\
+  NIM : {{INSERT NIM HERE}}
+}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{chapters/frontmatter/cover}
+\input{chapters/approval/approval-1}
+% \input{chapters/approval/approval-2}
+\input{chapters/approval/identity}
+\input{chapters/frontmatter/statement}
+
+\pagestyle{plain}
+
+\titleformat*{\section}{\centering\bfseries\Large\MakeUpperCase}
+\titlespacing*{\chapter}{0pt}{0pt}{0pc}
+
+\input{chapters/abstract/abstract-id}
+% % \input{chapters/abstract/abstract-en}
+\input{chapters/frontmatter/forewords}
+
+\titlespacing*{\chapter}{0pt}{0pt}{1.5pc}
+
+% Setting judul toc, lot, lof, bib
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\bibname}{DAFTAR REFERENSI}
+
+\tableofcontents
+\listofappendices
+\listoffigures
+\listoftables
+
+% \newpage
+
+\titleformat*{\section}{\bfseries\large}
+\pagenumbering{arabic}
+
+%----------------------------------------------------------------%
+% Konfigurasi Bab
+%----------------------------------------------------------------%
+\setcounter{page}{1}
+\renewcommand{\chaptername}{BAB}
+\renewcommand{\thechapter}{\Roman{chapter}}
+%----------------------------------------------------------------%
+
+%----------------------------------------------------------------%
+% Dafter Bab
+% Untuk menambahkan daftar bab, buat berkas bab misalnya `chapter-6` di direktori `chapters`, dan masukkan ke sini.
+%----------------------------------------------------------------%
+\input{chapters/chapter-1}
+\input{chapters/chapter-2}
+\input{chapters/chapter-3}
+\input{chapters/chapter-4}
+\input{chapters/chapter-5}
+%----------------------------------------------------------------%
+
+% Daftar pustaka
+\printbibliography
+% \blankpage
+
+% Setting judul lampiran
+\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+\titlespacing*{\section}{0pt}{0pt}{*1}
+
+% Setting judul anak lampiran
+\titleformat*{\section}{\bfseries}
+
+% Index
+\appendix
+\input{chapters/appendix/appendix-1}
+
+\end{document}
