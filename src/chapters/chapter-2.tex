@@ -1,6 +1,6 @@
 \chapter{Studi Literatur}
 
-\section{Pengantar Jaringan Komputer}
+\section{Jaringan Komputer}
 Menurut \textcite{forouzan2012}, jaringan komputer merupakan sebuah keterhubungan dari beberapa perangkat yang dapat melakukan komunikasi satu sama lain. Perangkat yang dapat terlibat pada jaringan komputer ini sapat berupa \emph{host} seperti komputer, laptop, dan gawai lainnya. Selain itu, perangkat pada definisi di atas dapat berupa perangkat penghubung. Beberapa contoh dari perangkat penghubung adalah \emph{router}, \emph{switch}, dan \emph{modem}.
 
 Terdapat empat buah syarat sebuah sistem dapat dikatakan sebagai jaringan komputer menurut \textcite{pratama2015}. Syarat-syarat yang perlu dipenuhi adalah sebagai berikut:
@@ -44,7 +44,7 @@ Tahap pertama yang perlu dilakukan dalam mengirim data melalui TCP adalah pemben
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/tcp.open.png}
+  \includegraphics[width=280px]{chapters/res/chapter-2/img/tcp.open.png}
   \caption{Proses Pembukaan Koneksi TCP} \label{fig:tcp.open}
   Sumber: \textcite{peterson2011}
 \end{figure}
@@ -53,45 +53,28 @@ Saat koneksi telah terjalin, pengiriman data sudah dapat dilakukan. Proses trans
 
 Menurut \textcite{peterson2011}, setiap \emph{segment} yang dikirimkan diharapkan selalu penuh. Hal ini mencegah terjadi permasalahan \emph{silly window syndrome}. Oleh karena itu, pengiriman dapat diatur oleh algoritma nagle. Terdapat sebuah parameter untuk menentukan besar maksimum data yang dikirimkan yaitu nilai \emph{maximum segment size} (MSS).
 
-Pada saat pengiriman data, terdapat juga sebuah nilai $Timeout$ yang menentukan apakah proses pengiriman \emph{segment} perlu diulang. Nilai ini dapat diturunkan melalui nilai estimasi \emph{round time trip} (RTT) dari sebuah data. Menurut \textcite{peterson2011}, Nilai estimasi RTT ditentukan dengan persamaan \ref{eq:tcp.rtt}.
-
-\begin{equation}
-  \label{eq:tcp.rtt}
-  EstimatedRTT_{i+1} = \alpha \times EstimatedRTT_i + (1 - \alpha) \times SampleRTT_i
-\end{equation}
-
-Nilai $SampleRTT_i$ diambil melalui data yang telah diterima pada saat ke-$i$. Nilai ini menyatakan waktu dimulainya sebuah \emph{segment} ditransmisi hingga diterimanya \emph{segment} ACK. Nilai $\alpha$ digunakan untuk membuat nilai $EstimatedRTT$ menjadi lebih \emph{smooth}. Nilai $Timeout$ dapat dihitung berdasarkan persamaan \ref{eq:tcp.timeout}
-
-\begin{equation}
-  \label{eq:tcp.timeout}
-  Timeout_{i} = 2 \cdot SampleRTT_i
-\end{equation}
-
-Saat mengirimkan data, pengirim perlu menunggu ACK hingga batas $timeout$. Apabila telah terjadi timeout, pengirim perlu mengirimkan ulang data mereka menuju penerima. Semua proses pada tahap pengiriman ini perlu dilakukan hingga semua data berhasil dikirimkan.
+Pada saat pengiriman data, terdapat juga sebuah nilai $Timeout$ yang menentukan apakah proses pengiriman \emph{segment} perlu diulang. Nilai ini dapat diturunkan melalui nilai estimasi \emph{round time trip} (RTT) dari sebuah data. Saat mengirimkan data, pengirim perlu menunggu ACK hingga batas $timeout$. Apabila telah terjadi timeout, pengirim perlu mengirimkan ulang data mereka menuju penerima. Semua proses pada tahap pengiriman ini perlu dilakukan hingga semua data berhasil dikirimkan.
 
 Pada fase terakhir, koneksi antara \emph{client} dan \emph{server} perlu ditutup. Hal ini perlu dilakukan dengan \emph{client} melakukan proses \emph{active close}. Pada tahap \emph{active close}, \emph{client} mengirimkan pesan FIN. Setelah itu, \emph{server} mengirimkan pesan FIN+ACK. Setelah menerima pesan dari \emph{server}, \emph{client} perlu mengirimkan ACK. Setelah itu, koneksi antara \emph{server} dan \emph{client} telah tertutup.
 
-\section{Pengantar Kriptografi}
+\section{Kriptografi}
 Menurut \textcite{schneier1996}, Kriptografi merupakan ilmu pengetahuan dan seni yang berujuan untuk menjaga sebuah pesan tetap aman. Menurut \textcite{anderson2008}, Kriptografi dianggap sebagai pintu para pengembang keamanan untuk bertemu dengan ilmu matematika. Hal ini dapat terlihat bahwa banyak sekali algoritma kriptografi yang terkait dengan konsep matematika. Kriptografi dianggap juga sebagai seni. Menurut \textcite{munir2019}, hal ini dikarenakan dari pandangan sejarah berkembangnya kriptografi. Kriptografi ini terbentuk dikarenakan adanya keinginan untuk merahasiakan sebuah pesan. Tentu saja, setiap orang memiliki ciri khas serta caranya tersendiri untuk menyandikan sebuah pesan. Oleh karena itu, kriptografi dapat dianggap sebagai seni untuk merahasiakan sebuah pesan. 
 
 Kriptografi pada dasarnya memiliki beberapa layanan dasar yang dapat digunakan dalam dunia keamanan. Menurut \textcite{schneier1996}, beberapa layanan yang terdapat pada kriptografi adalah sebagai berikut:
-\begin{itemize}
+\begin{enumerate}
   \item Kerahasiaan (\emph{confidentiality}) merupakan sebuah layanan yang diberikan oleh kriptografi untuk menjaga pesan agar pesan hanya dapat dimengerti oleh pihak yang memiliki otoritas. 
   \item Integritas (\emph{integrity}) merupakan layanan yang menjamin bahwa pesan yang diterima merupakan pesan yang belum pernah dilakukan modifikasi sebelumnya. Layanan ini menjamin data yang diterima sama dengan data tersebut saat pertama kali dikirim.
   \item Otentikasi (\emph{authentication}) merupakan layanan yang menjamin bahwa pesan yang diterima merupakan pesan yang dikirim oleh pengirim sesungguhnya. Hal ini terkait dengan klaim bahwa pesan yang dikirimkan tentu saja dapat dilakukan dekripsi dengan kunci yang telah disepakati.
   \item Anti penyangkalan (\emph{non-repudiation}) merupakan layanan yang menjamin bahwa pengirim tentu saja tidak akan dapat menyangkal pesan yang telah dia kirimkan.
-\end{itemize} 
+\end{enumerate} 
 
-\section{Kriptografi Modern}
 Kriptografi modern, menurut \textcite{munir2019}, merupakan kriptografi yang bekerja pada komputer digital. Pesan tidak hanya terbatas pada tulisan dan alfabet, namun pesan juga dapat berupa berbentuk apapun selama dapat diubah menjadi bentuk biner. Dalam Kriptografi modern, terdapat sebuah konsep yang disebut dengan kriptografi kunci publik, konsep fungsi \emph{hash}, serta tanda tangan digital. Hal ini merupakan konsep baru yang dapat digunakan untuk menjamin integritas serta anti penyangkalan dari pengirim pesan.
 
 Menurut \textcite{schneier1996}, keamanan kriptografi modern tidak hanya cukup apabila merahasiakan algoritma penguncian. Hal ini dikarenakan apabila sebuah algoritma penguncian dapat dipecahkan, algoritma tersebut perlu diganti dengan yang baru. Dalam kriptografi modern, kerahasiaan yang perlu dijaga terletak pada kunci. Setiap operasi enkripsi serta dekripsi tentu saja akan melibatkan kunci ini. 
 
-\subsection{Algoritma Kriptografi Modern}
+Sebuah algoritma kriptografi tentu membutuhkan kunci untuk melakukan proses enkripsi dan dekripsi. Menurut \textcite{schneier1996}, algoritma kriptografi dapat dibagi menjadi dua, yaitu Kriptografi kunci simetrik dan kriptografi publik. Perbedaan dari kedua algoritma tersebut terletak pada kunci yang digunakan untuk melakukan enkripsi serta dekripsi pesan. 
 
-Sebuah Algoritma modern tentu membutuhkan kunci untuk melakukan proses enkripsi dan dekripsi. Menurut \textcite{schneier1996}, algoritma kriptografi dapat dibagi menjadi dua, yaitu Kriptografi kunci simetrik dan kriptografi publik. Perbedaan dari kedua algoritma tersebut terletak pada kunci yang digunakan untuk melakukan enkripsi serta dekripsi pesan. 
-
-Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sama saat melakukan proses enkripsi serta dekripsi pesan. Asumsi yang diterapkan pada penggunaan algoritma ini adalah pengirim serta penerima sudah melakukan proses pembagian kunci. Skema proses enkripsi digambarkan pada gambar \ref{fig:crypto.symetric}. Beberapa contoh algoritma yang termasuk pada algoritma ini adalah \emph{Advanced Encryption Standard (AES)}, RC4, dan DES.
+Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sama saat melakukan proses enkripsi serta dekripsi pesan. Asumsi yang diterapkan pada penggunaan algoritma ini adalah pengirim serta penerima sudah melakukan proses pembagian kunci. Skema proses enkripsi digambarkan pada gambar \ref{fig:crypto.symetric}.
 
 \begin{figure}[!h]
   \centering
@@ -100,47 +83,164 @@ Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sam
   Sumber: \textcite{munir2019}
 \end{figure}
 
+Menurut \textcite{munir2019}, algoritma kriptografi kunci simetris ini dibagi lagi menjadi dua buah jenis, yaitu \emph{cipher} blok dan \emph{cipher} alir. Perbedaan antara kedua jenis \emph{cipher} tersebut terletak pada cara pengenkripsian sebuah pesan. Pada \emph{cipher} alir, proses enkripsi dilakukan dengan cara mengenkripsikan pesan per bit per bit. Proses penenkripsian juga tidak menutup kemungkinan dilakukan \emph{byte} per \emph{byte}. Contoh algoritma yang termasuk dalam \emph{cipher} alir adalah RC4 dan A5.
+
+Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma kunci simetris yang memproses pesan berdasarkan blok-blok bit atau \emph{byte}. Enkripsi dilakukan pada blok tersebut setiap kali. Terdapat beberapa operasi yang ada pada \emph{cipher} blok, di antaranya adalah ECB, CBC, CFB, dan OFB. Setiap operasi ini menentukan cara setiap blok pesan \emph{plaintext} atau \emph{ciphertext} dilakukan proses kriptografi.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/cfb.png}
+  \caption{Ilustrasi proses enkripsi menggunakan mode CFB} \label{fig:enc.cfb}
+  Sumber: \textcite{peterson2011}
+\end{figure}
+
+Menurut \textcite{munir2019}, algoritma enkripsi menggunakan mode \emph{cipher-feedback} (CFB) melakukan proses enkripsi \emph{plaintext} setiap $p$ bit data. Nilai $p$ perlu dipilih dengan nilai kurang dari sama dengan ukuran blok data. Proses enkripsi menggunakan mode ini cenderung mirip dengan algoritma enkripsi \emph{cipher} alir dikarenakan proses enkripsi seolah-olah dilakukan per bit data. Ilustrasi dari proses pengenkripsian menggunakan mode CFB ini dapat digambarkan pada diagram \ref{fig:enc.cfb}. Secara matematis, proses pengenkripsian menggunakan cipher ini dapat ditulis dengan persamaan \ref{eq:crypto.cfb.enc}.
+
+\begin{equation}
+  \label{eq:crypto.cfb.enc}
+  \begin{array}{l}   
+    Ct_i = Pt_i \oplus MSB_{p}(E_k(X_i)) \\
+    X_{i+1} = LSB_{n-p}(X_i) || C_i \\
+    X_0 = IV
+  \end{array}
+\end{equation}
+
+Proses dekripsi dari mode CFB ini dapat dinyatakan sesuai dengan persamaan \ref{eq:crypto.cfb.dec}.
+
+\begin{equation}
+  \label{eq:crypto.cfb.dec}
+  \begin{array}{l}   
+    Pt_i = Ct_i \oplus MSB_{p}(D_k(X_i)) \\
+    X_{i+1} = LSB_{n-p}(X_i) || C_i \\
+    X_0 = IV
+  \end{array}
+\end{equation}
+
+Menurut \textcite{schneier1996}, Nilai $IV$ dari setiap proses tidak perlu rahasia. Akan tetapi, nilai ini perlu unik untuk setiap pesan. Hal ini dikarenakan untuk mencegah proses kriptoanalis dapat mengembalikan \emph{ciphertext} menjadi \emph{plaintext}.
+
+Menurut \textcite{munir2019}, salah satu sifat yang dimiliki oleh mode CFB ini adalah kesalahan yang berada pada \emph{plaintext} pada suatu blok akan merambat dari blok tersebut hingga blok-blok setelahnya. Akan tetapi, kesalahan satu bit pada \emph{ciphertext} pada mode ini akan mempengaruhi blok yang terdapat kesalahan. Sifat lainnya dari mode ini adalah proses enkripsi ataupun dekripsi pada mode CFB ini dapat dilakukan tanpa perlu menunggu ukuran pesan mencapai satu blok. Sifat ini cukup cocok apabila data yang dikirimkan berupa data yang bersifat \emph{stream}.
+
 Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada Gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.symetric.png}
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.asymetric.png}
   \caption{Visualisasi Proses Enkripsi Krpitografi Kunci Publik} 
   \label{fig:crypto.asymetric}
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Menurut \textcite{munir2019}, keuntungan menggunakan kriptografi kunci publik ada dua. Keuntungan pertama adalah tidak adanya kebutuhan dalam mendistribusikan kunci rahasia. Kunci publik dapat dikirimkan melalui saluran yang tidak aman. Selain itu, keuntungan lain dari penggunaan kunci publik ini adalah jumlah pembuatan kunci dapat dikurangi. Pada saat menggunakan kriptografi kunci simetri, jumlah kunci yang harus dibuat adalah sebanyak jumlah pihak yang ingin berkomunikasi. Pada saat menggunakan algoritma asimetris, kunci yang perlu dibuat hanyalah sebanyak dua buah kunci, sehingga jumlah kunci menjadi lebih sedikit. 
+Menurut \textcite{munir2019}, keuntungan menggunakan kriptografi kunci publik ada dua. Keuntungan pertama adalah tidak adanya kebutuhan dalam mendistribusikan kunci rahasia. Kunci publik dapat dikirimkan melalui saluran yang tidak aman. Selain itu, keuntungan lain dari penggunaan kunci publik ini adalah jumlah pembuatan kunci dapat dikurangi. Pada saat menggunakan kriptografi kunci simetri, jumlah kunci yang harus dibuat adalah sebanyak jumlah pihak yang ingin berkomunikasi. Pada saat menggunakan algoritma asimetris, kunci yang perlu dibuat hanyalah sebanyak dua buah kunci, sehingga jumlah kunci menjadi lebih sedikit.
 
-\section{Pertukaran Kunci \emph{Diffie–Hellman}}
-Testing 
 
-\section{\emph{Advanced Encryption Standard (AES)}}
-Testing
+% \section{Pertukaran Kunci \emph{Diffie–Hellman}}
+% Testing
 
-\section{Teori Chaos}
-Testing
+% \section{\emph{Advanced Encryption Standard (AES)}}
+% Testing
 
-\section{Pembangkit Bilangan Acak yang Aman untuk Kriptografi}
-Testing
+% \section{Teori Chaos}
+% Testing
 
-\subsection{CSRPNG berbasis Chaos}
-Testing
+% \subsection{CSRPNG berbasis Chaos}
+% Testing
 
-\section{Fungsi Hash Satu Arah}
-Testing
+% \subsection{\emph{Secure Hash Algorithm (SHA)}}
+% Testing
 
-\subsection{\emph{Secure Hash Algorithm (SHA)}}
-Testing
+% \section{Algoritma Enkripsi Kunci Dinamis}
+% Testing
 
 \section{Penelitian Terkait}
-Testing
 
 \subsection{Sinkronisasi Kunci Dinamis berbasis Chaos den Aplikasinya pada Pengenkripsian Gambar dengan Algoritma AES yang diimprovisasi}
-Testing
 
-\subsection{Enkripsi Gambar dan Analisisnya memanfaatkan Algoritma AES dinamis}
-Testing
+Menurut \textcite{lin2021}, kebutuhan keamanan data untuk berkomunikasi terus meningkat. Hal ini dikarenakan perkembangan sistem multimedia saat ini tentu terus berkembang. Salah satu variasi pengembangan algoritma enkripsi dan dekripsi yang berkembang saat ini menerapkan sinyal \emph{chaos}. 
 
-\subsection{Peningkatan Keamanan Enkripsi AES menggunakan Algoritma \emph{Salt} Dinamis}
-Testing
+Untuk memanfaatkan sistem \emph{chaos}, diperlukan sebuah parameter berupa nilai inisialisasi dari sistem chaos. Nilai ini perlu dipertukarkan melalui jaringan yang tidak aman, sehingga menambah peluang nilai tersebut dapat di-\emph{crack}. Terdapat beberapa pendekatan biasa dilakukan untuk mencapai sinkronisasi, yaitu menggunakan \emph{backstepping design}, \emph{fuzzy control}, dan \emph{sliding mode control}. Dari ketiga metode tersebut, mode yang sering digunakan adalah mode \emph{sliding mode control}. Penelitian yang dilakukan oleh (\cite{lin2021}) salah satunya akan berbicara terkait sinkronisasi sistem \emph{chaos} ini.
+
+Penelitian ini juga termotivasi dengan adanya beberapa serangan yang biasa dilakukan oleh \emph{cracker} untuk memecahkan pesan \emph{ciphertext} memanfaatkan algoritma AES. Salah satu metode untuk melakukan serangan adalah memanfaatkan nilai \emph{cache}. Hal ini dapat terjadi dikarenakan pada saat ini, proses enkripsi menggunakan kunci simetri masih menggunakan kunci yang statis. Apabila kunci ini berhasil untuk dicuri, semua \emph{ciphertext} yang ada dapat dengan mudah untuk dilakukan dekripsi. Selain itu, perkembangan komputer kuantum juga menjadi tantangan tersendiri bagi AES. Komputer kuantum dapat memecahkan enkripsi AES dengan waktu yang cukup cepat. Oleh karena itu, penelitian ini juga terkait dengan modifikasi algoritma AES berbasis \emph{chaos} memanfaatkan kunci dinamis yang tersinkronisasi. Pengujian hasil dari algoritma AES berbasis \emph{chaos} ini dilakukan dengan cara melakukan enkripsi pada sebuah gambar. Analisis yang dilakukan diantaranya adalah analisis statis, histogram, entropi informasi, dan korelasi untuk menguji keamanan dan efisiensi dari algoritma yang telah dibentuk.
+
+Pada penelitian \textcite{lin2021}, digunakan sistem \emph{chaos} berbasis Henon maps. Nilai \emph{chaos} ini dibagi menjadi dua buah bagian, yaitu \emph{master} dan \emph{slave}. Persamaan sistem \emph{chaos} untuk \emph{master} didefinisikan dengan persamaan \ref{eq:lin.henon.master}.
+
+\begin{equation}
+  \label{eq:lin.henon.master}
+  \begin{array}{l}   
+    x_1(k+1) = 1.76 - x_2^2(k) - 0.1 \cdot x_3(k)\\
+    x_2(k+1) = x_1(k)\\
+    x_3(k+1) = x_2(k)
+  \end{array}
+\end{equation}
+
+Persamaan sistem \emph{chaos} untuk \emph{slave} didefinisikan dengan persamaan \ref{eq:lin.henon.slave}.
+
+\begin{equation}
+  \label{eq:lin.henon.slave}
+  \begin{array}{l}   
+    y_1(k+1) = 1.76 - x_2^2(k) - 0.1 \cdot x_3(k) + u(k)\\
+    y_2(k+1) = y_1(k)\\
+    y_3(k+1) = y_2(k)
+  \end{array}
+\end{equation}
+
+Pada persamaan  \ref{eq:lin.henon.slave}, nilai $u(k)$ merupakan nilai yang digunakan untuk melakukan proses sinkronisasi antara sistem \emph{chaos} yang dimiliki oleh \emph{master} dan \emph{slave}. Dari hasil penelitian tersebut, didefinisikan bahwa nilai sinkronisasi dapat dilakukan dengan persamaan berikut:
+
+\begin{equation}
+  \label{eq:lin.henon.sync}
+  \begin{array}{l}   
+    u(k) = \delta \cdot s(k) - [\alpha \cdot e_1(k) + (\beta - x_2(k) - y_2(k)) \cdot e_2(k) - 0.1 \cdot e_3(k)]\\
+    s(k+1) = \delta \cdot s(k)
+  \end{array}
+\end{equation}
+
+Nilai $|\delta|$ perlu kurang dari satu untuk mencapai sinkronisasi. Selain itu, Nilai $\alpha$ dan $\beta$ perlu dipilih sehingga semua nilai eigen matriks A yang didefinisikan pada persamaan \ref{eq:lin.henon.a-matrix} bernilai kurang dari 1. Niali $e_i(k)$ merupakan nilai error yang dihasilkan antara sistem slave dan sistem master. Oleh karena itu, nilai error tersebut didefinisikan dengan $e_i(k) = y_i(k) - x_i(k), i = 1,2,3$.
+
+\begin{equation}
+\label{eq:lin.henon.a-matrix}
+A = \begin{bmatrix}
+  -\alpha & -\beta \\
+  1 & 0 
+  \end{bmatrix}
+\end{equation}
+
+Dalam membangkitkan kunci dinamis, \textcite{lin2021} memanfaatkan fungsi hash SHA256. Hal ini bertujuan untuk memberikan panjang yang cukup pada saat melakukan enkripsi menggunakan AES. Ilustrasi dari proses pembangkitan kunci ini dapat dilihat pada gambar \ref{fig:lin.keygen}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/lin.keygen.png}
+  \caption{Ilustrasi proses pembangkitan kunci dinamis} \label{fig:lin.keygen}
+  Sumber: \textcite{lin2021}
+\end{figure}
+
+Proses sinkronisasi sistem \emph{chaos} dapat dilakukan dengan mendekomposisi nilai $u(k)$ menjadi nilai $u_m(k)$ dan $u_s(k)$. Pemecahan nilai ini ditujukan untuk meningkatkan kemananan saat implementasi. Nilai $u_m(k)$ akan dikirimkan dari \emph{transmitter} menuju \emph{receiver}. Sistem ini dapat dijelaskan melalui gambar . Menurut \textcite{lin2021}, sistem itu aman. Hal ini dikarenakan apabla \emph{hacker} memiliki parameter-parameter yang digunakan untuk sinkronisasi, mereka tidak dapat mendapatkan \emph{state} dari master dan slave. Ilustrasi yang proses enkripsi dan dekripsi serta sinkronisasi yang dilakukan terdapat pada gambar \ref{fig:lin.caes}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/lin.caes.png}
+  \caption{Arsitektur AES berbasis \emph{chaos} yang telah diimporvisasi} \label{fig:lin.caes}
+  Sumber: \textcite{lin2021}
+\end{figure}
+
+Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara membandingkan proses enkripsi gambar yang dihasilkan memanfaatkan AES-ECB, AES-CBC, dan CAES-EBC. Gambar yang diuji merupakan gambar berukuran $256 \times 256$. Pada algoritma CAES, kunci dinamis yang dihasilkan sebanyak 49.152 kunci. Setiap kunci ini dibuat secara langsung melalui proses \emph{update} pada setiap \emph{round} enkripsi. Hasil enkripsi pada figur \ref{fig:lin.result} menunjukan bahwa CAES-ECB bila diobservasi secara visual memiliki kualitas yang cukup baik bila dibandingkan dengan AES-EBC. Menurut \textcite{lin2021}, Hal ini dapat membuktikan bahwa algoritma CAES-CBC lebih unggul dibandingkan AES-EBC dan AES-CBC.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/lin.res.png}
+  \caption{Hasil visual gambar terenkripsi} \label{fig:lin.result}
+  Sumber: \textcite{lin2021}
+\end{figure}
+
+Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes yang dilakukan berdasarkan parameter uji yang telah didefinisikan oleh National Institute of Standards and Technology (NIST). Pengujian yang dilakukan oleh \textcite{lin2021} menggunakan data \emph{stream} sepanjang 10.000.000 bit data dengan jumlah biat setiap stream sebesar 30. Hasil tersebut menunjukan bahwa algoritma CAES memenuhi persyaranan NIST SP 800-22 \emph{random number detection}. Hasil dari pengujian NIST juga menunjukan bahwa algoritma CAES lebih unggul dibandingkan dengan AES-CBC dan AES-EBC. Hal ini ditunjukan dengan data pada figur \ref{fig:lin.analytic-result}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/lin.analytic-test.png}
+  \caption{Hasil Analitik Algoritma CAES} \label{fig:lin.analytic-result}
+  Sumber: \textcite{lin2021}
+\end{figure}
+
+% \subsection{Enkripsi Gambar dan Analisisnya memanfaatkan Algoritma AES dinamis}
+% Testing
+
+% \subsection{Peningkatan Keamanan Enkripsi AES menggunakan Algoritma \emph{Salt} Dinamis}
+% Testing
