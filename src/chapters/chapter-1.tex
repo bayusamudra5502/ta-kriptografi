@@ -1,15 +1,111 @@
 \chapter{Pendahuluan}
 
 \section{Latar Belakang}
-\label{sec:latarbelakang}
-Ini adalah latar belakang
+Masalah keamanan informasi merupakan permasalahan yang telah muncul semenjak dahulu kala. Hal ini dikarenakan orang-orang ingin memastikan informasi yang mereka kirimkan hanyalah boleh diakses oleh orang-orang yang memiliki wewenang untuk membukanya. Permasalahan keamanan informasi saat ini tentu saja masih menjadi yang sangat relevan. Berdasarkan data yang diunggah pada \textcite{pusiknaspolri_cybercrime_2022}, penindakan kasus kejahatan siber pada tahun tersebut meningkat dangat drastis bila dibandingkan dengan tahun sebelumnya. Hal ini memberikan tanda bahwa kejahatan siber terus berkembang. Hal ini juga diperparah dengan perkembangan teknologi dan teknik untuk melakukan peretasan semakin canggih. Oleh karena itu, diperlukan pengembangan teknik untuk melindungi data agar semakin aman.
+
+Untuk mengamankan sebuah informasi dapat dilakukan berbagai teknik. Salah satu teknik yang sangat penting untuk mengamankan informasi adalah kriptografi. Ilmu terkait kriptografi sudah mulai dikembangkan sejak masa dahulu kala. Hal ini dapat diamati dari kemunculan adanya \emph{Caesar Cipher}. Kemunculan dari ilmu kriptografi disebabkan oleh adanya keperluan untuk menjaga data tetap rahasia dan hanya boleh diakses oleh orang yang memiliki wewenang. Semakin berkembangnya teknologi informasi, ilmu kriptografipun turut ikut berkembang. Pada masa kini, telah terdapat beberapa  algoritma kriptografi yang dapat digunakan untuk pengiriman pesan. Menurut \textcite{munir2019}, beberapa algoritma tersebut dapat diklasifikasikan berdasarkan jumlah kunci yang terlibat dalam melakukan enkripsi dan dekripsi, yaitu kriptografi kunci simetri dan kriptografi kunci asimetris.
+
+Menurut \textcite{halak2022}, penggunaan algoritma kunci asimetris lebih berat dibandingkan dengan penggunaan algoritma kunci simetris. Hal ini menyebabkan banyak protokol yang memanfaatkan kunci simetris dalam pertukaran pesan. Penggunaan kunci asimetris hanya digunakan untuk proses otentikasi pada saat awal dari komunikasi. Contoh dari protokol yang memanfaatkan pola seperti itu adalah \emph{Security Socket Layer} (SSL).
+
+Menurut \textcite{munir2019}, protokol SSL membentuk kunci simetris pada saat memulai sebuah sesi komunikasi. Kunci ini disebut sebagai \emph{session key}. Hal ini menyebabkan setiap sesi dapat dipastikan memiliki kunci enkripsi yang berbeda. Akan tetapi, kunci enkripsi yang digunakan pada saat proses pertukaran data menggunakan kunci yang sama hingga sesi berakhir. Hal ini dapat menjadi celah keamanan apabila kunci enkripsi dapat dipecahkan. Selain itu, sistem ini juga dapat menimbulkan kerentanan \emph{reply attack} apabila implementasi yang dilakukan kurang baik.
+
+Untuk menyelesaikan permasalahan ini, terdapat beberapa penelitian yang merancang algorithma enkripsi dinamis untuk mengenkripsi data yang dikirimkan. Pada penelitian yang dilakukan oleh \textcite{singh2019}, kedinamisan terletak pada arsitektur internal AES dalam satu \emph{round}. Penelitian ini mencoba untuk membentuk kedinamisan hasil enkripsi dengan melakukan permutasi pada S-Box, menggunakan \emph{irreducible polynomial} lain yang tersedia, serta mengganti nilai konstanta \emph{affine}. Dengan mengganti internal dalam sebuah \emph{round}, proses enkripsi tentu akan menjadi semakin kompleks. Selain itu, proses enkripsi tidak dapat dioptimasi terutama apabila CPU mendukung instruksi set yang mendukung proses menjalankan round menggunakan AES dikarenakan internal round telah berbeda.
+
+Penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan teori \emph{chaos} untuk membangkitkan kunci yang dinamis. Selain itu, penelitian ini juga membahas terkait sinkronisasi sistem \emph{chaos} memanfaatkan \emph{sliding mode control}. Proses sinkronisasi memanfaatkan teknik tersebut memiliki sebuah kekurangan, yaitu jumlah pengiriman pesan yang perlu dilakukan selama sinkronisasi tidak konstan. Algoritma yang dibentuk pada penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan mode blok ECB. Hal ini dapat mempermudah \emph{cracker} untuk mendekripsi secara parallel. Selain itu, penelitian yang dilakukan oleh \textcite{lin2021} tidak menjelaskan proses pengiriman data yang dilakukan secara \emph{full-duplex}.
+
+Dari beberapa permasalahan dan studi yang telah disebutkan, 
+penelitian ini akan membahas pemanfaatan algoritma enkripsi simetris dinamis dalam pengiriman pesan. Selain itu, penelitian ini mencoba untuk menyelesaikan permasalahan tanpa perlu mengubah internal dari algoritma enkripsi kunci simetris. Penelitian ini juga membahas terkait pengiriman data secara \emph{full-duplex}. Penelitian ini juga akan menjelaskan proses sinkronisasi sistem random kedua buah pihak yang melakukan komunikasi yang konstan.
 
 \section{Rumusan Masalah}
+Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
+\begin{enumerate}
+  \item Bagaimana cara melakukan sinkronisasi sistem \emph{chaos} pada kedua pihak dengan jumlah komunikasi yang konstan?
+  \item Bagaimana cara mengirimkan pesan secara \emph{full-duplex} terenkripsi secara dinamis dan tanpa mengubah internal \emph{round} dari algortima enkripsi?
+  \item Bagaimana mode blok yang perlu digunakan untuk melakukan enkripsi agar proses dekripsi tidak dapat dilakukan secara paralel?
+\end{enumerate}
 
 \section{Tujuan}
+Penelitian ini dilakukan dengan tujuan sebagai berikut:
+
+\begin{enumerate}
+  \item Membangun sebuah protokol komunikasi \emph{full-duplex} memanfaatkan algoritma kunci blok simetris dan resisten terhadap dekripsi pesan rahasia secara paralel.
+  \item Menguji pengiriman pesan melalui protokol yang dibuat secara \emph{full-duplex}.
+  \item Menguji keamaman kriptografi dari protokol komunikasi yang telah dibuat dari segi keteracakan dan hubungan antar blok.
+\end{enumerate}
 
 \section{Batasan Masalah}
+Dalam penelitian ini, terdapat batasan masalah yang digunakan, yaitu sebagai berikut:
+\begin{enumerate}
+  \item Komunikasi dilakukan hanya oleh dua entitas.
+  \item Protokol pengiriman pesan yang dibangun berjalan di atas jaringan yang reliable.
+  \item Proses implementasi protokol hanya dilakukan hingga tahap pembuatan prototype.
+\end{enumerate}
 
 \section{Metodologi}
+Metodologi yang digunakan pada penelitian ini terdapat empat tahap. Berikut ini merupakan metodologi yang digunakan pada penelitian ini:
+\begin{enumerate}
+  \item Analisis Masalah\\
+  Penelitian pada tahap ini berfokus pada permasalahan protokol yang telah dibentuk saat ini. Protokol yang terpilih akan dianalisis kelebihan dan kekurangan yang ada pada protokol tersebut.
 
-\section{Sistematika Pembahasan}
+  \item Perancangan protokol komunikasi\\
+  Setelah melakukan analisis permasalahan, perlu dilakukan perancangan solusi berupa protokol komunikasi. Pada tahap ini, penelitian akan berfokus pada pencarian protokol yang tepat untuk mengirim pesan. Penelitian akan mengkaji jenis mode blok yang digunakan pada protokol sehingga pesan tidak dapat dilakukan proses dekripsi secara paralel. Pada tahap ini juga, penelitian akan mengkaji metode untuk mengirimkan pesan agar dapat dikirimkan secara \emph{full-duplex}.
+
+  \item Pembangunan prototype protokol komunikasi\\
+  Pada tahap ini, prototype protokol komunikasi yang telah dibangun pada tahap sebelumnya.
+
+  \item Simulasi dan Evaluasi\\
+  Pada tahap ini, prototype yang telah dibuat dilakukan simulasi. Simulasi dilakukan dengan cara mengirimkan pesan berupa gambar \emph{grayscale} dari tiap entitas secara bersamaan. Hal ini dilakukan dengan menggunakan beberapa gambar yang berbeda. Setiap gambar yang telah diterima akan diperiksa integritasnya. Pesan terenkripsi juga akan dilakukan secara statistik dan visual. Pengujian keteracakan dilakukan dengan menggunakan NIST SP 800-22 \emph{randomness test}. Selain itu, akan dilakukan pengujian analisis entropi informasi untuk melihat keterkaitan antara satu blok dengan blok lainnya. Pengujian visual dilakukan dengan cara menampilkan gambar yang terenkripsi.
+
+\end{enumerate}
+
+
+% \section{Sistematika Pembahasan}
+
+\section{Jadwal Pelaksanaan Tugas Akhir}
+
+Berikut ini merupakan jadwal yang akan digunakan untuk melakukan penelitian ini:
+\begin{longtable}{ |c| >{\setlength{\baselineskip}{0.75\baselineskip}}p{0.17\linewidth} |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c| }
+	\caption{\label{tab:jadwal-pelaksaan-ta1}Jadwal Pelaksanaan Tugas Akhir I} \\
+	\hline
+	\rowcolor{gray!30} & & \multicolumn{2}{c|}{Sep} & \multicolumn{4}{c|}{Okt} & \multicolumn{4}{c|}{Nov} & \multicolumn{4}{c|}{Des} \\
+	\cline{3-18}
+	\rowcolor{gray!30}
+	\multirow{-2}{*}{No.} & \multirow{-2}{0.17\linewidth}{Milestone}              & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     \\
+	\hline
+	1                     & Studi Literatur Awal                                  & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       \\
+	\hline
+	2                     & Penyusuan Pendahuluan                             &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       \\
+	\hline
+	3                     & Rencana Penyelesaian Masalah                           &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       \\
+	\hline
+	4                     & Finalisasi Buku TA I                              &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       \\
+	\hline
+	5                     & Seminar Progress Tugas Akhir                      &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} \\
+	\hline
+\end{longtable}
+
+\begin{landscape}
+  \begin{longtable}{ |c| >{\setlength{\baselineskip}{0.65\baselineskip}}p{0.17\linewidth} |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c| }
+    \caption{\label{tab:jadwal-pelaksaan-ta2}Jadwal Pelaksanaan Tugas Akhir II} \\
+    \hline
+    \rowcolor{gray!30}    &                                                       & \multicolumn{4}{c|}{Jan}                                                                      & \multicolumn{4}{c|}{Feb}                                                                      & \multicolumn{4}{c|}{Mar}                                                                      & \multicolumn{4}{c|}{Apr}                                                                      & \multicolumn{4}{c|}{Mei}                                                                      \\
+    \cline{3-18}
+    \rowcolor{gray!30}
+    \multirow{-2}{*}{No.} & \multirow{-2}{0.17\linewidth}{Milestone}              & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     & 1                     & 2                     & 3                     & 4                     \\
+    \hline
+    1                     & Perancangan Protokol Komunikasi                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       \\
+    \hline  
+    2                     & Pembangunan prototype protokol komunikasi             &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       \\
+    \hline
+    3                     & Pengujian Protokol Komunikasi                         &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       &                       &                       \\
+    \hline
+    4                     & Penyusunan Kesimpulan dan Saran                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       &                       &                       &                       &                       &                       &                       \\
+    \hline
+    5                     & Finalisasi Buku TA II                                 &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} & \cellcolor{yellow!60} &                       &                       \\
+    \hline
+    6                     & Seminar Hasil Tugas Akhir                             &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} &                       &                       &                       &                       &                        \\
+    \hline
+    7                     & Sidang Tugas Akhir                                    &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       &                       & \cellcolor{yellow!60} & \cellcolor{yellow!60} \\
+    \hline
+  \end{longtable}  
+\end{landscape}
