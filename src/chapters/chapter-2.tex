@@ -87,38 +87,38 @@ Menurut \textcite{munir2019}, algoritma kriptografi kunci simetris ini dibagi la
 
 Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma kunci simetris yang memproses pesan berdasarkan blok-blok bit atau \emph{byte}. Enkripsi dilakukan pada blok tersebut setiap kali. Terdapat beberapa operasi yang ada pada \emph{cipher} blok, di antaranya adalah ECB, CBC, CFB, dan OFB. Setiap operasi ini menentukan cara setiap blok pesan \emph{plaintext} atau \emph{ciphertext} dilakukan proses kriptografi.
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=350px]{chapters/res/chapter-2/img/cfb.png}
-  \caption{Ilustrasi proses enkripsi menggunakan mode CFB} \label{fig:enc.cfb}
-  Sumber: \textcite{peterson2011}
-\end{figure}
+% \begin{figure}[!h]
+%   \centering
+%   \includegraphics[width=350px]{chapters/res/chapter-2/img/cfb.png}
+%   \caption{Ilustrasi proses enkripsi menggunakan mode CFB} \label{fig:enc.cfb}
+%   Sumber: \textcite{peterson2011}
+% \end{figure}
 
-Menurut \textcite{munir2019}, algoritma enkripsi menggunakan mode \emph{cipher-feedback} (CFB) melakukan proses enkripsi \emph{plaintext} setiap $p$ bit data. Nilai $p$ perlu dipilih dengan nilai kurang dari sama dengan ukuran blok data. Proses enkripsi menggunakan mode ini cenderung mirip dengan algoritma enkripsi \emph{cipher} alir dikarenakan proses enkripsi seolah-olah dilakukan per bit data. Ilustrasi dari proses pengenkripsian menggunakan mode CFB ini dapat digambarkan pada diagram \ref{fig:enc.cfb}. Secara matematis, proses pengenkripsian menggunakan cipher ini dapat ditulis dengan persamaan \ref{eq:crypto.cfb.enc}.
+% Menurut \textcite{munir2019}, algoritma enkripsi menggunakan mode \emph{cipher-feedback} (CFB) melakukan proses enkripsi \emph{plaintext} setiap $p$ bit data. Nilai $p$ perlu dipilih dengan nilai kurang dari sama dengan ukuran blok data. Proses enkripsi menggunakan mode ini cenderung mirip dengan algoritma enkripsi \emph{cipher} alir dikarenakan proses enkripsi seolah-olah dilakukan per bit data. Ilustrasi dari proses pengenkripsian menggunakan mode CFB ini dapat digambarkan pada diagram \ref{fig:enc.cfb}. Secara matematis, proses pengenkripsian menggunakan cipher ini dapat ditulis dengan persamaan \ref{eq:crypto.cfb.enc}.
 
-\begin{equation}
-  \label{eq:crypto.cfb.enc}
-  \begin{array}{l}   
-    Ct_i = Pt_i \oplus MSB_{p}(E_k(X_i)) \\
-    X_{i+1} = LSB_{n-p}(X_i) || C_i \\
-    X_0 = IV
-  \end{array}
-\end{equation}
+% \begin{equation}
+%   \label{eq:crypto.cfb.enc}
+%   \begin{array}{l}   
+%     Ct_i = Pt_i \oplus MSB_{p}(E_k(X_i)) \\
+%     X_{i+1} = LSB_{n-p}(X_i) || C_i \\
+%     X_0 = IV
+%   \end{array}
+% \end{equation}
 
-Proses dekripsi dari mode CFB ini dapat dinyatakan sesuai dengan persamaan \ref{eq:crypto.cfb.dec}.
+% Proses dekripsi dari mode CFB ini dapat dinyatakan sesuai dengan persamaan \ref{eq:crypto.cfb.dec}.
 
-\begin{equation}
-  \label{eq:crypto.cfb.dec}
-  \begin{array}{l}   
-    Pt_i = Ct_i \oplus MSB_{p}(D_k(X_i)) \\
-    X_{i+1} = LSB_{n-p}(X_i) || C_i \\
-    X_0 = IV
-  \end{array}
-\end{equation}
+% \begin{equation}
+%   \label{eq:crypto.cfb.dec}
+%   \begin{array}{l}   
+%     Pt_i = Ct_i \oplus MSB_{p}(D_k(X_i)) \\
+%     X_{i+1} = LSB_{n-p}(X_i) || C_i \\
+%     X_0 = IV
+%   \end{array}
+% \end{equation}
 
-Menurut \textcite{schneier1996}, Nilai $IV$ dari setiap proses tidak perlu rahasia. Akan tetapi, nilai ini perlu unik untuk setiap pesan. Hal ini dikarenakan untuk mencegah proses kriptoanalis dapat mengembalikan \emph{ciphertext} menjadi \emph{plaintext}.
+% Menurut \textcite{schneier1996}, Nilai $IV$ dari setiap proses tidak perlu rahasia. Akan tetapi, nilai ini perlu unik untuk setiap pesan. Hal ini dikarenakan untuk mencegah proses kriptoanalis dapat mengembalikan \emph{ciphertext} menjadi \emph{plaintext}.
 
-Menurut \textcite{munir2019}, salah satu sifat yang dimiliki oleh mode CFB ini adalah kesalahan yang berada pada \emph{plaintext} pada suatu blok akan merambat dari blok tersebut hingga blok-blok setelahnya. Akan tetapi, kesalahan satu bit pada \emph{ciphertext} pada mode ini akan mempengaruhi blok yang terdapat kesalahan. Sifat lainnya dari mode ini adalah proses enkripsi ataupun dekripsi pada mode CFB ini dapat dilakukan tanpa perlu menunggu ukuran pesan mencapai satu blok. Sifat ini cukup cocok apabila data yang dikirimkan berupa data yang bersifat \emph{stream}.
+% Menurut \textcite{munir2019}, salah satu sifat yang dimiliki oleh mode CFB ini adalah kesalahan yang berada pada \emph{plaintext} pada suatu blok akan merambat dari blok tersebut hingga blok-blok setelahnya. Akan tetapi, kesalahan satu bit pada \emph{ciphertext} pada mode ini akan mempengaruhi blok yang terdapat kesalahan. Sifat lainnya dari mode ini adalah proses enkripsi ataupun dekripsi pada mode CFB ini dapat dilakukan tanpa perlu menunggu ukuran pesan mencapai satu blok. Sifat ini cukup cocok apabila data yang dikirimkan berupa data yang bersifat \emph{stream}.
 
 Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada Gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
@@ -130,24 +130,30 @@ Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritm
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Menurut \textcite{munir2019}, keuntungan menggunakan kriptografi kunci publik ada dua. Keuntungan pertama adalah tidak adanya kebutuhan dalam mendistribusikan kunci rahasia. Kunci publik dapat dikirimkan melalui saluran yang tidak aman. Selain itu, keuntungan lain dari penggunaan kunci publik ini adalah jumlah pembuatan kunci dapat dikurangi. Pada saat menggunakan kriptografi kunci simetri, jumlah kunci yang harus dibuat adalah sebanyak jumlah pihak yang ingin berkomunikasi. Pada saat menggunakan algoritma asimetris, kunci yang perlu dibuat hanyalah sebanyak dua buah kunci, sehingga jumlah kunci menjadi lebih sedikit.
+Menurut \textcite{munir2019}, kriptografi kunci publik adadapat memberikan dua keuntungan. Keuntungan pertama adalah tidak adanya kebutuhan dalam mendistribusikan kunci rahasia. Kunci publik dapat dikirimkan melalui saluran yang tidak aman. Selain itu, keuntungan lain dari penggunaan kunci publik ini adalah jumlah pembuatan kunci dapat dikurangi. Pada saat menggunakan kriptografi kunci simetri, jumlah kunci yang harus dibuat adalah sebanyak jumlah pihak yang ingin berkomunikasi. Pada saat menggunakan algoritma asimetris, kunci yang perlu dibuat hanyalah sebanyak dua buah kunci, sehingga jumlah kunci menjadi lebih sedikit.
 
-% \section{Pertukaran Kunci \emph{Diffie–Hellman}}
-% Testing
+\section{Enkripsi Dinamis}
+Enkripsi dinamis pertama kali dikenalkan oleh \textcite{knudsen2015}. Menurut \textcite{knudsen2015}, Enkripsi dinamis merupakan sebuah pendekatan kriptografi yang menyebabkan penerima pesan tidak perlu mengetahui detail proses enkripsi selain nilai dari \emph{secret key} dalam melakukan proses dekripsi. Pengirim pesan dapat menentukan algoritma enkripsi yang akan digunakan. Akan tetapi, penerima pesan tidak perlu mengetahui proses enkripsi yang dilakukan. Hal ini tentu mengharuskan bahwa penerima pesan dapat melakukan porses dekripsi dengan baik walaupun proses enkripsi tidak diketahui. 
 
-% \section{\emph{Advanced Encryption Standard (AES)}}
-% Testing
+Terdapat beberapa pendekatan yang ditawarkan oleh \textcite{knudsen2015}, salah satunya adalah dengan cara mengirimkan algoritma dekripsi $D$ ke penerima pesan. Pemilihan algoritma enkripsi dilakukan secara acak oleh pengirim. Pengiriman ini dilakukan dengan cara mengenkripsi algoritma $D$ dengan sistem enkripsi yang telah disepakati oleh kedua pihak. Penerima akan menjalankan algoritma dekripsi yang diterima untuk mendekripsi pesan. Berdasarkan \textcite{knudsen2015}, kelemahan dari pendekatan ini adalah transmisi kode \emph{executable}. Kode ini pun perlu dijalankan di penerima sehingga dapat membahayakan pengguna apabila kode yang dibuat merupakan kode yang berbahaya. Untuk mengatasi hal ini, diberikan beberapa solusi diantaranya adalah dengan memberikan pengecekan integritas dan otentikasi. Selain itu, perlu dilakukan juga pembatasan lingkungan eksekusi untuk melakukan proses dekripsi.
 
-% \section{Teori Chaos}
-% Testing
+Menurut \textcite{knudsen2015}, terdapat varian lain dalam melakukan enkripsi dinamis, yaitu dengan menggunakan \emph{cipher} RAES. Pada \emph{cipher} RAES, proses enkripsi dilakukan sebagaimana AES-128 dilakukan. Akan tetapi, S-box yang digunakan berbeda. Terdapat dua buah kunci yang digunakan dalam melakukan enkripsi, yaitu kunci untuk digunakan pada AES-128 dan kunci untuk membangkitkan S-box. Menurut \textcite{knudsen2015}, keamanan menggunakan metode ini setidaknya sama kuatnya dengan menggunakan S-box.
 
-% \section{CSRPNG berbasis Chaos}
-% Testing
+\section{Pertukaran Kunci \emph{Diffie–Hellman}}
+Testing
 
-% \section{Algoritma Enkripsi Kunci Dinamis}
-% Testing
+\section{\emph{Advanced Encryption Standard (AES)}}
+Testing
+
+\section{Teori Chaos}
+Testing
+
+\section{CSRPNG berbasis Chaos}
+Testing
 
 \section{Penelitian Terkait}
+
+Penelitian terkait enkripsi dinamis telah dilakukan oleh beberapa pihak. Berikut ini adalah beberapa penelitian yang berkaitan dengan enkripsi dinamis. 
 
 \subsection{Sinkronisasi Kunci Dinamis berbasis Chaos den Aplikasinya pada Pengenkripsian Gambar dengan Algoritma AES yang diimprovisasi}
 
@@ -236,7 +242,14 @@ Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes ya
 \end{figure}
 
 \subsection{Enkripsi Gambar dan Analisisnya memanfaatkan Algoritma AES dinamis}
-% Testing
 
-% \subsection{Peningkatan Keamanan Enkripsi AES menggunakan Algoritma \emph{Salt} Dinamis}
-% Testing
+Pada penelitian yang dilakukan oleh \textcite{singh2019}, kedinamisan proses enkripsi dilakukan pada S-box. Pada penelitian ini, S-box yang dimiliki oleh AES akan dipermutasi. Terdapat tiga parameter yang digunakan dalam pembentukan S-box ini, yaitu sebagai berikut:
+\begin{enumerate}
+  \item Kunci\\ Kunci sangat berpengruh terhadap hasil S-box yang dibentuk. Perubahan kecil pada kunci perlu menyebabkan S-box keluaran yang jauh berbeda.
+  \item \emph{Irreducible polynomial}\\ Pada penelitian yang dilakukan oleh \textcite{singh2019}, pemilihan \emph{Irreducible polynomial} dilakukan secara acak. Hal ini berbeda dengan algoritma AES pada umumnya yang hanya menggunakan satu polinomial yang digunakan untuk membentuk S-box.
+  \item Konstanta Affine\\ Konstanta affine yang digunakan dalam pembentukan S-box. Terdapat 256 konstanta yang dapat digunakan. Dalam penelitian yang dilakukan \textcite{singh2019}, semua konstanta yang dapat digunakan dipilih secara acak untuk membentuk S-box.
+\end{enumerate}
+
+Menurut \textcite{singh2019}, S-box yang dapat dibentuk sangat sensitif terhadap tiga parameter diatas. Dengan menggunakan metode tersebut, jumlah kemungkinan S-box dinamis yang dapat dibentuk adalah $256!$. Hal ini dapat memberikan tambahan keamanan pada cipherteks dikarenakan kerumitan tidak hanya berada pada kunci tetapi terdapat pada algoritma.
+
+Pada penelitian \textcite{singh2019}, algoritma enkripsi yang telah dijelaskan sebelumnya diuji dengan melakukan enkripsi gambar \emph{grayscale}. Pengujian yang dilakukan adalah pengujian analisis histogram, pengujian korelasi koefisien, kualitas enkripsi, entropi informasi, dan NPCR-UACI test. Hasil pengujian menunjukan bahwa AES dan Dynamic AES memiliki kualitas enkripsi yang cukup setara. Akan tetapi, dalam pengujian korelasi koefisien, AES dinamis memiliki hasil yang lebih baik dibandingkan dengan AES.
