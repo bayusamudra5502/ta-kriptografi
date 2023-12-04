@@ -1,0 +1,32 @@
+@startuml "Protocol"
+
+activate Alice
+activate Bob
+Alice <--> Bob: Koneksi TCP Terjalin
+
+== Pertukaran Kunci ==
+  Alice -> Bob: Kirim parameter g dan g<sup>x</sup>
+  Bob -> Alice: Kirim parameter g<sup>y</sup>
+
+...Menginisialisasi Sistem <i>Chaos</i>...
+
+  Alice -> Bob: <i>Hello Message</i> (Key: K<sub>1</sub>(1))
+  Bob -> Alice: <i>Hello Message</i> (Key: K<sub>2</sub>(1))
+
+== Pengiriman Pesan ==
+  Alice -> Bob: Kirim M<sub>1</sub> (Key: K<sub>1</sub>(2))
+  Bob -> Alice: Kirim ACK M<sub>1</sub> (Key: K<sub>1</sub>(2))
+  Alice -> Bob: Kirim M<sub>2</sub> (Key: K<sub>1</sub>(3))
+  Bob -> Alice: Kirim ACK M<sub>2</sub> (Key: K<sub>1</sub>(3))
+
+...Suatu saat pada komunikasi...
+  Bob -> Alice: Kirim M<sub>3</sub> (Key: K<sub>2</sub>(2))
+  Alice -> Bob: Kirim ACK M<sub>3</sub> (Key: K<sub>2</sub>(2))
+
+...Suatu saat pada komunikasi...
+  Alice -> Bob: Kirim M<sub>4</sub> yang diubah (Key: K<sub>1</sub>(4))
+  Bob -> Alice: Kirim Pesan Error (Key: K<sub>1</sub>(4))
+  Alice -> Bob: M<sub>4</sub> (Key: K<sub>1</sub>(4))
+  Bob -> Alice: Kirim ACK M<sub>4</sub> (Key: K<sub>1</sub>(4))
+
+@enduml

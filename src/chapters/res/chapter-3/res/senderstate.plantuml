@@ -1,0 +1,25 @@
+@startuml "Sender State"
+hide empty description
+
+[*] --> NETWORK_ESTABLISHED: Koneksi TCP terjalin
+NETWORK_ESTABLISHED -->  SENT_KEY_EXCHANGE: Mengirim parameter
+SENT_KEY_EXCHANGE --> GENERATE_CHAOS: Menerima parameter
+
+GENERATE_CHAOS --> HELLO_SENT
+
+HELLO_SENT --> [*]: Balasan tidak valid
+HELLO_SENT --> CHAOS_UPDATE: Balasan valid
+CHAOS_UPDATE --> READY: Sudah diperbaharui
+
+READY --> MESSAGE_SENT: Pesan terkirim
+MESSAGE_SENT --> MESSAGE_SENT: ACK tidak valid
+
+MESSAGE_SENT --> RESEND: Mendapatkan error
+MESSAGE_SENT --> RESEND: Waktu habis
+RESEND --> MESSAGE_SENT: Pesan telah dikirim
+
+MESSAGE_SENT --> CHAOS_UPDATE: Mendapatkan ACK valid
+READY --> [*]: Koneksi ditutup
+
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml "Receiver State"
+hide empty description
+
+[*] --> NETWORK_ESTABLISHED: Koneksi TCP terjalin
+NETWORK_ESTABLISHED --> WAIT_KEY_EXCHANGE
+WAIT_KEY_EXCHANGE --> SENT_KEY_EXCHANGE: Menerima parameter
+SENT_KEY_EXCHANGE --> GENERATE_CHAOS
+
+GENERATE_CHAOS --> WAIT_HELLO
+WAIT_HELLO --> HELLO_SENT: Menerima Hello yang valid
+WAIT_HELLO --> [*]: Menerima hello yang tidak valid
+
+HELLO_SENT --> READY
+READY --> MESSAGE_RECEIVED: Menerima pesan baru
+MESSAGE_RECEIVED --> UPDATE_CHAOS: Pesan valid
+MESSAGE_RECEIVED --> READY: Pesan tidak valid
+UPDATE_CHAOS --> READY
+
+READY --> READY: Menerima pesan sebelumnya
+
+READY --> [*]: Koneksi ditutup
+
+@enduml

@@ -13,16 +13,15 @@ Untuk menyelesaikan permasalahan ini, terdapat beberapa penelitian yang merancan
 
 Penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan teori \emph{chaos} untuk membangkitkan kunci yang dinamis. Selain itu, penelitian ini juga membahas terkait sinkronisasi sistem \emph{chaos} memanfaatkan \emph{sliding mode control}. Proses sinkronisasi memanfaatkan teknik tersebut memiliki sebuah kekurangan, yaitu jumlah pengiriman pesan yang perlu dilakukan selama sinkronisasi tidak konstan. Algoritma yang dibentuk pada penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan mode blok ECB. Hal ini dapat mempermudah \emph{cracker} untuk mendekripsi secara parallel. Selain itu, penelitian yang dilakukan oleh \textcite{lin2021} tidak menjelaskan proses pengiriman data yang dilakukan secara \emph{full-duplex}.
 
-Dari beberapa permasalahan dan studi yang telah disebutkan, 
-penelitian ini akan membahas pemanfaatan algoritma enkripsi simetris dinamis dalam pengiriman pesan. Selain itu, penelitian ini mencoba untuk menyelesaikan permasalahan tanpa perlu mengubah internal dari algoritma enkripsi kunci simetris. Penelitian ini juga membahas terkait pengiriman data secara \emph{full-duplex}. Penelitian ini juga akan menjelaskan proses sinkronisasi sistem random kedua buah pihak yang melakukan komunikasi yang konstan.
+Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan membahas pemanfaatan algoritma enkripsi simetris dinamis dalam pengiriman pesan. Selain itu, penelitian ini mencoba untuk menyelesaikan permasalahan tanpa perlu mengubah internal dari algoritma enkripsi kunci simetris. Penelitian ini juga membahas terkait pengiriman data secara \emph{full-duplex}. Penelitian ini juga akan menjelaskan proses sinkronisasi sistem random kedua buah pihak yang melakukan komunikasi yang konstan.
 
 \section{Rumusan Masalah}
 Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
 \begin{enumerate}
   \item Bagaimana cara melakukan sinkronisasi sistem \emph{chaos} pada kedua pihak dengan jumlah komunikasi yang konstan?
   \item Bagaimana cara melakukan enkripsi pesan secara dinamis tanpa mengubah internal \emph{round} dari algortima enkripsi?
-  \item Bagaimana cara mengirimkan pesan secara \emph{full-duplex} yang terenkripsi secara dinamis?
-  \item Bagaimana mode blok yang perlu digunakan untuk melakukan enkripsi agar proses dekripsi tidak dapat dilakukan secara paralel?
+  \item Bagaimana cara mengirimkan pesan secara \emph{full-duplex}?
+  \item Bagaimana cara melakukan otentikasi terhadap pesan yang diterima?
 \end{enumerate}
 
 \section{Tujuan}

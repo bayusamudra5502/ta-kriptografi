@@ -140,16 +140,83 @@ Terdapat beberapa pendekatan yang ditawarkan oleh \textcite{knudsen2015}, salah 
 Menurut \textcite{knudsen2015}, terdapat varian lain dalam melakukan enkripsi dinamis, yaitu dengan menggunakan \emph{cipher} RAES. Pada \emph{cipher} RAES, proses enkripsi dilakukan sebagaimana AES-128 dilakukan. Akan tetapi, S-box yang digunakan berbeda. Terdapat dua buah kunci yang digunakan dalam melakukan enkripsi, yaitu kunci untuk digunakan pada AES-128 dan kunci untuk membangkitkan S-box. Menurut \textcite{knudsen2015}, keamanan menggunakan metode ini setidaknya sama kuatnya dengan menggunakan S-box.
 
 \section{Pertukaran Kunci \emph{Diffie–Hellman}}
-Testing
+Algoritma pertukaran kunci \emph{Diffie–Hellman} merupakan algoritma yang digunakan untuk berbagi kunci sesi antara dua pihak atau lebih. Menurut \textcite{munir2019}, algoritma pertukaran kunci \emph{Diffie–Hellman} merupakan solusi dari permasalahan kriptografi kunci simetri, yaitu pengiriman kunci pada komunikasi jaringan yang tidak aman. Secara garis besar, setiap pihak yang akan melakukan pertukaran kunci menggunakan \emph{Diffie–Hellman}, akan mengirimkan parameter publiknya kepada setiap pihak. Penerima parameter publik akan membangkitkan kunci sesi berdasarkan parameter publik yang diterima dan parameter privat yang dimiliki olehnya. Ilustrasi pertukaran kunci ini digambarkan pada \ref{fig:crypto.dh}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.dh.png}
+  \caption{Visualisasi Pertukaran Kunci \emph{Diffie-Hellman}} \label{fig:crypto.dh}
+  Sumber: \textcite{munir2019}
+\end{figure}
+
+Pada ilustrasi yang ditunjukan \ref{fig:crypto.dh}, setiap pihak akan mendapatkan nilai $K$ yang sama. Nilai $K$ ini akan digunakan sebagai kunci sesi pada saat melakukan enkripsi menggunakan algoritma enkripsi kunci simetris.
+
+Kekuatan dari pertukaran kunci \emph{Diffie–Hellman} menurut \textcite{munir2019} terletak pada sulitnya melakukan operasi logaritma diskrit. Nilai $x$ dan $y$ yang ditunjukan pada ilustrasi \ref{fig:crypto.dh} hanya dapat diekstrasi bila melakukan operasi logaritma diskrit dengan basis $g$. Menurut \textcite{staling2011}, Algoritma paling baik untuk mencari nilai logaritma diskrit saat ini berada pada kompleksitas $O(e^{(\ln{p})^{1/3} \cdot (\ln{(\ln{p})})^{2/3}})$ sehingga masih belum cukup mangkus untuk menyelesaikan persoalan ini untuk nilai $p$ yang besar.
 
 \section{\emph{Advanced Encryption Standard (AES)}}
-Testing
+Menurut \textcite{staling2011}, Advanced Encryption Standard (AES) merupakan sebuah salah satu algoritma cipher blok yang dibuat dengan tujuan untuk menggantikan algoritma DES. Berdasarkan panjang kunci, algoritma AES dapat dibagi menjadi tiga, yaitu AES-128, AES-192, dan AES-256. Cipher AES akan melakukan enkripsi dan dekripsi dalam sejumlah \emph{round}. Jumlah \emph{round} yang akan dilakukan bergantung terhadap panjang kunci yang digunakan. Tabel \ref{tab:aes-round} menunjukan jumlah round yang digunakan pada spesifikasi algoritma AES.
 
-\section{Teori Chaos}
-Testing
+\begin{longtable}{|c|c|}
+  \caption{\label{tab:aes-round} Tabel Panjang Kunci dan Jumlah Round pada Algoritma AES} \\
+  \hline
+  Panjang Kunci & Jumlah Round \\ \hline
+  128 bit       & 10           \\ \hline
+  192 bit       & 12           \\ \hline
+  256 bit       & 32           \\ \hline
+\end{longtable}
 
-\section{CSRPNG berbasis Chaos}
-Testing
+Menurut \textcite{staling2011}, AES memiliki empat tahap yang digunakan dalam melakukan proses enkripsi. Tahap-tahap yang dilakukan dalam algoritma \emph{Rijndael} diantaranya adalah sebagai berikut:
+
+\begin{enumerate}
+  \item Tahap \emph{AddRoundKey}\\Menurut \textcite{munir2019}, Nilai \emph{state} akan dilakukan operasi XOR terhadap \emph{round key} pada tahap ini. Nilai \emph{round key} akan dibangkitkan melalui aloritma ekspansi kunci sehingga setiap \emph{round} akan memiliki kunci yang berbeda-beda.  
+  \item Tahap Transformasi \emph{ShiftRow}\\Menurut \textcite{munir2019}, Nilai \emph{state} akan dilakukan pergeseran baris matriks secara \emph{wrapping}. Operasi ini bertujuan untuk mengubah urutan dalam plainteks. Jumlah pergeseran yang dilakukan ditentukan dengan posisi elemen baris pada matriks \emph{state}.
+  \item Tahap \emph{MixColumns}\\Menurut \textcite{munir2019}, tahap ini merupakan pengacakan yang dilakukan pada nilai \emph{state}. Pada tahap ini, nilai \emph{state} akan dikalikan dengan matriks tertentu. Operasi perkalian yang digunakan merupakan perkalian pada $GF(2^8)$, sedangkan operasi penjumlahan yang digunakan merupakan XOR.
+  \item Tahap \emph{Subtitute Bytes}\\Menurut \textcite{munir2019}, tahap ini merupakan tahap substitusi berdasarkan sebuah tabel yang bernama S-Box. Pada tahap ini, nilai pada \emph{state} akan dipetakan nilainya berdasarkan S-box yang digunakan. AES hanya memiliki sebuah table S-box yang digunakan pada setiap putaran serta pembangkitan kunci.
+\end{enumerate}
+
+Secara garis besar, proses enkripsi melalui algoritma \emph{Rijndael} ini ditunjukan pada gambar \ref{fig:crypto.aes}.
+
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.aes.png}
+  \caption{Visualisasi Proses Enkripsi dan Dekripsi pada AES} \label{fig:crypto.aes}
+  Sumber: \textcite{staling2011}\text
+
+\end{figure}
+
+\section{CSRPNG Berbasis \emph{Chaos}}
+Menurut \textcite{munir2019}, Sistem chaos merupakan sistem matemtis yang dapat menghasilkan nilai dengan tidak teratur. Sistem chaos sangat peka terhadap perubahan kecil. Hal ini dikarenakan sistem chaos memiliki fenomena efek kupu-kupu.
+
+Berdasarkan \textcite{boris2003}, terdapat tiga buah syarat sebuah sistem matematis dapat sebagai sistem chaos. Syarat tersebut diantaranya adalah sebagai berikut:
+\begin{enumerate}
+  \item Sistem tersebut haruslah sensitif terhadap nilai awal.
+  \item Sistem tersebut harus memenuhi sifat \emph{topological transitive}. Hal ini berarti setiap nilai pada sistem chaos haruslah dapat dicapai dengan melakukan operasi sebuah fungsi secara berulang (\textcite{boris2003}).
+  \item Sistem tersebut juga haruslah memiliki orbit periode yang padat.
+\end{enumerate}
+
+Menurut \textcite{munir2019}, Salah satu sifat yang dimiliki oleh sistem \emph{chaos} adalah ia bersifat deterministik. Selain itu, sistem chaos memiliki ketidakteraturan yang tinggi dalam menghasilkan nilai. SIfat yang paling penting adalah peka terhadap nilai awal. Semua sifat ini dapat memberikan sifat difusi pada algoritma kriptografi dikarenakan sistem chaos ini dapat menghilangkan hubungan statistik pada ciperteks.
+
+Menurut \textcite{munir2019}, untuk membangkitkan nilai bilangan bulat, sistem \emph{chaos} haruslah dilakukan konversi menuju bilangan bulat. Salah satu fungsi yang dapat digunakan dalam melakukan konversi ini dinyatakan pada persamaan \ref{eq:chaos.linearization}.
+
+\begin{equation}
+  \label{eq:chaos.linearization}
+  T(x, n) = \lfloor x \cdot 10^n \rfloor
+\end{equation}
+
+\section{Message Authentication Code (MAC)}
+Menurut \textcite{munir2019}, Fungsi hash satu arah merupakan fungsi yang dapat menghasilkan sebuah \emph{message digest} yang tidak dapat dikembalikan menjadi pesan sesungguhnya. Dua pesan berbeda dapat menghasilkan nilai hash yang berbeda. Beberapa contoh fungsi hash adalah MD5 dan SHA-256.
+
+Menurut \textcite{munir2019}, MAC merupakan perbaikan dari permasalahan yang muncul apabila menggunakan pengecekan integritas data memanfaatkan nilai hash. Dalam menjaga integritas sebuah data dengan menggunakan nilai hash saja, dapat menimbulkan kerentanan apabila data dan nilai hash diubah. MAC merupakan sebuah fungsi \emph{hash} satu arah yang menggunakan kunci rahasia dalam pembangkitannya.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/mac.png}
+  \caption{Ilustrasi proses pengiriman dan verifikasi pesan dengan MAC} \label{fig:mac}
+  Sumber: \textcite{munir2019}
+\end{figure}
+
+Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada figur \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
 
 \section{Penelitian Terkait}
 
@@ -253,3 +320,18 @@ Pada penelitian yang dilakukan oleh \textcite{singh2019}, kedinamisan proses enk
 Menurut \textcite{singh2019}, S-box yang dapat dibentuk sangat sensitif terhadap tiga parameter diatas. Dengan menggunakan metode tersebut, jumlah kemungkinan S-box dinamis yang dapat dibentuk adalah $256!$. Hal ini dapat memberikan tambahan keamanan pada cipherteks dikarenakan kerumitan tidak hanya berada pada kunci tetapi terdapat pada algoritma.
 
 Pada penelitian \textcite{singh2019}, algoritma enkripsi yang telah dijelaskan sebelumnya diuji dengan melakukan enkripsi gambar \emph{grayscale}. Pengujian yang dilakukan adalah pengujian analisis histogram, pengujian korelasi koefisien, kualitas enkripsi, entropi informasi, dan NPCR-UACI test. Hasil pengujian menunjukan bahwa AES dan Dynamic AES memiliki kualitas enkripsi yang cukup setara. Akan tetapi, dalam pengujian korelasi koefisien, AES dinamis memiliki hasil yang lebih baik dibandingkan dengan AES.
+
+\subsection{Perbaikan Keamanan dari Algoritma AES memanfaatkan \emph{Salt} Dinamis}
+
+Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada figur \ref{fig:bachtiar.enc.process}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=250px]{chapters/res/chapter-2/img/bachtiar.enc.process.png}
+  \caption{Ilustrasi proses pembangkitan kunci dinamis} \label{fig:bachtiar.enc.process}
+  Sumber: \textcite{bachtiar2018}
+\end{figure}
+
+Pada proses enkripsi dinamis, akan dihitung \emph{salt} berdasarkan waktu. Nilai \emph{salt} akan dibuat melalui algoritma LCG.  Nilai salt ini akan ditambahkan pada pesan. Setelah pesan ditambahkan dengan \emph{salt}, pesan akan dilakukan proses enkripsi terlebih dahulu menggunakan OTP. Kunci yang digunakan untuk melakukan OTP merupakan kunci yang sama yang akan digunakan pada proses enkripsi menggunakan AES. Setelah proses ini dilakukan, pesan dinamis tersebut akan dienkripsi menggunakan AES.
+
+Berdasarkan hasil pengujian yang dilakukan menggunakan NIST, teknik memanfaatkan pesan dinamis memberikan hasil yang lebih baik dibandingkan dengan tanpa menggunakan \emph{salt} atapun dengan hanya memanfaatkan \emph{salt} saja. Teknik memanfaatkan pesan dinamis untuk melakukan enkripsi secara dinamis memberikan nilai keberhasilan sebesar $72.5\%$. Nilai keberhasilan ini diperoleh berdasarkan pengujian dengan menjalankan sebanyak delapan kali dan dilakukan perhitungan secara rata-rata.

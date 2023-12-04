@@ -1,0 +1,27 @@
+@startuml "Key Regeneration: For Receiver"
+
+start
+
+:Penerima menerima pesan;
+if (Apakah pesan merupakan C<sub>n</sub>?) then (ya)
+else
+  :Pesan dihapus;
+  stop
+endif
+
+:Penerima membangkitkan kunci K<sub>n</sub>;
+:Penerima melakukan validasi HMAC dengan kunci K<sub>n</sub>;
+
+if (Apakah HMAC valid?) then (ya)
+  :Hapus kunci K<sub>n-1</sub>;
+else (no)
+  :Kirim error ke pengirim;
+  stop
+endif
+
+:Dekripsi pesan C<sub>n</sub> dengan kunci K<sub>n</sub>;
+:Simpan kunci K<sub>n</sub>;
+
+stop
+
+@enduml

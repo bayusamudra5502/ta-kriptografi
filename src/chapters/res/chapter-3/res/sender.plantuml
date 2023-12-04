@@ -1,0 +1,16 @@
+@startuml "Key Regeneration: For Sender"
+
+start
+
+:Pengirim membangkitkan kunci K<sub>n</sub>;
+:Pengirim mengenkripsi pesan M<sub>n</sub> kunci K<sub>n</sub>;
+:Pengirim menghapus kunci K<sub>n</sub>;
+
+while (Belum mendapatkan ACK pesan M<sub>n</sub>?)
+  :Pengirim mengirimkan pesan C<sub>n</sub>;
+  :Pengirim menunggu pesan ACK;
+endwhile
+
+stop
+
+@enduml
