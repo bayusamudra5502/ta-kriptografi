@@ -9,13 +9,13 @@
 
 \section{Analisis Masalah}
 
-Dalam mengimplementasikan protokol komunikasi dengan memanfaatkan cipher simetris dengan kunci dinamis dengan memanfaatkan sistem \emph{chaos}, terdapat beberapa permasalahan yang muncul. Permasalahan pertama adalah metode untuk melakukan sinkronisasi sistem \emph{chaos} dengan jumlah komunikasi yang konstan. Sistem \emph{chaos} ini digunakan sebagai \emph{state} yang dimanfaatkan untuk mengatur keteracakan pada hasil enkripsi menggunakan AES, sehingga diperlukan sistem \emph{chaos} yang tersinkronisasi. Selain itu, komunikasi memungkinkan dilakukan pada jaringan yang kurang reliabel.
+Dalam mengimplementasikan protokol komunikasi dengan memanfaatkan cipher dengan kunci dinamis berbasis \emph{chaos}, terdapat beberapa permasalahan yang muncul. Permasalahan pertama adalah metode untuk melakukan sinkronisasi sistem \emph{chaos} dengan jumlah komunikasi yang konstan. Sistem \emph{chaos} ini digunakan sebagai \emph{state} yang dimanfaatkan untuk mengatur keteracakan pada hasil enkripsi menggunakan AES, sehingga diperlukan sistem \emph{chaos} yang tersinkronisasi. Selain itu, komunikasi memungkinkan dilakukan pada jaringan yang kurang reliabel.
 
 Permasalahan kedua yang muncul dengan mengimplementasikan protokol ini adalah metode untuk melakukan enkripsi tanpa perlu mengubah internal dari AES standar. Saat ini, proses enkripsi memanfaatkan AES dapat dijalankan dalam level instruksi mesin seperti yang tertulis pada \textcite{gueron2010}. Pengubahan internal AES standar dapat menyebabkan instruksi AES standar tidak bisa digunakan lagi.
 
 Permasalahan ketiga yang muncul adalah metode untuk mengirimkan pesan semetode \emph{full-duplex}. Saat ini, semetode lumrah komunikasi antar dua buah pihak dapat dilakukan semetode \emph{full-duplex}. Akan tetapi, pengiriman memanfaatkan kunci yang dinamis memerlukan kedua belah pihak menyimpan state yang sama untuk melakukan enkripsi dan dekripsi. Oleh karena itu, diperlukan sebuah metode agar proses ini dapat dilakukan semetode sinkron tanpa menghilangkan sifat \emph{full-duplex}.
 
-Dalam komunikasi pada jaringan yang tidak aman, dimungkinkan terjadinya penerimaan data dari pihak yang tidak sah. Hal ini dapat menimbulkan permasalahan pada protokol dikarenakan dapat mengancam ketersinambungan \emph{state}. Oleh karena itu, metode untuk memastikan pesan dapat diotentikasi dan metode penanggulangan apabila proses otentikasi gagal.
+Dalam komunikasi pada jaringan yang tidak aman, dimungkinkan terjadinya penerimaan data dari pihak yang tidak sah. Hal ini dapat menimbulkan permasalahan pada protokol dikarenakan dapat mengancam ketersinambungan \emph{state}. Oleh karena itu, diperlukan metode untuk memastikan pesan terotentikasi dan metode penanggulangan apabila proses otentikasi gagal.
 
 \section{Analisis Solusi} 
 

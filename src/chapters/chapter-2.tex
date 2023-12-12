@@ -87,45 +87,43 @@ Menurut \textcite{munir2019}, algoritma kriptografi kunci simetris ini dibagi la
 
 Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma kunci simetris yang memproses pesan berdasarkan blok-blok bit atau \emph{byte}. Enkripsi dilakukan pada blok tersebut setiap kali. Terdapat beberapa operasi yang ada pada \emph{cipher} blok, di antaranya adalah ECB, CBC, CFB, dan OFB. Setiap operasi ini menentukan cara setiap blok pesan \emph{plaintext} atau \emph{ciphertext} dilakukan proses kriptografi.
 
-% \begin{figure}[!h]
-%   \centering
-%   \includegraphics[width=350px]{chapters/res/chapter-2/img/cfb.png}
-%   \caption{Ilustrasi proses enkripsi menggunakan mode CFB} \label{fig:enc.cfb}
-%   Sumber: \textcite{peterson2011}
-% \end{figure}
 
-% Menurut \textcite{munir2019}, algoritma enkripsi menggunakan mode \emph{cipher-feedback} (CFB) melakukan proses enkripsi \emph{plaintext} setiap $p$ bit data. Nilai $p$ perlu dipilih dengan nilai kurang dari sama dengan ukuran blok data. Proses enkripsi menggunakan mode ini cenderung mirip dengan algoritma enkripsi \emph{cipher} alir dikarenakan proses enkripsi seolah-olah dilakukan per bit data. Ilustrasi dari proses pengenkripsian menggunakan mode CFB ini dapat digambarkan pada diagram \ref{fig:enc.cfb}. Secara matematis, proses pengenkripsian menggunakan cipher ini dapat ditulis dengan persamaan \ref{eq:crypto.cfb.enc}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/cbc.encrypt.png}
+  \caption{Visualisasi Enkripsi Mode Blok CBC} 
+  \label{fig:crypto.cbc.encrypt}
+  Sumber: \textcite{munir2019}
+\end{figure}
 
-% \begin{equation}
-%   \label{eq:crypto.cfb.enc}
-%   \begin{array}{l}   
-%     Ct_i = Pt_i \oplus MSB_{p}(E_k(X_i)) \\
-%     X_{i+1} = LSB_{n-p}(X_i) || C_i \\
-%     X_0 = IV
-%   \end{array}
-% \end{equation}
 
-% Proses dekripsi dari mode CFB ini dapat dinyatakan sesuai dengan persamaan \ref{eq:crypto.cfb.dec}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/cbc.decrypt.png}
+  \caption{Visualisasi Dekripsi Mode Blok CBC} 
+  \label{fig:crypto.cbc.decrypt}
+  Sumber: \textcite{munir2019}
+\end{figure}
 
-% \begin{equation}
-%   \label{eq:crypto.cfb.dec}
-%   \begin{array}{l}   
-%     Pt_i = Ct_i \oplus MSB_{p}(D_k(X_i)) \\
-%     X_{i+1} = LSB_{n-p}(X_i) || C_i \\
-%     X_0 = IV
-%   \end{array}
-% \end{equation}
+Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adalah CBC. Menurut \textcite{munir2019}, mode enkripsi CBC menerapkan sistem enkripsi dengan cara memanfaatkan umpan balik dari hasil enkripsi blok sebelumnya. Nilai blok yang akan dienkripsi pertama-tama akan dilakukan XOR terlebih dahulu dengan umpan balik tersebut. Setelah itu, hasil XOR akan dienkripsi dengan kunci $K$. Nilai umpan balik awal disebut dengan $IV$. Nilai $IV$ tidak perlu dirahasiakan, tetapi perlu dibuat secara acak saat hendak melakukan proses enkripsi. Ilustrasi proses enkripsi menggunakan blok ini diilustrasikan pada figur \ref{fig:crypto.cbc.encrypt}, sedangkan ilustrasi proses dekripsi digambarkan pada figur \ref{fig:crypto.cbc.decrypt}. Secara matematis, proses ini ditunjukan pada persamaan \ref{eq:crypto.cbc.enc}.
 
-% Menurut \textcite{schneier1996}, Nilai $IV$ dari setiap proses tidak perlu rahasia. Akan tetapi, nilai ini perlu unik untuk setiap pesan. Hal ini dikarenakan untuk mencegah proses kriptoanalis dapat mengembalikan \emph{ciphertext} menjadi \emph{plaintext}.
+\begin{equation}
+  \label{eq:crypto.cbc.enc}
+  \begin{array}{l}   
+    Ct_i = E_K(P_i \oplus C_{i-1}) \\
+    Pt_i = D_K(C_i) \oplus C_{i-1} \\
+    C_0 = IV
+  \end{array}
+\end{equation}
 
-% Menurut \textcite{munir2019}, salah satu sifat yang dimiliki oleh mode CFB ini adalah kesalahan yang berada pada \emph{plaintext} pada suatu blok akan merambat dari blok tersebut hingga blok-blok setelahnya. Akan tetapi, kesalahan satu bit pada \emph{ciphertext} pada mode ini akan mempengaruhi blok yang terdapat kesalahan. Sifat lainnya dari mode ini adalah proses enkripsi ataupun dekripsi pada mode CFB ini dapat dilakukan tanpa perlu menunggu ukuran pesan mencapai satu blok. Sifat ini cukup cocok apabila data yang dikirimkan berupa data yang bersifat \emph{stream}.
+Menurut \textcite{munir2019}, terdapat keuntungan saat menggunakan mode blok CBC dalam melakukan enkripsi. Keuntungan utamanya adalah hasil enkripsi akan memberikan hasil cipherteks yang berbeda untuk plainteks yang sama. Hal ini disebabkan adanya persebaran informasi antar tiap blok sehingga hasil enkripsi kedua blok tersebut dapat berbeda. Akan tetapi, kelemahan utama mode blok ini adalah perubahan satu bit pada cipherteks dapat membalikan satu bit pada blok setelahnya. Hal ini dapat digunakan pihak lawan untuk melakukan \emph{bit-flip attack} dengan memanfaatkan sifat ini. 
 
 Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada Gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.asymetric.png}
-  \caption{Visualisasi Proses Enkripsi Krpitografi Kunci Publik} 
+  \caption{Visualisasi Proses Enkripsi Kriptografi Kunci Publik} 
   \label{fig:crypto.asymetric}
   Sumber: \textcite{munir2019}
 \end{figure}
