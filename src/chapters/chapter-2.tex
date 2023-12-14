@@ -105,7 +105,7 @@ Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma k
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adalah CBC. Menurut \textcite{munir2019}, mode enkripsi CBC menerapkan sistem enkripsi dengan cara memanfaatkan umpan balik dari hasil enkripsi blok sebelumnya. Nilai blok yang akan dienkripsi pertama-tama akan dilakukan XOR terlebih dahulu dengan umpan balik tersebut. Setelah itu, hasil XOR akan dienkripsi dengan kunci $K$. Nilai umpan balik awal disebut dengan $IV$. Nilai $IV$ tidak perlu dirahasiakan, tetapi perlu dibuat secara acak saat hendak melakukan proses enkripsi. Ilustrasi proses enkripsi menggunakan blok ini diilustrasikan pada figur \ref{fig:crypto.cbc.encrypt}, sedangkan ilustrasi proses dekripsi digambarkan pada figur \ref{fig:crypto.cbc.decrypt}. Secara matematis, proses ini ditunjukan pada persamaan \ref{eq:crypto.cbc.enc}.
+Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adalah CBC. Menurut \textcite{munir2019}, mode enkripsi CBC menerapkan sistem enkripsi dengan cara memanfaatkan umpan balik dari hasil enkripsi blok sebelumnya. Nilai blok yang akan dienkripsi pertama-tama akan dilakukan XOR terlebih dahulu dengan umpan balik tersebut. Setelah itu, hasil XOR akan dienkripsi dengan kunci $K$. Nilai umpan balik awal disebut dengan $IV$. Nilai $IV$ tidak perlu dirahasiakan, tetapi perlu dibuat secara acak saat hendak melakukan proses enkripsi. Ilustrasi proses enkripsi menggunakan blok ini diilustrasikan pada gambar \ref{fig:crypto.cbc.encrypt}, sedangkan ilustrasi proses dekripsi digambarkan pada gambar \ref{fig:crypto.cbc.decrypt}. Secara matematis, proses ini ditunjukan pada persamaan \ref{eq:crypto.cbc.enc}.
 
 \begin{equation}
   \label{eq:crypto.cbc.enc}
@@ -118,7 +118,7 @@ Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adala
 
 Menurut \textcite{munir2019}, terdapat keuntungan saat menggunakan mode blok CBC dalam melakukan enkripsi. Keuntungan utamanya adalah hasil enkripsi akan memberikan hasil cipherteks yang berbeda untuk plainteks yang sama. Hal ini disebabkan adanya persebaran informasi antar tiap blok sehingga hasil enkripsi kedua blok tersebut dapat berbeda. Akan tetapi, kelemahan utama mode blok ini adalah perubahan satu bit pada cipherteks dapat membalikan satu bit pada blok setelahnya. Hal ini dapat digunakan pihak lawan untuk melakukan \emph{bit-flip attack} dengan memanfaatkan sifat ini. 
 
-Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada Gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
+Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
 \begin{figure}[!h]
   \centering
@@ -195,6 +195,34 @@ Berdasarkan \textcite{boris2003}, terdapat tiga buah syarat sebuah sistem matema
 
 Menurut \textcite{munir2019}, Salah satu sifat yang dimiliki oleh sistem \emph{chaos} adalah ia bersifat deterministik. Selain itu, sistem chaos memiliki ketidakteraturan yang tinggi dalam menghasilkan nilai. SIfat yang paling penting adalah peka terhadap nilai awal. Semua sifat ini dapat memberikan sifat difusi pada algoritma kriptografi dikarenakan sistem chaos ini dapat menghilangkan hubungan statistik pada ciperteks.
 
+Terdapat berbagai contoh dari sistem \emph{chaos} yang telah didefinisikan pada berbagai sumber. Menurut \textcite{munir2019}, Salah satu contoh fungsi \emph{chaos} yang sederhana adalah sistem \emph{chaos} berbasiskan persamaan logistik. Persamaan logistik didefinisikan pada persamaan \ref{eq:chaos.logistic}.
+
+\begin{equation}
+  \label{eq:chaos.logistic}
+  X_{n+1} = r X_n (1 - X_n)
+\end{equation}
+
+Pada persamaan \ref{eq:chaos.logistic}, nilai $r$ menyatakan laju pertumbuhan. Nilai $r$ menentukan kemunculan sifat chaos dari persamaan logistik. Berdasarkan \textcite{munir2019}, fungsi logistik sepenuhnya memiliki sifat chaos saat $r = 4$. Hal ini dikarenakan proses \emph{bifurcation} sangat cepat terjadi. Fenomena \emph{bifurcation} merupakan fenomena saat fungsi terpecah menjadi dua sehingga fungsi akan terus berosilasi pada dua populasi nilai tersebut. Saat proses  \emph{bifurcation} terjadi sangat cepat, sifat dari sistem akan sulit sekali diprediksi. Oleh karena itu, hal ini sangat cocok bila dimanfaatkan sebagai CSRPNG berbasis sistem \emph{chaos}.
+
+Selain sistem \emph{chaos} berbasiskan persamaan logistik, terdapat sistem chaos memanfaatkan peta hénon. Berdasarkan \textcite{henon1976}, persamaan peta hénon didefinisikan sebagaimana persamaan \ref{eq:chaos.henon}.
+
+\begin{equation}
+  \label{eq:chaos.henon}
+  \begin{array}{l}   
+  X_{n+1} = Y_{n} + 1 - aX_{n}^2 \\
+  Y_{n+1} = bX_{n} 
+  \end{array}
+\end{equation}
+
+Menurut \textcite{aybar2013}, untuk nilai $b = 0.3$ dihasilkan peta \emph{bifurcation} yang ditunjukan pada gambar \ref{fig:henon.bifurcation}. gambar \ref{fig:henon.bifurcation} memperlihatkan bahwa saat nilai $a$ mendekati $1.2$, sifat \emph{chaos} terjadi. Hal ini terjadi dikarenakan proses \emph{bifurcation} terjadi sangat cepat sehingga muncul sifat \emph{chaos} pada sistem tersebut.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/henon.bifurcation.png}
+  \caption{Diagram \emph{bifurcation} pada peta hénon dengan nilai $0.2 \ge a \ge 1.2$ dan $b = 0.3$} \label{fig:henon.bifurcation}
+  Sumber: \textcite{aybar2013}
+\end{figure}
+
 Menurut \textcite{munir2019}, untuk membangkitkan nilai bilangan bulat, sistem \emph{chaos} haruslah dilakukan konversi menuju bilangan bulat. Salah satu fungsi yang dapat digunakan dalam melakukan konversi ini dinyatakan pada persamaan \ref{eq:chaos.linearization}.
 
 \begin{equation}
@@ -214,13 +242,13 @@ Menurut \textcite{munir2019}, MAC merupakan perbaikan dari permasalahan yang mun
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada figur \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
+Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada gambar \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
 
 \section{Penelitian Terkait}
 
 Penelitian terkait enkripsi dinamis telah dilakukan oleh beberapa pihak. Berikut ini adalah beberapa penelitian yang berkaitan dengan enkripsi dinamis. 
 
-\subsection{Sinkronisasi Kunci Dinamis berbasis Chaos den Aplikasinya pada Pengenkripsian Gambar dengan Algoritma AES yang diimprovisasi}
+\subsection{Sinkronisasi Kunci Dinamis berbasis Chaos den Aplikasinya pada Pengenkripsian gambar dengan Algoritma AES yang diimprovisasi}
 
 Menurut \textcite{lin2021}, kebutuhan keamanan data untuk berkomunikasi terus meningkat. Hal ini dikarenakan perkembangan sistem multimedia saat ini tentu terus berkembang. Salah satu variasi pengembangan algoritma enkripsi dan dekripsi yang berkembang saat ini menerapkan sinyal \emph{chaos}. 
 
@@ -288,7 +316,7 @@ Proses sinkronisasi sistem \emph{chaos} dapat dilakukan dengan mendekomposisi ni
   Sumber: \textcite{lin2021}
 \end{figure}
 
-Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara membandingkan proses enkripsi gambar yang dihasilkan memanfaatkan AES-ECB, AES-CBC, dan CAES-EBC. Gambar yang diuji merupakan gambar berukuran $256 \times 256$. Pada algoritma CAES, kunci dinamis yang dihasilkan sebanyak 49.152 kunci. Setiap kunci ini dibuat secara langsung melalui proses \emph{update} pada setiap \emph{round} enkripsi. Hasil enkripsi pada figur \ref{fig:lin.result} menunjukan bahwa CAES-ECB bila diobservasi secara visual memiliki kualitas yang cukup baik bila dibandingkan dengan AES-EBC. Menurut \textcite{lin2021}, Hal ini dapat membuktikan bahwa algoritma CAES-CBC lebih unggul dibandingkan AES-EBC dan AES-CBC.
+Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara membandingkan proses enkripsi gambar yang dihasilkan memanfaatkan AES-ECB, AES-CBC, dan CAES-EBC. gambar yang diuji merupakan gambar berukuran $256 \times 256$. Pada algoritma CAES, kunci dinamis yang dihasilkan sebanyak 49.152 kunci. Setiap kunci ini dibuat secara langsung melalui proses \emph{update} pada setiap \emph{round} enkripsi. Hasil enkripsi pada gambar \ref{fig:lin.result} menunjukan bahwa CAES-ECB bila diobservasi secara visual memiliki kualitas yang cukup baik bila dibandingkan dengan AES-EBC. Menurut \textcite{lin2021}, Hal ini dapat membuktikan bahwa algoritma CAES-CBC lebih unggul dibandingkan AES-EBC dan AES-CBC.
 
 \begin{figure}[!h]
   \centering
@@ -297,7 +325,7 @@ Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara 
   Sumber: \textcite{lin2021}
 \end{figure}
 
-Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes yang dilakukan berdasarkan parameter uji yang telah didefinisikan oleh National Institute of Standards and Technology (NIST). Pengujian yang dilakukan oleh \textcite{lin2021} menggunakan data \emph{stream} sepanjang 10.000.000 bit data dengan jumlah biat setiap stream sebesar 30. Hasil tersebut menunjukan bahwa algoritma CAES memenuhi persyaranan NIST SP 800-22 \emph{random number detection}. Hasil dari pengujian NIST juga menunjukan bahwa algoritma CAES lebih unggul dibandingkan dengan AES-CBC dan AES-EBC. Hal ini ditunjukan dengan data pada figur \ref{fig:lin.analytic-result}.
+Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes yang dilakukan berdasarkan parameter uji yang telah didefinisikan oleh National Institute of Standards and Technology (NIST). Pengujian yang dilakukan oleh \textcite{lin2021} menggunakan data \emph{stream} sepanjang 10.000.000 bit data dengan jumlah biat setiap stream sebesar 30. Hasil tersebut menunjukan bahwa algoritma CAES memenuhi persyaranan NIST SP 800-22 \emph{random number detection}. Hasil dari pengujian NIST juga menunjukan bahwa algoritma CAES lebih unggul dibandingkan dengan AES-CBC dan AES-EBC. Hal ini ditunjukan dengan data pada gambar \ref{fig:lin.analytic-result}.
 
 \begin{figure}[!h]
   \centering
@@ -306,7 +334,7 @@ Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes ya
   Sumber: \textcite{lin2021}
 \end{figure}
 
-\subsection{Enkripsi Gambar dan Analisisnya memanfaatkan Algoritma AES dinamis}
+\subsection{Enkripsi gambar dan Analisisnya memanfaatkan Algoritma AES dinamis}
 
 Pada penelitian yang dilakukan oleh \textcite{singh2019}, kedinamisan proses enkripsi dilakukan pada S-box. Pada penelitian ini, S-box yang dimiliki oleh AES akan dipermutasi. Terdapat tiga parameter yang digunakan dalam pembentukan S-box ini, yaitu sebagai berikut:
 \begin{enumerate}
@@ -321,7 +349,7 @@ Pada penelitian \textcite{singh2019}, algoritma enkripsi yang telah dijelaskan s
 
 \subsection{Perbaikan Keamanan dari Algoritma AES memanfaatkan \emph{Salt} Dinamis}
 
-Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada figur \ref{fig:bachtiar.enc.process}.
+Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada gambar \ref{fig:bachtiar.enc.process}.
 
 \begin{figure}[!h]
   \centering

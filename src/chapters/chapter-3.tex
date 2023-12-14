@@ -29,18 +29,24 @@ Dalam melakukan verifikasi pesan, dapat dilakukan sebuah metode yaitu dengan car
 
 \section{Gambaran Solusi}
 
-Proses enkripsi dan dekripsi yang dilakukan pada protokol yang akan dibangun digambarkan pada figur \ref{fig:solution.encrypt} dan \ref{fig:solution.decrypt}. Mode blok enkripsi yang akan digunakan adalah \emph{cipher block chaining} (CBC). Setiap blok pesan yang dikirimkan akan diberikan sebuah MAC sebagai otentikasi dari pesan yang dikirimkan. Apabila dalam pengiriman blok mengalami kegagalan dikarenakan kegagalan otentikasi, pesan akan diretransmisi ulang. 
-
-Dalam melakukan pengiriman, pembangkitan kunci baru pada sisi pengirim dilakukan saat telah melakukan enkripsi dalam suatu blok. Pada sisi penerima, pembangkitan kunci dilakukan setelah menerima blok baru. 
+Proses enkripsi dan dekripsi yang dilakukan pada protokol yang akan dibangun digambarkan pada gambar \ref{fig:solution.encrypt} dan \ref{fig:solution.decrypt}. Mode blok enkripsi yang akan digunakan adalah \emph{cipher block chaining} (CBC). Setiap blok pesan yang dikirimkan akan diberikan sebuah MAC sebagai otentikasi dari pesan yang dikirimkan. Apabila dalam pengiriman blok mengalami kegagalan dikarenakan kegagalan otentikasi, pesan akan diretransmisi ulang. Pembangkitan kunci pada protokol ini akan memanfaatkan sistem \emph{chaos} yang didefinisikan pada persamaan \ref{eq:lin.henon.master}.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=250px]{chapters/res/chapter-3/img/encrypt.png}
-  \caption{Enkripsi Pesan secara Dinamis} \label{fig:solution.encrypt}
+  \caption{Enkripsi pesan secara dinamis Untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.encrypt}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=250px]{chapters/res/chapter-3/img/encrypt.png}
-  \caption{Dekripsi Pesan secara Dinamis} \label{fig:solution.decrypt}
+  \includegraphics[width=250px]{chapters/res/chapter-3/img/decrypt.png}
+  \caption{Dekripsi pesan secara dinamis untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.decrypt}
 \end{figure}
+
+Pada proses awal komunikasi, akan dibentuk dua buah sistem \emph{chaos} melalui mekanisme pertukaran kunci \emph{diffie-hellman}. Kedua belah pihak akan melakukan pertukaran kunci memanfaatkan \emph{Diffie-Hellman}. Nilai hasil pertukaran kunci akan digunakan sebagai parameter awal nilai $(X_1, Y_1, Z_1)$ untuk sistem $S_1$ dan $(A_1, B_1, C_1)$ pada sistem chaos $S_2$. Hal ini dapat diperoleh dengan melakukan \emph{sclicing} bit hasil pertukaran kunci. Parameter $(X_1, Y_1, Z_1)$ dan $(A_1, B_1, C_1)$ bersifat rahasia. Penentuan nilai $IV$ akan ditentukan oleh pengirim pesan. Nilai ini akan dibuat secara acak memanfaatkan \emph{secure random} yang disediakan pada sistem operasi. Nilai $IV$  tidak bersifat rahasia.
+
+Saat proses pertukaran kunci berhasil dan sistem \emph{chaos} berhasil dibuat, proses komunikasi akan dimulai. Misalkan, terdapat dua pihak yang melakukan komunikasi, yaitu Alice dan Bob. Sistem \emph{chaos} $S_1$ akan digunakan saat pengiriman data berlangsung dari Alice menuju Bob.  Sebaliknya, sistem \emph{chaos} $S_2$ akan digunakan saat pengiriman data berlangsung dari Bob menuju Alice.
+
+Misalkan, pengriman data berlangsung dari Alice menuju Bob. Alice akan mengenkripsi blok $M_i$ menggunakan nilai $K_i$. Nilai $K_i$ dihasilkan berdasarkan hasil konversi nilai $X_i$ pada sistem $S_1$ menjadi bilangan bulat melalui fungsi $f$. Setelah pesan dienkripsi menjadi $C_i$, akan dihitung nilai MAC dengan kunci $K_i$ untuk $C_i$ dan disematkan pada $C_i$. Proses enkripsi berlangsung sebagaimana gambar \ref{fig:solution.encrypt}. Nilai $(X_{i+1}, Y_{i+1}, Z_{i+1})$ pada Alice akan dihitung apabila pesan $M_i$ berhasil dienkripsi menjadi $C_i$.  
+
+Saat bob menerima pesan, bob akan memeriksa keabsahan data melalui MAC. Bob akan menghitung nilai $(X_i, Y_i, Z_i)$ dan membantuk nilai $K_i$. Setelah itu, Bob akan menghitung MAC $C_i$ dan membandingkannya dengan nilai MAC yang dikirimkan oleh Alice. Apabila nilai MAC sama, nilai $(X_{i-1}, Y_{i-1}, Z_{i-1})$ akan dihapus pada Bob. Selanjutnya, proses dekripsi dilakukan sebagaimana yang dijelaskan pada gambar \ref{fig:solution.decrypt}.
