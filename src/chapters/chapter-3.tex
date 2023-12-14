@@ -34,13 +34,13 @@ Proses enkripsi dan dekripsi yang dilakukan pada protokol yang akan dibangun dig
 \begin{figure}[!h]
   \centering
   \includegraphics[width=250px]{chapters/res/chapter-3/img/encrypt.png}
-  \caption{Enkripsi pesan secara dinamis Untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.encrypt}
+  \caption{Enkripsi pesan secara dinamis untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.encrypt}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=250px]{chapters/res/chapter-3/img/decrypt.png}
-  \caption{Dekripsi pesan secara dinamis untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.decrypt}
+  \caption{Dekripsi dan validasi pesan secara dinamis untuk pesan yang dikirimkan dari Alice menuju Bob} \label{fig:solution.decrypt}
 \end{figure}
 
 Pada proses awal komunikasi, akan dibentuk dua buah sistem \emph{chaos} melalui mekanisme pertukaran kunci \emph{diffie-hellman}. Kedua belah pihak akan melakukan pertukaran kunci memanfaatkan \emph{Diffie-Hellman}. Nilai hasil pertukaran kunci akan digunakan sebagai parameter awal nilai $(X_1, Y_1, Z_1)$ untuk sistem $S_1$ dan $(A_1, B_1, C_1)$ pada sistem chaos $S_2$. Hal ini dapat diperoleh dengan melakukan \emph{sclicing} bit hasil pertukaran kunci. Parameter $(X_1, Y_1, Z_1)$ dan $(A_1, B_1, C_1)$ bersifat rahasia. Penentuan nilai $IV$ akan ditentukan oleh pengirim pesan. Nilai ini akan dibuat secara acak memanfaatkan \emph{secure random} yang disediakan pada sistem operasi. Nilai $IV$  tidak bersifat rahasia.
