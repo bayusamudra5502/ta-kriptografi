@@ -1,19 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2023-11-23T05:37:51.956Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="yRl-tGYiRcOmg9q8xeBS" version="22.1.3" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-19T12:08:15.645Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="MOQCQ6z2RAAf-4fZprjf" version="22.1.11" type="device">
   <diagram name="Page-1" id="4VqF5uYOH8vC4Jo37Gtd">
-    <mxGraphModel dx="698" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1461" dy="759" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="nADRJsc34t8i5BYXLB6P-1" value="Alice" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-1" value="Alice" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="90" y="60" width="100" height="520" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-1" vertex="1">
           <mxGeometry x="45" y="80" width="10" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-1" vertex="1">
           <mxGeometry x="50" y="140" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-10" value="Membangkitkan niilai x" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-9" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-10" value="Membangkitkan niilai x" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-1" target="nADRJsc34t8i5BYXLB6P-9" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55" y="120" as="sourcePoint" />
             <Array as="points">
@@ -21,7 +21,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-15" value="Menghitung niilai P&lt;sub&gt;1&lt;/sub&gt; = g&lt;sup&gt;x&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-16" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-15" value="Menghitung niilai P&lt;sub&gt;1&lt;/sub&gt; = g&lt;sup&gt;x&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-1" target="nADRJsc34t8i5BYXLB6P-16" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55" y="190" as="sourcePoint" />
             <Array as="points">
@@ -29,13 +29,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-1" vertex="1">
           <mxGeometry x="50" y="210" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-24" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-24" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-1" vertex="1">
           <mxGeometry x="50" y="420" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-25" value="Menghitung K = (P&lt;sub&gt;2&lt;/sub&gt;)&lt;sup&gt;x&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-24" parent="nADRJsc34t8i5BYXLB6P-1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-25" value="Menghitung K = (P&lt;sub&gt;2&lt;/sub&gt;)&lt;sup&gt;x&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-1" target="nADRJsc34t8i5BYXLB6P-24" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55" y="400" as="sourcePoint" />
             <Array as="points">
@@ -43,13 +43,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-2" value="Bob" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-2" value="Bob" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="410" y="60" width="100" height="510" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-2" vertex="1">
           <mxGeometry x="45" y="80" width="10" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-11" value="Membangkitkan niilai y" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-12" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-11" value="Membangkitkan niilai y" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-2" target="nADRJsc34t8i5BYXLB6P-12" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55" y="120" as="sourcePoint" />
             <Array as="points">
@@ -57,13 +57,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-2" vertex="1">
           <mxGeometry x="50" y="140" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-17" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-17" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-2" vertex="1">
           <mxGeometry x="50" y="210" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-18" value="Menghitung nilai P&lt;sub&gt;2&lt;/sub&gt; = g&lt;sup&gt;y&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-17" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-18" value="Menghitung nilai P&lt;sub&gt;2&lt;/sub&gt; = g&lt;sup&gt;y&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-2" target="nADRJsc34t8i5BYXLB6P-17" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="55" y="190" as="sourcePoint" />
             <Array as="points">
@@ -71,10 +71,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="nADRJsc34t8i5BYXLB6P-2" vertex="1">
           <mxGeometry x="51" y="420" width="10" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-27" value="Menghitung K = (P&lt;sub&gt;1&lt;/sub&gt;)&lt;sup&gt;y&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="nADRJsc34t8i5BYXLB6P-26" parent="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-27" value="Menghitung K = (P&lt;sub&gt;1&lt;/sub&gt;)&lt;sup&gt;y&lt;/sup&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="nADRJsc34t8i5BYXLB6P-2" target="nADRJsc34t8i5BYXLB6P-26" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="56" y="400" as="sourcePoint" />
             <Array as="points">
@@ -82,35 +82,35 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-3" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;html=1;rounded=0;" edge="1" parent="1" target="nADRJsc34t8i5BYXLB6P-2">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-3" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;html=1;rounded=0;" parent="1" target="nADRJsc34t8i5BYXLB6P-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="140" y="140" as="sourcePoint" />
             <mxPoint x="300" y="140" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-4" value="Menyapakati parameter &lt;i&gt;g&lt;/i&gt; dan &lt;i&gt;n&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="nADRJsc34t8i5BYXLB6P-3">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-4" value="Menyapakati parameter &lt;i&gt;g&lt;/i&gt; dan &lt;i&gt;n&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nADRJsc34t8i5BYXLB6P-3" vertex="1" connectable="0">
           <mxGeometry x="-0.3177" y="-2" relative="1" as="geometry">
             <mxPoint x="51" y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-20" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="nADRJsc34t8i5BYXLB6P-5">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-20" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="nADRJsc34t8i5BYXLB6P-5" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="150" y="360" as="sourcePoint" />
             <mxPoint x="455" y="360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-21" value="Mengirimkan nilai X" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="nADRJsc34t8i5BYXLB6P-20">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-21" value="Mengirimkan nilai&amp;nbsp;P&lt;sub style=&quot;border-color: var(--border-color); text-align: left;&quot;&gt;1&lt;/sub&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nADRJsc34t8i5BYXLB6P-20" vertex="1" connectable="0">
           <mxGeometry x="-0.2044" y="1" relative="1" as="geometry">
             <mxPoint x="35" y="-19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-22" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-22" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="455.5" y="416" as="sourcePoint" />
             <mxPoint x="146" y="416" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nADRJsc34t8i5BYXLB6P-23" value="Mengirimkan nilai Y" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="nADRJsc34t8i5BYXLB6P-22">
+        <mxCell id="nADRJsc34t8i5BYXLB6P-23" value="Mengirimkan nilai&amp;nbsp;P&lt;sub style=&quot;border-color: var(--border-color); text-align: left;&quot;&gt;2&lt;/sub&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nADRJsc34t8i5BYXLB6P-22" vertex="1" connectable="0">
           <mxGeometry x="-0.1979" relative="1" as="geometry">
             <mxPoint x="-31" y="-12" as="offset" />
           </mxGeometry>
