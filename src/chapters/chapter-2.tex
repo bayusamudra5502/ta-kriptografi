@@ -85,38 +85,38 @@ Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sam
 
 Menurut \textcite{munir2019}, algoritma kriptografi kunci simetris ini dibagi lagi menjadi dua buah jenis, yaitu \emph{cipher} blok dan \emph{cipher} alir. Perbedaan antara kedua jenis \emph{cipher} tersebut terletak pada cara pengenkripsian sebuah pesan. Pada \emph{cipher} alir, proses enkripsi dilakukan dengan cara mengenkripsikan pesan per bit per bit. Proses penenkripsian juga tidak menutup kemungkinan dilakukan \emph{byte} per \emph{byte}. Contoh algoritma yang termasuk dalam \emph{cipher} alir adalah RC4 dan A5.
 
-Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma kunci simetris yang memproses pesan berdasarkan blok-blok bit atau \emph{byte}. Enkripsi dilakukan pada blok tersebut setiap kali. Terdapat beberapa operasi yang ada pada \emph{cipher} blok, di antaranya adalah ECB, CBC, CFB, dan OFB. Setiap operasi ini menentukan cara setiap blok pesan \emph{plaintext} atau \emph{ciphertext} dilakukan proses kriptografi.
+Menurut \textcite{munir2019}, Algoritma \emph{cipher} blok merupakan algoritma kunci simetris yang memproses pesan berdasarkan blok-blok bit atau \emph{byte}. Enkripsi dilakukan pada blok tersebut setiap kali. Terdapat beberapa operasi yang ada pada \emph{cipher} blok, di antaranya adalah ECB, CBC, CFB, dan CTR. Setiap operasi ini menentukan cara setiap blok pesan \emph{plaintext} atau \emph{ciphertext} dilakukan proses kriptografi.
 
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/cbc.encrypt.png}
-  \caption{Visualisasi Enkripsi Mode Blok CBC} 
-  \label{fig:crypto.cbc.encrypt}
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/ctr.enc.png}
+  \caption{Visualisasi Enkripsi Mode Blok CTR} 
+  \label{fig:crypto.ctr.encrypt}
   Sumber: \textcite{munir2019}
 \end{figure}
-
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/cbc.decrypt.png}
-  \caption{Visualisasi Dekripsi Mode Blok CBC} 
-  \label{fig:crypto.cbc.decrypt}
+  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/ctr.dec.png}
+  \caption{Visualisasi Dekripsi Mode Blok CTR} 
+  \label{fig:crypto.ctr.decrypt}
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adalah CBC. Menurut \textcite{munir2019}, mode enkripsi CBC menerapkan sistem enkripsi dengan cara memanfaatkan umpan balik dari hasil enkripsi blok sebelumnya. Nilai blok yang akan dienkripsi pertama-tama akan dilakukan XOR terlebih dahulu dengan umpan balik tersebut. Setelah itu, hasil XOR akan dienkripsi dengan kunci $K$. Nilai umpan balik awal disebut dengan $IV$. Nilai $IV$ tidak perlu dirahasiakan, tetapi perlu dibuat secara acak saat hendak melakukan proses enkripsi. Ilustrasi proses enkripsi menggunakan blok ini diilustrasikan pada gambar \ref{fig:crypto.cbc.encrypt}, sedangkan ilustrasi proses dekripsi digambarkan pada gambar \ref{fig:crypto.cbc.decrypt}. Secara matematis, proses ini ditunjukan pada persamaan \ref{eq:crypto.cbc.enc}.
+Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adalah CTR (Counter). Menurut \textcite{munir2019}, mode enkripsi counter memanfaatkan sebuah counter yang digunakan sebagai generator dari aliran kunci. Proses enkripsi dilakukan dengan melakukan XOR antara blok pesan dengan aliran kunci. Proses ini cukup mirip dengan cipher alir. Nilai counter pada suatu blok dibangkitkan melalui proses \emph{increment} pada blok sebelumnya. Secara matematis, proses enkripsi dan dekripsi dinyatakan pada persamaan \ref{eq:crypto.ctr}.
 
 \begin{equation}
-  \label{eq:crypto.cbc.enc}
-  \begin{array}{l}   
-    Ct_i = E_K(P_i \oplus C_{i-1}) \\
-    Pt_i = D_K(C_i) \oplus C_{i-1} \\
-    C_0 = IV
+  \label{eq:crypto.ctr}
+  \begin{array}{l}
+    CTR_i = f(CTR_{i-1}) \\   
+    Ct_i = E_K(CTR_i) \oplus Pt_i \\
+    Pt_i = E_K(CTR_i) \oplus Ct_i \\
+    CTR_0 = IV
   \end{array}
 \end{equation}
 
-Menurut \textcite{munir2019}, terdapat keuntungan saat menggunakan mode blok CBC dalam melakukan enkripsi. Keuntungan utamanya adalah hasil enkripsi akan memberikan hasil cipherteks yang berbeda untuk plainteks yang sama. Hal ini disebabkan adanya persebaran informasi antar tiap blok sehingga hasil enkripsi kedua blok tersebut dapat berbeda. Akan tetapi, kelemahan utama mode blok ini adalah perubahan satu bit pada cipherteks dapat membalikan satu bit pada blok setelahnya. Hal ini dapat digunakan pihak lawan untuk melakukan \emph{bit-flip attack} dengan memanfaatkan sifat ini. 
+Menurut \textcite{munir2019}, terdapat keuntungan saat menggunakan mode blok CTR dalam melakukan enkripsi. Keuntungan utamanya adalah hasil enkripsi akan memberikan hasil cipherteks yang berbeda untuk plainteks yang sama. Hal ini disebabkan aliran kunci yang dihasilkan pada masing-masing blok berbeda. Bila dibandingkan dengan mode blok berbasis CBC, mode blok CTR bebas dari serangan \emph{padding oracle}. Hal ini dikarenakan blok yang dihasilkan pada mode CTR tidak bergantung pada input plainteks ataupun cipherteks dari blok sebelumnya. Akan tetapi, untuk menjamin keamanan yang maksimal dari mode blok ini, input counter haruslah unik. Hal ini ditujukan agar aliran kunci yang dihasilkan juga unik.
 
 Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
@@ -130,6 +130,36 @@ Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritm
 
 Menurut \textcite{munir2019}, kriptografi kunci publik adadapat memberikan dua keuntungan. Keuntungan pertama adalah tidak adanya kebutuhan dalam mendistribusikan kunci rahasia. Kunci publik dapat dikirimkan melalui saluran yang tidak aman. Selain itu, keuntungan lain dari penggunaan kunci publik ini adalah jumlah pembuatan kunci dapat dikurangi. Pada saat menggunakan kriptografi kunci simetri, jumlah kunci yang harus dibuat adalah sebanyak jumlah pihak yang ingin berkomunikasi. Pada saat menggunakan algoritma asimetris, kunci yang perlu dibuat hanyalah sebanyak dua buah kunci, sehingga jumlah kunci menjadi lebih sedikit.
 
+\section{Kriptografi Kurva Eliptik}
+Kriptografi Kurva Eliptik pada dasarnya merupakan sebuah metode yang memanfaatkan kurva eliptik dalam melakukan proses kriptografi. Menurut \textcite{betaccini2022}, kurva eliptik adalah sebuah representasi geometri dari sebuah persamaan matematika pada bidang kartesian. Persamaan ini dinyatakan pada persamaan \ref{eq:crypto.elliptic}.
+
+\begin{equation}
+  \label{eq:crypto.elliptic}
+  y^2 = x^3 + ax + b\text{ }(\text{mod} p)
+\end{equation}
+
+Menurut \textcite{munir2019}, Syarat dari persamaan ini adalah $4a^3 + 27b^2 \neq 0$. Nilai $a$ dan nilai $b$ yang berbeda dapat menghasilkan kurva eliptik yang berbeda. Keunikan dari kurva eliptik ini adalah hasil penjumlahan dari dua buah titik yang berada pada kurva eliptik akan menghasilkan titik lain yang juga berada pada kurva eliptik. Hal ini dikecualikan untuk titik $O$ yang direpresentasikan dengan titik tak hingga. Menurut \textcite{betaccini2022}, Kekuatan dari sistem krpitografi kurva eliptik terletak pada kesulitan dalam menyelesaikan persamaan diskrit logaritma. Oleh karena itu, kriptografi kurva eliptik dapat diimplementasikan pada algoritma kunci publik, seperti Diffie-Hellman.
+
+Menurut \textcite{certicom2000}, Salah satu contoh kurva eliptik yang direkomendasikan adalah kurva eliptik secp256r1. Kurva ini didefinisikan dengan parameter pada tabel \ref{tab:crypto.secp256r1}.
+
+\begin{table}[!h]
+  \centering
+  \caption{Parameter Kurva Eliptik secp256r1}
+  \label{tab:crypto.secp256r1}
+  \begin{tabular}{|p{1in}|p{4in}|}
+    \hline
+    \textbf{Parameter} & \textbf{Nilai (Dalam Heksadesimal)} \\
+    \hline
+    $p$ & ffff ffff 0000 0001 0000 0000 0000 0000 0000 0000 ffff ffff ffff ffff ffff ffff \\ \hline
+    $a$ & ffff ffff 0000 0001 0000 0000 0000 0000 0000 0000 ffff ffff ffff ffff ffff fffc \\ \hline
+    $b$ & 5ac6 35d8 aa3a 93e7 b3eb bd55 7698 86bc 651d 06b0 cc53 b0f6 3bce 3c3e 27d2 604b \\ \hline
+    $G_x$ & 6b17 d1f2 e12c 4247 f8bc e6e5 63a4 40f2 7703 7d81 2deb 33a0 f4a1 3945 d89 8c296 \\ \hline 
+    $G_y$ & 4fe3 42e2 fe1a 7f9b 8ee7 eb4a 7c0f 9e16 2bce 3357 6b31 5ece cbb6 4068 37bf 51f5 \\ \hline
+  \end{tabular}
+\end{table}
+
+Nilai titik $G = (G_x, G_y)$ pada tabel \ref{tab:crypto.secp256r1} merupakan titik pembangkit dari kurva eliptik secp256r1. Titik ini digunakan sebagai titik yang digunakan untuk membangkitkan titik-titik lain yang akan digunakan dalam proses kriptografi.
+
 \section{Enkripsi Dinamis}
 Enkripsi dinamis pertama kali dikenalkan oleh \textcite{knudsen2015}. Menurut \textcite{knudsen2015}, Enkripsi dinamis merupakan sebuah pendekatan kriptografi yang menyebabkan penerima pesan tidak perlu mengetahui detail proses enkripsi selain nilai dari \emph{secret key} dalam melakukan proses dekripsi. Pengirim pesan dapat menentukan algoritma enkripsi yang akan digunakan. Akan tetapi, penerima pesan tidak perlu mengetahui proses enkripsi yang dilakukan. Hal ini tentu mengharuskan bahwa penerima pesan dapat melakukan porses dekripsi dengan baik walaupun proses enkripsi tidak diketahui. 
 
@@ -137,19 +167,19 @@ Terdapat beberapa pendekatan yang ditawarkan oleh \textcite{knudsen2015}, salah 
 
 Menurut \textcite{knudsen2015}, terdapat varian lain dalam melakukan enkripsi dinamis, yaitu dengan menggunakan \emph{cipher} RAES. Pada \emph{cipher} RAES, proses enkripsi dilakukan sebagaimana AES-128 dilakukan. Akan tetapi, S-box yang digunakan berbeda. Terdapat dua buah kunci yang digunakan dalam melakukan enkripsi, yaitu kunci untuk digunakan pada AES-128 dan kunci untuk membangkitkan S-box. Menurut \textcite{knudsen2015}, keamanan menggunakan metode ini setidaknya sama kuatnya dengan menggunakan S-box.
 
-\section{Pertukaran Kunci \emph{Diffie–Hellman}}
-Algoritma pertukaran kunci \emph{Diffie–Hellman} merupakan algoritma yang digunakan untuk berbagi kunci sesi antara dua pihak atau lebih. Menurut \textcite{munir2019}, algoritma pertukaran kunci \emph{Diffie–Hellman} merupakan solusi dari permasalahan kriptografi kunci simetri, yaitu pengiriman kunci pada komunikasi jaringan yang tidak aman. Secara garis besar, setiap pihak yang akan melakukan pertukaran kunci menggunakan \emph{Diffie–Hellman}, akan mengirimkan parameter publiknya kepada setiap pihak. Penerima parameter publik akan membangkitkan kunci sesi berdasarkan parameter publik yang diterima dan parameter privat yang dimiliki olehnya. Ilustrasi pertukaran kunci ini digambarkan pada \ref{fig:crypto.dh}.
+\section{Pertukaran Kunci \emph{Diffie–Hellman} dengan Kurva Eliptik}
+Algoritma pertukaran kunci \emph{Diffie–Hellman} dengan Kurva Eliptik merupakan algoritma yang digunakan untuk berbagi kunci sesi antara dua pihak atau lebih dengan memanfaatkan kurva eliptik. Menurut \textcite{munir2019}, algoritma pertukaran kunci ini merupakan solusi dari permasalahan kriptografi kunci simetri, yaitu pengiriman kunci pada komunikasi jaringan yang tidak aman. Secara garis besar, setiap pihak yang akan melakukan pertukaran kunci menggunakan \emph{Diffie–Hellman}, akan mengirimkan parameter publiknya kepada setiap pihak. Penerima parameter publik akan membangkitkan kunci sesi berdasarkan parameter publik yang diterima dan parameter privat yang dimiliki olehnya. Ilustrasi pertukaran kunci ini digambarkan pada gambar \ref{fig:crypto.ecdh}.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.dh.png}
-  \caption{Visualisasi Pertukaran Kunci \emph{Diffie-Hellman}} \label{fig:crypto.dh}
+  \includegraphics[width=12cm]{chapters/res/chapter-2/img/crypto.ecdh.png}
+  \caption{Visualisasi Pertukaran Kunci \emph{Eliptic Curve Diffie-Hellman}} \label{fig:crypto.ecdh}
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Pada ilustrasi yang ditunjukan \ref{fig:crypto.dh}, setiap pihak akan mendapatkan nilai $K$ yang sama. Nilai $K$ ini akan digunakan sebagai kunci sesi pada saat melakukan enkripsi menggunakan algoritma enkripsi kunci simetris.
+Pada ilustrasi yang ditunjukan \ref{fig:crypto.ecdh}, setiap pihak akan mendapatkan nilai $K$ yang sama. Nilai $K$ merupakan sebuah titik pada kurva eliptik yang digunakan. Nilai $K$ yang dihasilkan dari proses ini dipastikan akan sama pada kedua buah pihak. Nilai ini biasanya akan digunakan untuk membangkitkan kunci sesi yang akan digunakan pada proses enkripsi dan dekripsi pesan.
 
-Kekuatan dari pertukaran kunci \emph{Diffie–Hellman} menurut \textcite{munir2019} terletak pada sulitnya melakukan operasi logaritma diskrit. Nilai $x$ dan $y$ yang ditunjukan pada ilustrasi \ref{fig:crypto.dh} hanya dapat diekstrasi bila melakukan operasi logaritma diskrit dengan basis $g$. Menurut \textcite{staling2011}, Algoritma paling baik untuk mencari nilai logaritma diskrit saat ini berada pada kompleksitas $O(e^{(\ln{p})^{1/3} \cdot (\ln{(\ln{p})})^{2/3}})$ sehingga masih belum cukup mangkus untuk menyelesaikan persoalan ini untuk nilai $p$ yang besar.
+Kekuatan dari pertukaran kunci \emph{Eliptic Curve Diffie–Hellman} menurut \textcite{munir2019} terletak pada sulitnya melakukan operasi logaritma diskrit. Nilai $x$ dan $y$ yang ditunjukan pada ilustrasi \ref{fig:crypto.ecdh} hanya dapat diekstrasi bila melakukan operasi logaritma diskrit dengan basis $g$. Menurut \textcite{staling2011}, Algoritma paling baik untuk mencari nilai logaritma diskrit saat ini berada pada kompleksitas $O(e^{(\ln{p})^{1/3} \cdot (\ln{(\ln{p})})^{2/3}})$ sehingga masih belum cukup mangkus untuk menyelesaikan persoalan ini untuk nilai $p$ yang besar.
 
 \section{\emph{Advanced Encryption Standard (AES)}}
 Menurut \textcite{staling2011}, Advanced Encryption Standard (AES) merupakan sebuah salah satu algoritma cipher blok yang dibuat dengan tujuan untuk menggantikan algoritma DES. Berdasarkan panjang kunci, algoritma AES dapat dibagi menjadi tiga, yaitu AES-128, AES-192, dan AES-256. Cipher AES akan melakukan enkripsi dan dekripsi dalam sejumlah \emph{round}. Jumlah \emph{round} yang akan dilakukan bergantung terhadap panjang kunci yang digunakan. Tabel \ref{tab:aes-round} menunjukan jumlah round yang digunakan pada spesifikasi algoritma AES.
@@ -179,8 +209,7 @@ Secara garis besar, proses enkripsi melalui algoritma \emph{Rijndael} ini ditunj
   \centering
   \includegraphics[width=\textwidth]{chapters/res/chapter-2/img/crypto.aes.png}
   \caption{Visualisasi Proses Enkripsi dan Dekripsi pada AES} \label{fig:crypto.aes}
-  Sumber: \textcite{staling2011}\text
-
+  Sumber: \textcite{staling2011}
 \end{figure}
 
 \section{CSRPNG Berbasis \emph{Chaos}}
@@ -195,16 +224,24 @@ Berdasarkan \textcite{boris2003}, terdapat tiga buah syarat sebuah sistem matema
 
 Menurut \textcite{munir2019}, Salah satu sifat yang dimiliki oleh sistem \emph{chaos} adalah ia bersifat deterministik. Selain itu, sistem chaos memiliki ketidakteraturan yang tinggi dalam menghasilkan nilai. SIfat yang paling penting adalah peka terhadap nilai awal. Semua sifat ini dapat memberikan sifat difusi pada algoritma kriptografi dikarenakan sistem chaos ini dapat menghilangkan hubungan statistik pada ciperteks.
 
-Terdapat berbagai contoh dari sistem \emph{chaos} yang telah didefinisikan pada berbagai sumber. Menurut \textcite{munir2019}, Salah satu contoh fungsi \emph{chaos} yang sederhana adalah sistem \emph{chaos} berbasiskan persamaan logistik. Persamaan logistik didefinisikan pada persamaan \ref{eq:chaos.logistic}.
+Terdapat berbagai contoh dari sistem \emph{chaos} yang telah didefinisikan pada berbagai sumber. Menurut \textcite{patel2021}, Salah satu contoh fungsi \emph{chaos} yang sederhana adalah sistem \emph{chaos} berbasiskan fungsi sinus. Sistem chaos berbasis fungsi sinus didefinisikan pada persamaan \ref{eq:chaos.sin}.
 
 \begin{equation}
-  \label{eq:chaos.logistic}
-  X_{n+1} = r X_n (1 - X_n)
+  \label{eq:chaos.sin}
+  X_{n+1} = \mu \cdot \sin(\pi \cdot X_n) / 4
 \end{equation}
 
-Pada persamaan \ref{eq:chaos.logistic}, nilai $r$ menyatakan laju pertumbuhan. Nilai $r$ menentukan kemunculan sifat chaos dari persamaan logistik. Berdasarkan \textcite{munir2019}, fungsi logistik sepenuhnya memiliki sifat chaos saat $r = 4$. Hal ini dikarenakan proses \emph{bifurcation} sangat cepat terjadi. Fenomena \emph{bifurcation} merupakan fenomena saat fungsi terpecah menjadi dua sehingga fungsi akan terus berosilasi pada dua populasi nilai tersebut. Saat proses  \emph{bifurcation} terjadi sangat cepat, sifat dari sistem akan sulit sekali diprediksi. Oleh karena itu, hal ini sangat cocok bila dimanfaatkan sebagai CSRPNG berbasis sistem \emph{chaos}.
+Menurut \textcite{patel2021}, Nilai awal dari sistem ini harus berada pada range $(0, 1)$. Nilai $\mu$ yang berada pada range $(3.57, 4)$ akan menghasilkan sifat \emph{chaos} pada sistem ini. Hasil bifurcation diagram pada sistem peta sinus dapat dilihat pada gambar \ref{fig:chaos.sin.bifurcation}.
 
-Selain sistem \emph{chaos} berbasiskan persamaan logistik, terdapat sistem chaos memanfaatkan peta hénon. Berdasarkan \textcite{henon1976}, persamaan peta hénon didefinisikan sebagaimana persamaan \ref{eq:chaos.henon}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=10cm]{chapters/res/chapter-2/img/sine.bifurcation.png}
+  \caption{Diagram \emph{bifurcation} pada peta sinus dengan nilai $0 \ge \mu \ge 4$} \label{fig:chaos.sin.bifurcation}
+  Sumber: \textcite{patel2021}
+\end{figure}
+
+
+Selain sistem \emph{chaos} berbasiskan persamaan sinus, terdapat sistem chaos memanfaatkan peta hénon. Berdasarkan \textcite{henon1976}, persamaan peta hénon didefinisikan sebagaimana persamaan \ref{eq:chaos.henon}.
 
 \begin{equation}
   \label{eq:chaos.henon}
@@ -223,6 +260,14 @@ Menurut \textcite{aybar2013}, untuk nilai $b = 0.3$ dihasilkan peta \emph{bifurc
   Sumber: \textcite{aybar2013}
 \end{figure}
 
+Menurut \textcite{patel2021}, terdapat metode untuk menggabungkan dua buah peta chaos. Hal ini didefinisikan pada persamaan \ref{eq:chaos.combine}.
+\begin{equation}
+  \label{eq:chaos.combine}
+  X_{n+1} = \text{mod}(\text{A}(X_n) + \text{B}(X_n), 1)
+\end{equation}
+
+Dalam hal ini, fungsi $\text{A}$ dan $\text{B}$ merupakan dua buah fungsi chaos yang berbeda. Nilai $X_n$ merupakan nilai chaos yang dihasilkan dari sistem \emph{chaos} tersebut.
+  
 Menurut \textcite{munir2019}, untuk membangkitkan nilai bilangan bulat, sistem \emph{chaos} haruslah dilakukan konversi menuju bilangan bulat. Salah satu fungsi yang dapat digunakan dalam melakukan konversi ini dinyatakan pada persamaan \ref{eq:chaos.linearization}.
 
 \begin{equation}
@@ -243,6 +288,253 @@ Menurut \textcite{munir2019}, MAC merupakan perbaikan dari permasalahan yang mun
 \end{figure}
 
 Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada gambar \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
+
+\section{Tanda Tangan Digital berbasis Kurva Eliptik}
+Menurut \textcite{munir2019}, tanda tangan digital merupakan sebuah metode kriptografi yang dapat mengotentikasi pengirim dari pesan yang diterima. Dalam tanda tangan digital, terdapat beberapa layanan kriptografi yang digunakan diantaranya adalah penjagaan integritas dari data, otentikasi pengirim, serta anti penyangkalan. Tanda tangan digital ini dapat dibuat dengan dua buah cara, yaitu dengan melakukan enkripsi terhadap pesan tersebut ataupun melakukan enkripsi dari hash pesan tersebut. 
+
+Proses tanda tangan digital pada umumnya melibatkan kriptografi kunci publik. Salah satu skema yang digunakan dalam membangkitkan tanda tangan adalah ECDSA (\emph{Eliptic Curve Digital Signature Algorithm}). Menurut \textcite{munir2019}, ECDSA merupakan sebuah skema yang diturunkan dari algoritma tanda tangan digital Elgamal. Untuk menjelaskan proses kriptografi yang dilakukan, diasumsikan terdapat dua buah entitas, yaitu Ahmad dan Budi yang akan melakukan pertukaran pesan. Ahmad akan mengirimkan pesan kepada Budi dengan dibubuhi tanda tangan digital.
+
+Pada mulanya, Ahmad dan budi akan menyepakati kurva eliptik yang akan digunakan serta titik generator ($G$). Keduanya akan membangkitkan dua buah kunci, yaitu kunci publik dan kunci privat. Persamaan \ref{eq:ecdsa.key}, menjelaskan proses pembangkitan kunci publik dan kunci privat.
+
+\begin{equation}
+  \label{eq:ecdsa.key}
+  \begin{array}{l}   
+    P = x \cdot G \\
+  \end{array}
+\end{equation}
+
+Kunci $P$ pada masing-masing partisipan akan saling dipetukarkan, sedangkan nilai $x$ merupakan kunci privat yang dibangkitkan secara acak. Misalkan kunci publikdari Ahmad dan Budi secara berturut-turut didefinisikan dengan $P_{A}$ dan $P_{B}$, sedangkan kunci privat mereka didefinisikan dengan $a$ dan $b$.
+
+Saat Ahmad akan membuat tanda tangan, Ahmad perlu memilih nilai acak $k$. Nilai ini harus diambil dari rentang $[1, p-1]$. Selanjutnya, ahmad perlu menghitung nilai $r$ sesuai dengan persamaan \ref{eq:ecdsa.r}. Apabila nilai $r$ adalah 0, Ahmad perlu memilih nilai $k$ yang lain.
+
+\begin{equation}
+  \label{eq:ecdsa.key}
+  \begin{array}{l}   
+    Q = k \cdot G \\
+    Q = (Q_x, Q_y) \\
+    r = Q_x \mod p
+  \end{array}
+\end{equation}
+
+Selanjutnya, Ahmad akan menghitung nilai hash dari pesan. Hasil hash pesan tersebut dinyatakan sebagai $e = H(m)$. Setelah mendapatkan nilai ini, Ahmad perlu menghitung nilai $s$ sesuai dengan persamaan \ref{eq:ecdsa.s}.
+
+\begin{equation}
+  \label{eq:ecdsa.s}
+  \begin{array}{l}   
+    s = k^{-1} \cdot (e + a \cdot r) \mod p
+  \end{array}
+\end{equation}
+
+Nilai $(r,s)$ dikirimkan kepada budi bersamaan dengan pesan yang akan dikirimkan. Budi memverifikasi terlebih dahulu bahwa nilai $r$ dan $s$ harus berada pada selang $[1, p-1]$. Selanjutnya, Budi mengambil kunci publik Ahmad $P_{A}$. Budi akan menghitung nilai $e$ dengan cara yang sama dengan yang dilakukan oleh Ahmad. Budi juga akan menghitung nilai $w$ sesuai dengan persamaan \ref{eq:ecdsa.w}.
+
+\begin{equation}
+  \label{eq:ecdsa.w}
+  \begin{array}{l}   
+    w = s^{-1} \mod p
+  \end{array}
+\end{equation}
+
+Dari nilai $w$, Budi perlu menghitung nilai $u_1$ dan $u_2$ sesuai dengan persamaan \ref{eq:ecdsa.u}.
+
+\begin{equation}
+  \label{eq:ecdsa.u}
+  \begin{array}{l}   
+    u_1 = e \cdot w \mod p \\
+    u_2 = r \cdot w \mod p
+  \end{array}
+\end{equation}
+
+Setelah mendapatkan nilai $u_1$ dan $u_2$, Budi perlu menghitung nilai $v$ dengan persamaan \ref{eq:ecdsa.v}.
+
+\begin{equation}
+  \label{eq:ecdsa.v}
+  \begin{array}{l}   
+    Q = u_1 \cdot G + u_2 \cdot P_{A} \\
+    v = Q_x \mod p
+  \end{array}
+\end{equation}
+
+Apabila nilai $v$ sama dengan nilai $r$, maka tanda tangan yang diberikan oleh Ahmad adalah benar. Oleh karena itu, budi dapat memastikan pesan tersebut berasal dari Ahmad.
+
+\section{\emph{Transport Layer Security} (TLS)}
+Menurut \textcite{rfc5246}, Protokol TLS merupakan protokol yang dapat memberikan perlindungan data baik secara privasi dan juga terhadap integritas dari sebuah data. Pada dasarnya protokol ini merupakan pengembangan dari protokol SSL. Protokol TLS terdiri atas dua buah layer, yaitu protokol \emph{Handshake} dan protokol \emph{Record}. Secara singkat, layer \emph{Handshake} menjelaskan terkait cara untuk menyamakan \emph{state} dari setiap partisipan. Pada layer \emph{Record}, dijelaskan terkait cara untuk membungkus pesan yang akan dikirimkan. Protokol TLS harus bekerja diatas layer transport yang reliabel. Transport yang digunakan biasanya adalah TCP.
+
+\subsection{Protokol \emph{Handshake}}
+Proses \emph{Handshake} merupakan proses untuk menyamakan \emph{state} dari kedua partisipan yang terkoneksi melalui protokol TLS. Proses ini dilakuan setelah koneksi TCP berhasil dibuat. Secara umum, proses handshake
+digambarkan pada gambar \ref{fig:tls.handshake}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.protocol.png}
+  \caption{Ilustrasi protokol TLS} \label{fig:tls.handshake}
+  Sumber: \textcite{shbair2016}
+\end{figure}
+
+\subsubsection{Pesan \emph{Hello} dan Sertifikat Digital}
+Menurut \textcite{rfc5246}, proses handshake diawali dengan mengirimkan pesan berupa \emph{client hello}. Pesan ini diilustrasikan pada gambar \ref{fig:tls.clienthello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
+\begin{enumerate}
+  \item Versi dari protokol TLS yang digunakan.
+  \item Waktu \emph{client} saat ini.
+  \item Nilai random $r_c$ yang dibangkitkan oleh \emph{client}.
+  \item Daftar cipher yang didukung oleh \emph{client}.
+  \item Daftar kompresi yang didukung oleh \emph{client}.
+  \item Daftar ekstensi yang dipesan oleh \emph{client}.
+\end{enumerate}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.hello.client.png}
+  \caption{Ilustrasi pesan \emph{client hello}} \label{fig:tls.clienthello}
+  Sumber: \textcite{joshua2011}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.hello.server.png}
+  \caption{Ilustrasi pesan \emph{server hello}} \label{fig:tls.serverhello}
+  Sumber: \textcite{joshua2011}
+\end{figure}
+
+ Daftar cipher standard didefinisikan pada \textcite{rfc5246}. Menurut \textcite{rfc5246}, cipher suite yang diawali oleh bit $0xff$ merupakan cipher suite yang dapat digunakan untuk lingkungan privat. Selain itu, dijelaskan juga beberapa cipher lain yang memanfaatkan Eliptic Curve pada \textcite{rfc4492}. 
+
+Setelah menerima pesan \emph{client hello}, \emph{server} akan mengirimkan pesan \emph{server hello}. Pesan ini diilustrasikan pada gambar \ref{fig:tls.serverhello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
+\begin{enumerate}
+  \item Versi dari protokol TLS yang digunakan.
+  \item Waktu \emph{server} saat ini.
+  \item Nilai random $r_s$ yang dibangkitkan oleh server 
+  \item Cipher suite yang dipilih oleh server dari daftar cipher yang didukung oleh \emph{client}.
+  \item Metode kompresi yang dipilih oleh server dari daftar kompresi yang didukung oleh \emph{client}.
+  \item Ekstensi yang akan digunakan oleh \emph{server}.
+\end{enumerate}
+
+Nilai random $r_c$ dan $r_s$ akan digunakan saat membangkitkan \emph{premaster secret} yang akan diturunkan sebagai kunci enkripsi dan dekripsi.
+
+Pesan pendukung lain yang perlu dikirimkan oleh \emph{server} adalah sertifikat digital \emph{server} yang digunakan oleh \emph{server}. Sertifikat ini akan dilakukan proses encoding dengan format DER pada sertifikat dengan format X509v3. Sertifikat yang dikirimkan dapat lebih dari satu untuk menyatakan \emph{chain of trust} dari sertifikat tersebut. Fungsi dari sertifikat digital ini adalah sebagai media otentikasi dari server tersebut.
+
+
+\subsubsection{Pertukaran Kunci}
+
+Pada dasarnya, TLS mendukung dua metode pertukaran kunci sebagai berikut:
+\begin{enumerate}
+  \item RSA\\
+  Pada mulanya, client akan membangkitkan \emph{premaster secret}. Nilai ini kemudian akan dikirimkan ke server dengan melakukan enkripsi memanfaatkan kunci publik dari sertifikat digital yang telah diterima oleh client. Server akan mendekripsi nilai ini dengan menggunakan kunci privat yang dimilikinya.
+
+  \item Diffie-Hellman\\
+  Pada metode ini, server akan mengirimkan parameter Diffie-Hellman kepada \emph{client}. Selanjutnya, \emph{client} akan mengirimkan juga parameter Diffie-Hellman yang digunakan. Setelah itu, kedua pihak akan membangkitkan nilai \emph{premaster secret} berdasarkan hasil pada proses Diffie-Hellman. Metode pertukaran ini dapat diperluas menggunakan kurva eliptik sebagaimana yang dijelaskan pada RFC 4492. 
+\end{enumerate}
+
+Menurut \textcite{rfc5246} saat menggunakan pertukaran kunci Diffie-Hellman, pesan dari \emph{server} harus ditambahkan tanda tangan digital. Hal ini menjamin bahwa parameter Diffie-Hellman yang digunakan adalah benar-benar berasal dari \emph{server} sesungguhnya. 
+
+\subsubsection{Pembangkitan Kunci}
+Dalam membangkitkan \emph{master key}, diperlukan sebuah fungsi $\text{PRF}$ yang didefinisikan pada persamaan \ref{eq:tls.prf}.
+
+\begin{equation}
+  \label{eq:tls.prf}
+  \begin{array}{l}   
+    \text{PRF}(K, L, S) = \text{P}_\text{hash}(K, L || S)
+  \end{array}
+\end{equation}
+
+Pada persamaan \ref{eq:tls.prf}, nilai $K$ merupakan nilai kunci dari PRF yang digunakan. Nilai $L$ merupakan label yang digunakan dalam membangkitkan nilai. Nilai $S$ adalah nilai seed yang digunakan dalam membangkitkan PRF. Operator $||$ merupakan operator untuk melakukan \emph{concatenation}. Fungsi $\text{P}_\text{Hash}$ merupakan fungsi yang didefinisikan pada persamaan \ref{eq:tls.ph}.
+
+\begin{equation}
+  \label{eq:tls.ph}
+  \begin{array}{l}   
+    \text{P}_\text{Hash}(K, S) = \text{HMAC}_\text{Hash}(K, A(1, S)\text{ }||\text{ }S)\text{ }||\text{ }
+        \text{HMAC}_\text{Hash}(K, A(2, S)\text{ }||\text{ }S)\text{ }||\text{ }\ldots
+  \end{array}
+\end{equation}
+
+Pada persamaan \ref{eq:tls.ph}, nilai $A$ adalah nilai keadaan yang didefinisikan pada persamaan \ref{eq:tls.a}. Hash yang digunakan pada proses ini adalah hash yang digunakan pada cipher suite yang dipilih. Pada umumnya, hash yang digunakan adalah SHA-256. Jumlah pengulangan pada fungsi $P$ dilakukan hingga bit-bit yang dihasilkan telah mencukupi.
+
+\begin{equation}
+  \label{eq:tls.a}
+  \begin{array}{l}   
+    A(i, S) = \text{HMAC}_\text{Hash}(K, A(i-1, S)\text{ }||\text{ }S) \\
+    A(0, S) = S
+  \end{array}
+\end{equation}
+
+Setelah mendapatkan nilai \emph{premaster secret} ($PM$), kedua partisipan perlu membangkitkan \emph{master secret}. Persamaan \ref{eq:tls.master} menjelaskan proses pembangkitan \emph{master secret} ($M$) yang diturunkan dari \emph{premaster secret}.
+
+\begin{equation}
+  \label{eq:tls.master}
+  \begin{array}{l}
+    M = \text{PRF}(PM, \text{"master secret"}, r_c \text{ }||\text{ }r_s)[0:47]
+  \end{array}
+\end{equation}
+
+Menurut \textcite{rfc5246}, Hasil dari fungsi PRF pada perhitungan diatas perlu dilakukan pemotongan hingga indeks 47. Kegunaan dari nilai \emph{master key} adalah untuk membangkitkan kunci enkripsi. Nilai \emph{master secret} ini akan digunakan sebagai pembangkit parameter-parameter berikut:
+
+\begin{enumerate}
+  \item \emph{Client write mac key} yang digunakan oleh client untuk sebagai kunci MAC pada pesan yang dikirimkan.
+  \item \emph{Server write mac key} yang digunakan oleh server untuk sebagai kunci MAC pada pesan yang dikirimkan.
+  \item \emph{Client write key} yang digunakan oleh client sebagai kunci enkripsi pesan yang dikirimkan.
+  \item \emph{Server write key} yang digunakan oleh server sebagai kunci enkripsi pesan yang dikirimkan.
+  \item \emph{Client write IV} yang digunakan oleh client sebagai \emph{initialization vector} pada proses enkripsi.
+  \item \emph{Server write IV} yang digunakan oleh server sebagai \emph{initialization vector} pada proses enkripsi.
+\end{enumerate}
+
+Nilai-nilai tersebut dibangkitkan dengan cara mempartisi kunci blok $B$ pada persamaan \ref{eq:tls.b} menjadi beberapa bagian.
+
+\begin{equation}
+  \label{eq:tls.b}
+  \begin{array}{l}
+    B = \text{PRF}(M, \text{"key expansion"}, r_c \text{ }||\text{ }r_s)
+  \end{array}
+\end{equation}
+
+\subsubsection{Verifikasi \emph{Handshake}}
+Setelah kedua pihak berhasil membangkitkan kunci, keduanya akan mengirimkan pesan \emph{change cipher spec}. Pesan ini menandakan bahwa pihak pengirim telah membangkitkan kunci yang nantinya akan digunakan. Setelah pesan ini dikirimkan, proses pengiriman pesan sudah dapat dilakukan secara terenkripsi. 
+
+Dalam TLSv1.2, terdapat pesan tambahan yang dikirimkan oleh \emph{client} dan \emph{server} yang berupa pesan \emph{finished}. Pesan ini haeus dikirimkan setelah pesan \emph{change cipher spec} dikirimkan. Pesan ini ditujukan untuk melakukan verifikasi bahwa proses \emph{handshake} telah berhasil dilakukan.
+
+Pesan \emph{finished} berisi sebuah nilai $V$ yang dihasilkan dari fungsi PRF. Persamaan \ref{eq:tls.finished} menjelaskan proses pembangkitan nilai $V$.
+
+\begin{equation}
+  \label{eq:tls.finished}
+  \begin{array}{l}
+    V = \text{PRF}(M, L, \text{Hash}(\text{handshake message}))
+  \end{array}
+\end{equation}
+
+Pada pembangkitan nilai $V$, nilai \emph{handshake message} merupakan nilai hash dari seluruh pesan bertipe \emph{handshake} yang dikirimkan ataupun diterima. Nilai ini harus berurutan berdasarkan waktu penerimaan ataupun pengiriman pesan tersebut. Panjang yang dibutuhkan untuk nilai $V$ bergantung pada \emph{cipher suite} yang digunakan. Panjang dari nilai $V$ minimal adalah 12 bytes.
+
+Nilai $L$ bergantung terhadap peran dari partisipan. Nilai $L$ yang digunakan oleh \emph{client} adalah "client finished", sedangkan nilai $L$ yang digunakan oleh \emph{server} adalah "server finished".
+
+\subsection{\emph{Record Layer}}
+Record layer menjelaskan terkait cara sebuah pesan dapat dibungkus dalam sebuah fragment TLS. Menurut \textcite{rfc5246}, Pada layer ini dijelaskan bahwa pesan pada mulanya harus dipecah dengan panjang tiap-tiap fragment maksimal adalah $2^14$ bytes. Setiap pesan yang telah dipecah menjadi beberapa fragment akan dibungkus dengan header sehingga memiliki informasi sebagai berikut:
+
+\begin{enumerate}
+  \item \emph{Content Type} menunjukan tipe dari pesan yang dikirimkan.
+  \item \emph{Protocol Version} menunjukan versi dari protokol TLS yang digunakan.
+  \item \emph{Length} menunjukan panjang dari pesan yang dikirimkan dalam bytes.
+  \item \emph{Data} merupakan pesan yang dikirimkan.
+\end{enumerate}
+
+Ilustrasi dari struktur data pesan ini ditunjukan pada gambar \ref{fig:tls.record}. Menurut \textcite{rfc5246}, Nilai \emph{Content Type} yang digunakan pada protokol TLS dituliskan pada tabel \ref{tab:tls.contenttype}.
+
+\begin{table}[!h]
+  \centering
+  \caption{Nilai \emph{Content Type} pada protokol TLS} \label{tab:tls.contenttype}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Nilai (Desimal)} & \textbf{Nama Pesan} \\
+    \hline
+    20 & \emph{Change Cipher Spec} \\ \hline
+    21 & \emph{Alert} \\ \hline
+    22 & \emph{Handshake} \\ \hline
+    23 & \emph{Application Data} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.record.png}
+  \caption{Ilustrasi struktur data pesan pada layer record} \label{fig:tls.record}
+  Sumber: \textcite{joshua2011}
+\end{figure}
 
 \section{Penelitian Terkait}
 

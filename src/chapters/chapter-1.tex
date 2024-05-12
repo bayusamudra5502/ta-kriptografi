@@ -5,29 +5,29 @@ Masalah keamanan informasi merupakan permasalahan yang telah muncul semenjak dah
 
 Untuk mengamankan sebuah informasi, dapat dilakukan berbagai teknik. Salah satu teknik yang sangat penting untuk mengamankan informasi adalah kriptografi. Ilmu terkait kriptografi sudah mulai dikembangkan sejak masa dahulu kala. Hal ini dapat diamati dari kemunculan adanya \emph{Caesar Cipher}. Kemunculan dari ilmu kriptografi disebabkan oleh adanya keperluan untuk menjaga data tetap rahasia dan hanya boleh diakses oleh orang yang memiliki wewenang. Semakin berkembangnya teknologi informasi, ilmu kriptografipun turut ikut berkembang. Pada masa kini, telah terdapat beberapa  algoritma kriptografi yang dapat digunakan untuk pengiriman pesan. Menurut \textcite{munir2019}, beberapa algoritma tersebut dapat diklasifikasikan berdasarkan jumlah kunci yang terlibat dalam melakukan enkripsi dan dekripsi, yaitu kriptografi kunci simetri dan kriptografi kunci asimetris.
 
-Menurut \textcite{halak2022}, penggunaan algoritma kunci asimetris lebih berat dibandingkan dengan penggunaan algoritma kunci simetris. Hal ini menyebabkan banyak protokol yang memanfaatkan kunci simetris dalam pertukaran pesan. Penggunaan kunci asimetris hanya digunakan untuk proses otentikasi pada saat awal dari komunikasi. Contoh dari protokol yang memanfaatkan pola seperti itu adalah \emph{Security Socket Layer} (SSL).
+Menurut \textcite{halak2022}, penggunaan algoritma kunci asimetris lebih berat dibandingkan dengan penggunaan algoritma kunci simetris. Hal ini menyebabkan banyak protokol yang memanfaatkan kunci simetris dalam pertukaran pesan. Penggunaan kunci asimetris hanya digunakan untuk proses otentikasi pada saat awal dari komunikasi. Contoh dari protokol yang memanfaatkan pola seperti itu adalah \emph{Transport Layer Security} (TLS).
 
-Menurut \textcite{munir2019}, protokol SSL membentuk kunci simetris pada saat memulai sebuah sesi komunikasi. Kunci ini disebut sebagai \emph{session key}. Hal ini menyebabkan setiap sesi dapat dipastikan memiliki kunci enkripsi yang berbeda. Akan tetapi, kunci enkripsi yang digunakan pada saat proses pertukaran data menggunakan kunci yang sama hingga sesi berakhir. Hal ini dapat menjadi celah keamanan apabila kunci enkripsi dapat diketahui oleh pihak lain. Selain itu, sistem ini juga dapat menimbulkan kerentanan \emph{reply attack} apabila implementasi yang dilakukan kurang baik.
+Menurut \textcite{munir2019}, protokol SSL/TLS membentuk kunci simetris pada saat memulai sebuah sesi komunikasi. Kunci ini disebut sebagai \emph{session key}. Hal ini menyebabkan setiap sesi dapat dipastikan memiliki kunci enkripsi yang berbeda. Akan tetapi, kunci enkripsi yang digunakan pada saat proses pertukaran data menggunakan kunci yang sama hingga sesi berakhir. Hal ini dapat menjadi celah keamanan apabila kunci enkripsi dapat diketahui oleh pihak lain.
 
 Untuk menyelesaikan permasalahan ini, terdapat beberapa penelitian yang merancang algorithma enkripsi dinamis untuk mengenkripsi data yang dikirimkan. Pada penelitian yang dilakukan oleh \textcite{singh2019}, kedinamisan terletak pada arsitektur internal AES dalam satu \emph{round}. Penelitian ini mencoba untuk membentuk kedinamisan hasil enkripsi dengan melakukan permutasi pada S-Box, menggunakan \emph{irreducible polynomial} lain yang tersedia, serta mengganti nilai konstanta \emph{affine}. Dengan mengganti internal dalam sebuah \emph{round}, proses enkripsi tentu akan menjadi semakin kompleks. Selain itu, proses enkripsi tidak dapat dioptimasi terutama apabila CPU mendukung instruksi set yang mendukung proses menjalankan round menggunakan AES dikarenakan internal round telah berbeda.
 
-Penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan teori \emph{chaos} untuk membangkitkan kunci yang dinamis. Selain itu, penelitian ini juga membahas terkait sinkronisasi sistem \emph{chaos} memanfaatkan \emph{sliding mode control}. Proses sinkronisasi memanfaatkan teknik tersebut memiliki sebuah kekurangan, yaitu jumlah pengiriman pesan yang perlu dilakukan selama sinkronisasi tidak konstan. Algoritma yang dibentuk pada penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan mode blok ECB. Hal ini dapat mempermudah \emph{cracker} untuk mendekripsi secara parallel. Selain itu, penelitian yang dilakukan oleh \textcite{lin2021} tidak menjelaskan proses pengiriman data yang dilakukan secara \emph{full-duplex}.
+Penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan teori \emph{chaos} untuk membangkitkan kunci yang dinamis. Selain itu, penelitian ini juga membahas terkait sinkronisasi sistem \emph{chaos} memanfaatkan \emph{sliding mode control}. Proses sinkronisasi memanfaatkan teknik tersebut memiliki sebuah kekurangan bila diimplementasikan untuk sistem enkripsi ujung ke ujung, yaitu jumlah pengiriman pesan yang perlu dilakukan selama sinkronisasi tidak konstan. Selain itu, penelitian yang dilakukan oleh \textcite{lin2021} tidak menjelaskan proses pengiriman data yang dilakukan secara dua pihak.
 
-Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan membahas pemanfaatan algoritma enkripsi simetris dinamis dalam pengiriman pesan memanfaatkan sistem \emph{chaos}. Selain itu, penelitian ini mencoba untuk menyelesaikan permasalahan tanpa perlu mengubah internal dari algoritma enkripsi kunci simetris. Penelitian ini juga membahas terkait pengiriman data secara \emph{full-duplex}. Penelitian ini juga akan menjelaskan proses sinkronisasi sistem random kedua buah pihak yang melakukan komunikasi yang konstan.
+Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan membahas pemanfaatan algoritma enkripsi simetris dinamis dalam pengiriman pesan memanfaatkan sistem \emph{chaos} pada protokol TLS. Penelitian ini akan membahas terkait mekanisme sinkronisasi \emph{state} pada protokol TLS. Selain itu, penelitian ini mencoba untuk menyelesaikan permasalahan tanpa perlu mengubah internal dari algoritma enkripsi kunci simetris.
 
 \section{Rumusan Masalah}
-Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
+Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis pada protokol TLS. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
 \begin{enumerate}
-  \item Bagaimana cara melakukan sinkronisasi sistem \emph{chaos} pada kedua pihak dengan jumlah komunikasi yang konstan?
+  \item Bagaimana cara melakukan sinkronisasi sistem \emph{chaos} pada kedua pihak?
   \item Bagaimana cara melakukan enkripsi pesan memanfaatkan kunci blok dinamis?
-  \item Bagaimana cara melakukan otentikasi pengirim pada pesan yang diterima?
+  \item Bagaimana cara melakukan otentikasi pengirim pesan memanfaatkan kunci blok dinamis?
 \end{enumerate}
 
 \section{Tujuan}
 Penelitian ini dilakukan dengan tujuan sebagai berikut:
 
 \begin{enumerate}
-  \item Membangun sebuah protokol komunikasi rahasia memanfaatkan algoritma kunci blok simetris.
+  \item Membangun sebuah protokol komunikasi berbasis TLS memanfaatkan algoritma kunci blok simetris.
   \item Menguji pengiriman pesan melalui protokol yang dibuat.
   \item Menguji keamaman protokol komunikasi yang telah dibuat.
 \end{enumerate}
@@ -36,24 +36,24 @@ Penelitian ini dilakukan dengan tujuan sebagai berikut:
 Dalam penelitian ini, terdapat batasan masalah yang digunakan, yaitu sebagai berikut:
 \begin{enumerate}
   \item Komunikasi dilakukan hanya oleh dua entitas.
-  \item Protokol pengiriman pesan yang dibangun berjalan di atas jaringan yang reliable.
-  \item Proses implementasi protokol hanya dilakukan hingga tahap pembuatan prototype.
+  \item Protokol TLS yang dibangun berjalan di atas jaringan yang reliable.
+  \item Proses implementasi protokol TLS hanya dilakukan hingga tahap pembuatan prototype.
 \end{enumerate}
 
 \section{Metodologi}
 Metodologi yang digunakan pada penelitian ini terdapat empat tahap. Berikut ini merupakan metodologi yang digunakan pada penelitian ini:
 \begin{enumerate}
   \item Analisis Masalah\\
-  Penelitian pada tahap ini berfokus pada permasalahan protokol yang telah dibentuk saat ini. Protokol yang terpilih akan dianalisis kelebihan dan kekurangan yang ada pada protokol tersebut.
+  Penelitian pada tahap ini berfokus pada permasalahan protokol yang telah dibentuk saat ini. Pada tahap ini juga akan dijelaskan permasalahan yang mungkin muncul apabila mengimplementasikan sistem enkripsi simetris dengan kunci blok dinamis pada protokol TLS. Pada tahap ini juga akan dijelaskan terkait kebutuhan dari protokol TLS yang akan dibangun.
 
   \item Perancangan protokol komunikasi\\
-  Setelah melakukan analisis permasalahan, perlu dilakukan perancangan solusi berupa protokol komunikasi. Pada tahap ini, penelitian akan berfokus pada pencarian protokol yang tepat untuk mengirim pesan. Penelitian akan mengkaji jenis mode blok yang digunakan pada protokol sehingga pesan tidak dapat dilakukan proses dekripsi secara paralel. Pada tahap ini juga, penelitian akan mengkaji metode untuk mengirimkan pesan agar dapat dikirimkan secara \emph{full-duplex}.
+  Setelah melakukan analisis permasalahan, perlu dilakukan perancangan solusi berupa skema protokol TLS dan sistem enkripsinya. Pada bagian ini, Penelitian mengkaji jenis mode blok yang digunakan pada protokol yang dibangun. Pada tahap ini juga, penelitian mengkaji terkait pembangkitan \emph{chaos state} berdasarkan dari kunci sesi yang telah dibentuk pada protokol TLS.
 
   \item Pembangunan prototype protokol komunikasi\\
-  Pada tahap ini, prototype protokol komunikasi yang telah dibangun pada tahap sebelumnya.
+  Pada tahap ini, prototype protokol komunikasi yang telah dirancang sebelumnya dibangun. Pembangunan prototype dilakukan berdasarkan perancangan desain yang telah disusun pada bagian sebelumnya. Prototype dibangun dalam bentuk program kecil yang dapat mengirimkan pesan secara bolak balik sebagai bukti bahwa protokol yang dibangun dapat berjalan.
 
   \item Simulasi dan Evaluasi\\
-  Pada tahap ini, prototype yang telah dibuat dilakukan simulasi. Simulasi dilakukan dengan cara mengirimkan pesan berupa gambar \emph{grayscale} dari tiap entitas secara bersamaan. Hal ini dilakukan dengan menggunakan beberapa gambar yang berbeda. Setiap gambar yang telah diterima akan diperiksa integritasnya. Pesan terenkripsi juga akan dilakukan secara statistik dan visual. Pengujian keteracakan dilakukan dengan menggunakan NIST SP 800-22 \emph{randomness test}. Selain itu, akan dilakukan pengujian analisis entropi informasi untuk melihat keterkaitan antara satu blok dengan blok lainnya. Pengujian visual dilakukan dengan cara menampilkan gambar yang terenkripsi.
+  Pada tahap ini, prototype yang telah dibuat dilakukan simulasi. Simulasi dilakukan dengan cara mengirimkan pesan berupa teks dan file binari. Hal ini dilakukan dengan menggunakan beberapa file dan teks yang berbeda. Setiap gambar yang telah diterima akan diperiksa integritasnya. Pesan terenkripsi juga akan dilakukan secara statistik dan visual. Pengujian keteracakan dilakukan dengan menggunakan NIST SP 800-22 \emph{randomness test}. Selain itu, akan dilakukan pengujian analisis entropi informasi untuk melihat keterkaitan antara satu blok dengan blok lainnya. Pengujian visual dilakukan dengan cara menampilkan gambar yang terenkripsi.
 
 \end{enumerate}
 
@@ -65,10 +65,10 @@ Pembahasan pada buku laporan ini akan dibagi menjadi beberapa bab. Berikut ini m
   Pada bab ini, pembahasan akan berfokus pada pembahasan terkait motivasi penelitian yang tertuang pada latar belakang. Pada bab ini juga dijelaskan mengenai rumusan masalah serta tujuan dari penelitian yang dilakukan.
 
   \item Bab II Studi Literatur\\
-  Bab ini berisi terkait teori-teori yang terkait dengan penelitian ini. Hal-hal yang dibahas pada bagian ini mencakup terkait sistem chaos, kriptografi kunci simetris AES, protokol-protokol komunikasi yang telah ada pada saat penelitian ini dilakukan, serta penelitian yang telah ada khususnya terkait dengan sistem chaos.
+  Bab ini berisi terkait teori-teori yang terkait dengan penelitian ini. Hal-hal yang dibahas pada bagian ini mencakup terkait sistem chaos, kriptografi kunci simetris AES, protokol-protokol komunikasi yang telah ada pada saat penelitian ini dilakukan, serta penelitian yang telah ada khususnya terkait dengan sistem chaos. Pada bab ini juga akan dibahas terkait protokol TLS standard.
 
   \item Bab III Analisis Masalah dan Rancangan Solusi\\
-  Bab ini berfokus kepada analisis terkait ancaman-ancaman yang ada pada sebuah protokol komunikasi. Pada bab ini juga ditentukan kebutuhan dari protokol berdasarkan ancaman dan kebutuhan komunikasi antara dua partisipan. Pada bab ini juga dijelaskan terkait rancangan protokol yang akan dibangun didasari oleh kebutuhan yang telah didefinisikan.
+  Bab ini berfokus kepada analisis terkait ancaman-ancaman yang ada pada sebuah protokol komunikasi TLS. Pada bab ini juga dijelaskan terkait komposisi \emph{cipher suite} yang akan digunakan pada protokol TLS. Pada bab ini juga dijelaskan terkait rancangan protokol yang akan dibangun didasari oleh kebutuhan yang telah didefinisikan.
 
   \item Bab IV Implementasi Solusi dan Pengujian\\
   Pada bab ini, pembahasan akan berfokus pada implementasi dan pengujian dari protokol yang telah dijelaskan sebelumnya pada bab III. Pada bab ini akan dibahas terkait eksperimen terkait sistem \emph{chaos} yang telah dipilih. Pada bab ini juga akan dibahas terkait lingkungan protokol komunikasi yang dibangun. Selain itu, pada bab ini akan dibahas terkait hasil pengujian protokol yang telah dibangun.
