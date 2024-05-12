@@ -1,0 +1,25 @@
+@startuml ""
+
+start
+
+:Simpan State Awal;
+
+repeat ;
+  :Baca Blok Baru;
+  :Enkripsi Blok;
+
+  if (Enkripsi Berhasil) then (Tidak)
+    :Kembalikan State Awal;
+    stop;
+  endif
+
+  :Update Kunci Enkripsi dan Counter;
+
+repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
+
+:Hitung MAC;
+:Update Kunci MAC;
+
+stop
+
+@enduml

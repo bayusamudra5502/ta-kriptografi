@@ -1,0 +1,23 @@
+@startuml ""
+
+start
+
+:Simpan State Awal;
+:Baca Frame;
+
+if (MAC Frame Valid?) then (Tidak)
+  stop;
+endif
+
+repeat
+  :Dekripsi Blok Baru;
+
+  if (Dekripsi Berhasil?) then (Tidak)
+    :Kembalikan ke state awal;
+    stop;
+  endif
+repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
+
+stop
+
+@enduml

@@ -1,14 +1,277 @@
-% \chapter{{{Prototipe Protokol Komunikasi Memanfaatkan Sistem \emph{Chaos}}}} 
-% \label{appendix:protokol}
+\chapter{{{Tipe Data Protokol TLSv1.2}}} 
+\label{appendix:tls12.datatype}
 
-% Figur \ref{fig:solution.protocol} merupakan prototipe protokol komunikasi memanfaatkan sistem \emph{chaos}. Pada awal komunikasi, akan dilakukan pertukaran kunci memanfaatkan algoritma \emph{Diffie-Hellman}. Selanjutnya, akan dikirimkan pesan hello oleh Alice dan Bob. Hal ini dilakukan untuk memverifikasi bahwa kedua pihak telah memiliki status kunci yang sama dalam melakukan enkripsi dan dekripsi. Apabila terjadi kegagalan pada tahap ini, koneksi harus diputus dan dibentuk koneksi yang baru.
+Berikut ini merupakan daftar dari tipe data yang digunakan pada protokol TLSv1.2. Daftar ini diimplementasikan pada \textcite{rfc5246} dan \textcite{rfc4492}.
 
-% \begin{figure}[!h]
-%   \centering
-%   \includegraphics[width=200px]{chapters/res/chapter-3/img/protocol.png}
-%   \caption{Protokol Pengiriman Pesan} \label{fig:solution.protocol}
-% \end{figure}
+\section{Layer \emph{Record}}
 
-% Pada saat pengiriman data, Alice memanfaatkan sistem \emph{chaos} $K_1$, sedangkan Bob memanfaatkan sistem \emph{chaos} $K_2$. Pada saat mengirim data, Alice akan melakukan enkripsi pesan pada blok $n$. Setelah melakukan enkripsi, Alice akan memperbaharui sistem chaosnya. Setelah memperbaharui, Alice akan mengirimkan pesan blok $n$. Alice akan menunggu hingga pesan ACK dari Bob diterima sebelum mengirimkan blok selanjutnya. Alice akan mengirimkan kembali pesan blok $n$ bila belum mendapatkan ACK dalam waktu tertentu atau menerima pesan error.
+\begin{verbatim}
+  struct {
+    uint8 major;
+    uint8 minor;
+  } ProtocolVersion;
 
-% Bob akan menerima data dari Alice. Apabila pesan memiliki HMAC yang benar, bob akan melakukan dekripsi. Setelah dekripsi berhasil, Bob akan mengirimkan ACK menuju Alice. Sistem \emph{chaos} Bob diperbaharui pada saat bob mendapatkan pesan blok $n+1$ yang valid.
+  ProtocolVersion version = { 3, 3 }; /* TLS v1.2*/
+
+  enum {
+      change_cipher_spec(20), alert(21), handshake(22),
+      application_data(23), (255)
+  } ContentType;
+
+  struct {
+      ContentType type;
+      ProtocolVersion version;
+      uint16 length;
+      opaque fragment[TLSPlaintext.length];
+  } TLSPlaintext;
+
+  struct {
+    ContentType type;
+    ProtocolVersion version;
+    uint16 length;
+    select (SecurityParameters.cipher_type) {
+        case stream: GenericStreamCipher;
+        case block:  GenericBlockCipher;
+        case aead:   GenericAEADCipher;
+    } fragment;
+  } TLSCiphertext;
+
+\end{verbatim}
+
+\section{\emph{Change Cipher Spec}}
+
+\begin{verbatim}
+  struct {
+       enum { change_cipher_spec(1), (255) } type;
+   } ChangeCipherSpec;
+\end{verbatim}
+
+\section{Protokol \emph{Handshake}}
+
+\begin{verbatim}
+  enum {
+    hello_request(0), client_hello(1), server_hello(2),
+    certificate(11), server_key_exchange (12),
+    certificate_request(13), server_hello_done(14),
+    certificate_verify(15), client_key_exchange(16),
+    finished(20)
+    (255)
+} HandshakeType;
+
+struct {
+    HandshakeType msg_type;
+    uint24 length;
+    select (HandshakeType) {
+        case hello_request:       HelloRequest;
+        case client_hello:        ClientHello;
+        case server_hello:        ServerHello;
+        case certificate:         Certificate;
+        case server_key_exchange: ServerKeyExchange;
+        case certificate_request: CertificateRequest;
+        case server_hello_done:   ServerHelloDone;
+        case certificate_verify:  CertificateVerify;
+        case client_key_exchange: ClientKeyExchange;
+        case finished:            Finished;
+    } body;
+} Handshake;
+
+\end{verbatim}
+
+\section{Pesan Hello}
+
+\begin{verbatim}
+  struct { } HelloRequest;
+
+  struct {
+      uint32 gmt_unix_time;
+      opaque random_bytes[28];
+  } Random;
+
+  opaque SessionID<0..32>;
+
+  uint8 CipherSuite[2];
+
+  enum { null(0), (255) } CompressionMethod;
+
+  struct {
+      ProtocolVersion client_version;
+      Random random;
+      SessionID session_id;
+      CipherSuite cipher_suites<2..2^16-2>;
+      CompressionMethod compression_methods<1..2^8-1>;
+      select (extensions_present) {
+          case false:
+              struct {};
+          case true:
+              Extension extensions<0..2^16-1>;
+      };
+  } ClientHello;
+
+  struct {
+      ProtocolVersion server_version;
+      Random random;
+      SessionID session_id;
+      CipherSuite cipher_suite;
+      CompressionMethod compression_method;
+      select (extensions_present) {
+          case false:
+              struct {};
+          case true:
+              Extension extensions<0..2^16-1>;
+      };
+  } ServerHello;
+
+  enum{
+    none(0), md5(1), sha1(2), sha224(3), sha256(4), sha384(5),
+    sha512(6), (255)
+  } HashAlgorithm;
+
+  enum {
+    anonymous(0), rsa(1), dsa(2), ecdsa(3), (255)
+  } SignatureAlgorithm;
+
+  struct {
+        HashAlgorithm hash;
+        SignatureAlgorithm signature;
+  } SignatureAndHashAlgorithm;
+
+  SignatureAndHashAlgorithm
+  supported_signature_algorithms<2..2^16-1>;
+\end{verbatim}
+
+\section{Otentikasi Server dan Pesan Pertukaran Kunci}
+
+\begin{verbatim}
+  opaque ASN.1Cert<2^24-1>;
+
+  struct {
+      ASN.1Cert certificate_list<0..2^24-1>;
+  } Certificate;
+
+  enum { dhe_dss, dhe_rsa, dh_anon, rsa,dh_dss, dh_rsa, ec_diffie_hellman
+       } KeyExchangeAlgorithm;
+
+  struct {
+      opaque dh_p<1..2^16-1>;
+      opaque dh_g<1..2^16-1>;
+      opaque dh_Ys<1..2^16-1>;
+  } ServerDHParams;     /* Ephemeral DH parameters */
+
+  struct {
+    select (KeyExchangeAlgorithm) {
+        case dh_anon:
+            ServerDHParams params;
+        case dhe_dss:
+        case dhe_rsa:
+            ServerDHParams params;
+            digitally-signed struct {
+                opaque client_random[32];
+                opaque server_random[32];
+                ServerDHParams params;
+            } signed_params;
+        case rsa:
+        case dh_dss:
+        case dh_rsa:
+            struct {} ;
+        case ec_diffie_hellman:
+            ServerECDHParams    params;
+            Signature           signed_params;
+    }
+  } ServerKeyExchange;
+
+  enum {
+      rsa_sign(1), dss_sign(2), rsa_fixed_dh(3), dss_fixed_dh(4),
+      rsa_ephemeral_dh_RESERVED(5), dss_ephemeral_dh_RESERVED(6),
+      fortezza_dms_RESERVED(20),
+      (255)
+  } ClientCertificateType;
+
+  struct { } ServerHelloDone;
+
+  enum {
+    deprecated(1..22),
+    secp256r1 (23), secp384r1 (24), secp521r1 (25),
+    x25519(29), x448(30),
+    reserved (0xFE00..0xFEFF),
+    deprecated(0xFF01..0xFF02),
+    (0xFFFF)
+  } NamedCurve;
+
+  enum {
+    deprecated (1..2),
+    named_curve (3),
+    reserved(248..255)
+  } ECCurveType;
+
+
+  struct {
+    opaque point <1..2^8-1>;
+  } ECPoint;
+
+  struct {
+    ECCurveType    curve_type;
+    select (curve_type) {
+        case named_curve:
+            NamedCurve namedcurve;
+    };
+  } ECParameters;
+
+  struct {
+    ECParameters    curve_params;
+    ECPoint         public;
+  } ServerECDHParams;
+
+  enum {
+    ecdsa(3),
+    ed25519(7)
+    ed448(8)
+  } SignatureAlgorithm;
+
+  select (SignatureAlgorithm) {
+   case ecdsa:
+        digitally-signed struct {
+            opaque sha_hash[sha_size];
+        };
+   case ed25519,ed448:
+        digitally-signed struct {
+            opaque rawdata[rawdata_size];
+        };
+  } Signature;
+
+  /* Rumus Perhitungan Tanda Tangan Digital */
+  ServerKeyExchange.signed_params.sha_hash
+  SHA(ClientHello.random + ServerHello.random +
+                         ServerKeyExchange.params);
+  ServerKeyExchange.signed_params.rawdata
+  ClientHello.random + ServerHello.random +
+                         ServerKeyExchange.params;
+
+\end{verbatim}
+
+\section{Otentikasi Klien dan Pertukaran Kunci}
+
+\begin{verbatim}
+  struct {
+    select (KeyExchangeAlgorithm) {
+        case rsa:
+            EncryptedPreMasterSecret;
+        case dhe_dss:
+        case dhe_rsa:
+        case dh_dss:
+        case dh_rsa:
+        case dh_anon:
+            ClientDiffieHellmanPublic;
+    } exchange_keys;
+  } ClientKeyExchange;
+
+  enum { implicit, explicit } PublicValueEncoding;
+
+  struct {
+      select (PublicValueEncoding) {
+          case implicit: struct {};
+          case explicit: opaque DH_Yc<1..2^16-1>;
+      } dh_public;
+  } ClientDiffieHellmanPublic;
+
+
+\end{verbatim}

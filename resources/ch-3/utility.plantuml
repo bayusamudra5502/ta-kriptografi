@@ -1,0 +1,10 @@
+@startuml ""
+abstract DynamicState {
+    # rng: CSPRNG
+    # next_key: bytes
+
+    + void rotate()    
+}
+
+
+@enduml
