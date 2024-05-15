@@ -160,7 +160,7 @@ Struktur data dari kelas yang telah dijelaskan di atas didefinisikan pada \textc
 
 Dalam pustaka yang dikembangkan, terdapat sebuah modul yang bertanggung jawab mengatur komunikasi antara \emph{client} dan \emph{server}. Modul ini bertanggung jawab dalam mengatur proses \emph{handshake}, proses komunikasi melalui TCP, komunikasi melalui UNIX Socket, serta proses enkripsi dan pengaturan \emph{state}. Tabel \ref{tab:impl.comm} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. Semua kelas pada bagian ini terletak pada modul \texttt{conn}.
 
-\begin{longtable}{|p{3.75cm}|p{9cm}|}
+\begin{longtable}{|p{4cm}|p{8cm}|}
   \caption{Kelas pada Modul Komunikasi} \label{tab:impl.comm} \\
 
   \hline
@@ -179,7 +179,7 @@ Dalam pustaka yang dikembangkan, terdapat sebuah modul yang bertanggung jawab me
     \texttt{TCPServer} & Kelas ini merupakan kelas yang berperan sebagai \emph{server manager} pada protokol TCP\\ \hline
     \texttt{TCPClient} & Kelas ini merupakan kelas yang berperan sebagai klien pada protokol TCP\\ \hline
     \texttt{TLSConnection} & Kelas ini merupakan kelas yang berperan dalam mengatur alur dari protokol TLS\\ \hline
-    \texttt{TLSApplicationRecordHandler} & Kelas ini merupakan kelas yang digunakan untuk mengatur \emph{application data} pada protokol TLS\\ \hline
+    \texttt{TLSApplication} \texttt{RecordHandler} & Kelas ini merupakan kelas yang digunakan untuk mengatur \emph{application data} pada protokol TLS\\ \hline
 \end{longtable}
   
 
