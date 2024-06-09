@@ -10,33 +10,50 @@
 \section{Analisis Masalah}
 \label{sec:analisis-masalah}
 
-Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian \ref{sec:jaringan-komputer}. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini.
+Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian \ref{sec:jaringan-komputer}. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Selain itu, penerapan enkripsi dinamis pada sistem \emph{chaos} menimbulkan beberapa masalah kompatibilitas. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini. Secara garis besar, permasalahan yang muncul ditunjukan pada tabel \ref{tab:permasalahan}.
 
-\subsection{Analisis Kebutuhan Protokol Komunikasi Rahasia}
+\begin{table}[!h]
+  \centering
+  \caption{Permasalahan yang dihadapi pada protokol komunikasi} \label{tab:permasalahan}
+  \begin{tabular}{|c|p{6cm}|c|}
+    \hline
+    No & Deskripsi & Rumusan Masalah Terkait \\
+    \hline
+    P1 & Serangan MITM saat adanya komunikasi berlangsung & 2 \\ \hline
+    P2 & Serangan \emph{replay attack} saat adanya komunikasi berlangsung & 1 dan 2 \\ \hline
+    P3 & Serangan \emph{tampering} pada pesan terenkripsi & 2 \\ \hline
+    P4 & Serangan kriptografi melalui analisis pesan terenkripsi & 1 \\ \hline
+    P5 & Ancaman analisis nilai acak yang dihasilkan oleh sistem \emph{chaos} & 1 \\ \hline
+    P6 & Pembentukan nilai awal sistem \emph{chaos} melalui prosedur \emph{handshake} TLS & 1 dan 2 \\ \hline
+    P7 & Pembentukan kunci blok baru saat proses enkripsi dan dekripsi & 1 dan 2 \\ \hline
+    P8 & Ancaman \emph{flooding} kepada partisipan komunikasi & 2 \\ \hline
 
-Dalam jaringan komunikasi, pesan yang dikirimkan dapat mengalami kegagalan. Hal ini dapat menyebabkan pesan yang dikirimkan tidak diterima oleh pihak penerima. Dengan asumsi protokol ini berdiri di atas jaringan yang reliabel, kegagalan yang mungkin terjadi diantaranya adalah adanya kerusakan pada algoritma pengiriman, terjadi kerusakan pada perangkat, ataupun ada pihak ketiga yang terlibat secara aktif pada jaringan. Hal ini dapat menyebabkan \emph{frame} yang dikirimkan dianggap valid oleh layer dibawahnya, tetapi pada layer protokol ini dianggap tidak valid. Oleh karena itu, perlu adanya sebuah mekanisme untuk menangani kegagalan pengiriman pesan.
-
-Dalam mengirimkan pesan, terdapat ancaman dari pihak ketiga yang terlibat secara aktif maupun pasif. Hal ini dapat terjadi dikarenakan pesan dikirimkan melalui jalur komunikasi yang tidak aman. Oleh karena itu, terdapat beberapa ancaman keamanan yang ada pada protokol komunikasi yang dibangun. Ancaman ini akan dibahas lebih lanjut pada bagian selanjutnya.
-
-Protokol yang dibangun akan memanfaatkan sistem \emph{chaos} sebagai pembangkitan kunci blok dan kunci MAC. Hal ini memerlukan sebuah mekanisme agar sistem pembangkitan kunci dapat tersinkronisasi melalui mekanisme \emph{handshake} pada TLS. 
-
-Pada protokol TLS berbasis chaos, kunci blok yang digunakan bersifat dinamis. Hal ini memerlukan analisis lebih lanjut terkait metode pembaharuan kunci blok yang digunakan pada protokol ini pada masing-masing pihak. Hal ini diperlukan agar \emph{state} dari kunci blok dapat terjamin.
+  \end{tabular}
+\end{table}
 
 \subsection{Ancaman Keamanan pada Protokol Komunikasi}
+\label{sec:ancaman-keamanan}
 
-Pada bagian sebelumnya, telah dijelaskan bahwa terdapat pihak ketiga yang mungkin terlibat dalam komunikasi. Hal ini dapat menimbulkan beberapa ancaman keamanan yang ada pada protokol komunikasi yang dibangun. Bagian ini akan menjelaskan rincian analisis ancaman keamanan yang dihadapi oleh protokol ini. Untuk mempermudah penjelasan, diasumsikan terdapat dua buah pihak yang melakukan komunikasi, yaitu Ahmad dan Budi. Terdapat pihak ketiga dalam komunikasi bernama Candra sebagai pihak yang tidak berhak terlibat dalam komunikasi. 
+Pihak ketiga mungkin terlibat dalam komunikasi baik secara aktif maupun pasif. Hal ini dapat menimbulkan beberapa ancaman keamanan yang ada pada protokol komunikasi yang dibangun. Bagian ini akan menjelaskan rincian analisis ancaman keamanan yang dihadapi oleh protokol ini. Untuk mempermudah penjelasan, diasumsikan terdapat dua buah pihak yang melakukan komunikasi, yaitu Ahmad dan Budi. Terdapat pihak ketiga dalam komunikasi bernama Candra sebagai pihak yang tidak berhak terlibat dalam komunikasi. 
 
 Dalam komunikasi, memungkinkan Candra mengaku sebagai salah satu pihak yang terlibat dalam komunikasi, yaitu Ahmad dan Budi. Hal ini dapat dilakukan dengan melakukan serangan MITM di antara kedua belah pihak. Dengan melakukan serangan ini, memungkinkan Candra mendapatkan informasi yang dikirimkan oleh Ahmad dan Budi. Oleh karena itu, perlu adanya mekanisme untuk memastikan bahwa pihak yang terlibat merupakan pihak yang dipercaya.
 
 Selain itu, Candra juga dapat melakukan serangan berupa \emph{replay attack}. Dalam serangan ini, Candra bertujuan untuk mengganggu sistem dengan mengirimkan ulang pesan-pesan tertentu yang telah direkam. Candra mungkin tidak dapat mengetahui isi dari data yang ada pada \emph{frame}, tetapi \emph{frame} tersebut dapat menyebabkan efek yang tidak diinginkan oleh Ahmad ataupun Budi. Oleh karena itu, perlu adanya otentikasi partisipan pada pesan.
 
-Dalam komunikasi, Candra dapat mengubah \emph{frame} yang dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat menyebabkan pesan yang dikirimkan tidak dapat dipahami oleh penerima. Selain itu, hal ini dapat memberikan efek yang tidak diinginkan oleh penerima, seperti \emph{bitflip} attack. Oleh karena itu, perlu adanya mekanisme untuk menjaga integritas pesan yang dikirimkan oleh Ahmad ataupun Budi.
+Dalam komunikasi, Candra dapat mengubah \emph{frame} yang dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat menyebabkan pesan yang dikirimkan tidak dapat dipahami oleh penerima. Selain itu, hal ini dapat memberikan efek yang tidak diinginkan oleh penerima, seperti serangan \emph{bit flip}. Oleh karena itu, perlu adanya mekanisme untuk menjaga integritas pesan yang dikirimkan oleh Ahmad ataupun Budi.
 
-Dalam proses komunikasi, salah satu pihak yang terlibat baik Ahmad maupun Budi dapat menyangkal telah mengirimkan sebuah \emph{frame} dalam komunikasi. Untuk mengcegah hal tersebut, diperlukan sebuah mekanisme nirpenyangkalan dari tiap-tiap peserta yang telah mengirimkan pesan.
+Pesan yang dikirimkan dalam jaringan publik dapat diamati oleh Candra. Candra dapat mengetahui isi pesan terenkripsi yang telah dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat dicapai dengan melakukan beberapa teknik diantaranya adalah melakukan \emph{brute force} terhadap kunci enkripsi. Teknik lainnya yang dapat dilakukan oleh Candra adalah melakukan analisis teks enkripsi. Salah satu teknik yang bisa dilakukan adalah melakukan analisis berbasikan \emph{plaintext} yang telah diketahui. Candra dapat mengamati pola yang dibentuk dari hasil enkripsi. Candra juga dapat melakukan analisis terhadap \emph{ciphertext} yang telah diterima. Hal ini dapat dilakukan dengan melakukan analisis frekuensi terhadap blok pesan ataupun melakukan analisis secara visual terhadap \emph{ciphertext}. Harapan dari proses ini mendapatkan pola dari \emph{ciphertext} sehingga dapat dianalisis apa isi pesan yang terenkripsi.
 
-Pesan yang dikirimkan dalam jaringan publik dapat diamati oleh Candra. Candra dapat mengetahui isi pesan terenkripsi yang telah dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat dicapai dengan melakukan beberapa teknik diantaranya adalah melakukan \emph{brute force} terhadap kunci enkripsi. Teknik lainnya yang dapat dilakukan oleh Candra adalah melakukan analisis kunci enkripsi. Salah satu teknik yang bisa dilakukan adalah melakukan analisis berbasikan \emph{plaintext} yang telah diketahui. Candra dapat mengamati pola yang dibentuk dari hasil enkripsi. Candra juga dapat melakukan analisis terhadap \emph{ciphertext} yang telah diterima. Hal ini dapat dilakukan dengan melakukan analisis frekuensi terhadap blok pesan ataupun melakukan analisis secara visual terhadap \emph{ciphertext}. Harapan dari proses ini mendapatkan pola dari \emph{ciphertext} sehingga dapat dianalisis apa isi pesan yang terenkripsi.
+\subsection{Analisis Permasalahan Penerapan AES dengan Sistem \emph{Chaos} pada Protokol TLS}
+\label{sec:ancaman-implementasi}
 
-Pada jaringan komunikasi publik, Candra dapat membanjiri pesan tidak bermakna dengan ukuran cukup besar kepada salah satu pihak, misalkan Budi. Hal ini dapat menyebabkan Budi akan sibuk untuk melakukan dekripsi pesan besar dan tidak dapat menerima pesan dari Ahmad. Oleh karena itu, diperlukan otentikasi pengirim pesan agar dapat dipastikan pesan yang dilakukan dekripsi merupakan pihak yang berhak.
+Dalam penerapan \emph{cipher} AES dengan sistem \emph{chaos}, diperlukan memilih sistem \emph{chaos} yang tepat yang digunakan sebagai kunci blok. Sistem \emph{chaos} ini juga harus memiliki sifat \emph{forward unpredictability} dan \emph{backward unpredictability} sebagaimana yang dijelaskan pada bagian \ref{sec:nist.statistical.test}. Ancaman yang terkait dengan hal ini adalah adanya analisis nilai acak untuk mendapatkan nilai acak yang akan datang dan nilai acak yang telah digenerate sebelumnya. Hal ini dapat menyebabkan pesan yang dikirimkan dapat didekripsi oleh penyerang, baik pesan yang diterima dan pesan yang akan datang.
+
+Sistem \emph{chaos} juga memerlukan nilai awal atau \emph{seed} yang akan digunakan sebagai nilai awal dari sistem \emph{chaos}. Nilai ini perlu dihasilkan dari proses \emph{handshake} yang dilakukan melalui protokol TLS. Oleh karena itu, diperlukan sebuah mekanisme pembangkitan nilai \emph{seed} melalui prosedur \emph{handshake} tersebut.
+
+Pada protokol TLS berbasis chaos, kunci blok yang digunakan bersifat dinamis. Hal ini memerlukan analisis lebih lanjut terkait metode pembaharuan kunci blok yang digunakan pada protokol ini pada masing-masing pihak. Hal ini diperlukan agar \emph{state} dari kunci blok dapat terjamin.
+
+Pada protokol TLS, terdapat mekanisme pemeriksaan integritas pesan. Mekanisme ini memanfaatkan MAC yang dienkripsi bersama pesan. Ancaman dari mekanisme ini adalah adanya serangan dengan mengirimkan pesan yang tidak sah. Pembangkitan nilai acak pada sistem \emph{chaos} dinilai cukup berat sehingga bila ancaman ini terjadi, penerima dapat kehabisan \emph{resource} dalam melakukan dekripsi. Oleh karena itu, perlu adanya mekanisme untuk melakukan mekanisme pemeriksaan integeritas pesan yang diterima yang lebih efisien.
 
 \section{Analisis Solusi}
 
