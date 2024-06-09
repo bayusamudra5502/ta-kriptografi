@@ -1,0 +1,49 @@
+@startuml "Implementasi"
+package "conn" {
+  [TCPServer] -down-> [TCP]
+  [TCPClient] -down-> [TCP]
+  [TLS] -right-> [TCP]
+  [TLS] -left-> [Handsake]
+}
+
+package "crypto" {
+  [DynamicAES]
+  [DynamicMAC] -left-> [HenonSineMap]
+  [DynamicAES] -> [HenonSineMap]
+  [KeyGenerator]
+}
+
+package "socket" {
+  [Socket] 
+}
+
+package "secret" {
+  [Digest Comparator]
+}
+
+package "pycryptodome" {
+  [AES]
+  [HMAC]
+}
+
+package "app" {
+  [Main]
+}
+
+package "pathlib" {
+  [Path]
+}
+
+DynamicMAC -down-> [Digest Comparator]
+Main -down-> Path
+Main -down-> TCPServer
+Main -down-> TCPClient
+Main -down-> TLS
+TLS -down-> DynamicAES
+TLS -down-> DynamicMAC
+TCP -> Socket
+TLS -> KeyGenerator
+DynamicAES -down-> AES
+DynamicMAC -down-> HMAC
+
+@enduml

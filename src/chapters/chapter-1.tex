@@ -18,9 +18,8 @@ Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan 
 \section{Rumusan Masalah}
 Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis pada protokol TLS. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
 \begin{enumerate}
-  \item Bagaimana cara melakukan sinkronisasi sistem \emph{chaos} pada kedua pihak?
-  \item Bagaimana cara melakukan enkripsi pesan memanfaatkan Algoritma AES kunci blok dinamis?
-  \item Bagaimana cara melakukan otentikasi pengirim pesan memanfaatkan kunci blok dinamis?
+  \item Bagaimana cara melakukan enkripsi pesan memanfaatkan Algoritma AES kunci blok dinamis yang aman?
+  \item Bagaimana cara mengimplementasikan Algoritma AES kunci blok dinamis pada protokol TLS?
 \end{enumerate}
 
 \section{Tujuan}
@@ -28,8 +27,8 @@ Penelitian ini dilakukan dengan tujuan sebagai berikut:
 
 \begin{enumerate}
   \item Membangun sebuah protokol komunikasi berbasis TLS memanfaatkan algoritma kunci blok simetris.
-  \item Menguji pengiriman pesan melalui protokol yang dibuat.
-  \item Menguji keamaman protokol komunikasi yang telah dibuat.
+  \item Menguji pengiriman pesan pada melalui protokol TLS memanfaatkan algoritma kunci blok simetris.
+  \item Menguji keamanan \emph{cipher} yang telah dibuat dan implementasi dari protokol TLS.
 \end{enumerate}
 
 \section{Batasan Masalah}
@@ -54,7 +53,6 @@ Metodologi yang digunakan pada penelitian ini terdapat empat tahap. Berikut ini 
 
   \item Simulasi dan Evaluasi\\
   Pada tahap ini, prototype yang telah dibuat dilakukan simulasi. Simulasi dilakukan dengan cara mengirimkan pesan berupa teks dan file binari. Hal ini dilakukan dengan menggunakan beberapa file dan teks yang berbeda. Setiap gambar yang telah diterima akan diperiksa integritasnya. Pesan terenkripsi juga akan dilakukan secara statistik dan visual. Pengujian keteracakan dilakukan dengan menggunakan NIST SP 800-22 \emph{randomness test}. Selain itu, akan dilakukan pengujian analisis entropi informasi untuk melihat keterkaitan antara satu blok dengan blok lainnya. Pengujian visual dilakukan dengan cara menampilkan gambar yang terenkripsi.
-
 \end{enumerate}
 
 \section{Sistematika Pembahasan}
@@ -75,5 +73,4 @@ Pembahasan pada buku laporan ini akan dibagi menjadi beberapa bab. Berikut ini m
 
   \item Bab V Kesimpulan dan Saran\\
   Bab ini berisi terkait kesimpulan dari penelitian ini. Pada bab ini juga akan diberikan saran penulis untuk penelitian yang selanjutnya.
-
 \end{enumerate}

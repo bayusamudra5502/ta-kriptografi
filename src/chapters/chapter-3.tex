@@ -8,8 +8,9 @@
 \chapter{Analisis Masalah dan Solusi}
 
 \section{Analisis Masalah}
+\label{sec:analisis-masalah}
 
-Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian II.1. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini.
+Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian \ref{sec:jaringan-komputer}. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini.
 
 \subsection{Analisis Kebutuhan Protokol Komunikasi Rahasia}
 
@@ -18,8 +19,6 @@ Dalam jaringan komunikasi, pesan yang dikirimkan dapat mengalami kegagalan. Hal 
 Dalam mengirimkan pesan, terdapat ancaman dari pihak ketiga yang terlibat secara aktif maupun pasif. Hal ini dapat terjadi dikarenakan pesan dikirimkan melalui jalur komunikasi yang tidak aman. Oleh karena itu, terdapat beberapa ancaman keamanan yang ada pada protokol komunikasi yang dibangun. Ancaman ini akan dibahas lebih lanjut pada bagian selanjutnya.
 
 Protokol yang dibangun akan memanfaatkan sistem \emph{chaos} sebagai pembangkitan kunci blok dan kunci MAC. Hal ini memerlukan sebuah mekanisme agar sistem pembangkitan kunci dapat tersinkronisasi melalui mekanisme \emph{handshake} pada TLS. 
-
-Pada protokol TLS, kunci MAC yang digunakan dalam beberapa cipher suite bersifat statis. Hal ini dapat mengancam komunikasi dikarenakan dapat membuat \emph{state} dari salah satu pihak tidak sesuai. Hal ini memerlukan analisis lebih lanjut terkait metode pembaharuan kunci TLS sehingga komunikasi tetap dapat berjalan dengan baik walaupun terdapat serangan terhadap sistem MAC ini.
 
 Pada protokol TLS berbasis chaos, kunci blok yang digunakan bersifat dinamis. Hal ini memerlukan analisis lebih lanjut terkait metode pembaharuan kunci blok yang digunakan pada protokol ini pada masing-masing pihak. Hal ini diperlukan agar \emph{state} dari kunci blok dapat terjamin.
 
@@ -163,8 +162,7 @@ Saat proses pembacaan, pertama-tama frame record harus dipastikan terlebih dahul
 \emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} $\text{0xff00}$ pada saat proses \emph{handshake}. Nilai awal $\text{0xff}$ berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
 
 \subsection{Spesifikasi \emph{Handshake}}
-
-Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada bagian II.10.1. Proses ini dilakukan untuk membangkitkan \emph{master secret} yang digunakan. Terdapat beberapa spesifikasi khusus yang diterapkan pada protokol yang dibangun. Pertukaran kunci yang didukung hanyalah menggunakan Eliptic Curve Diffie-Hellman. Hal ini ditujukan agar keamanan dari \emph{premaster secret} dapat terjamin.
+Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada bagian \ref{sec:tls.handshake}. Proses ini dilakukan untuk membangkitkan \emph{master secret} yang digunakan. Terdapat beberapa spesifikasi khusus yang diterapkan pada protokol yang dibangun. Pertukaran kunci yang didukung hanyalah menggunakan Eliptic Curve Diffie-Hellman. Hal ini ditujukan agar keamanan dari \emph{premaster secret} dapat terjamin.
 
 Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 576 bytes. Hal ini dikarenakan diperlukannya tiga pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}.
 

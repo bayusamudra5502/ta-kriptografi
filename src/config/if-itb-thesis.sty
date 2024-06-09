@@ -28,6 +28,9 @@
 % \setmainlanguage{bahasa}
 % \setotherlanguage{english}
 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{booktabs}
 \usepackage[raggedrightboxes]{ragged2e}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, xparse}
@@ -158,7 +161,8 @@
 \setcounter{secnumdepth}{3}
 
 \makeatletter
-
+\renewcommand{\ALG@name}{Algoritme}%
+\renewcommand{\algorithmicrequire}{\textbf{Prasyarat:}}
 \makeatother
 
 % % Counter untuk figure dan table.
@@ -185,6 +189,8 @@
 \renewcommand*{\FancyVerbLineautorefname}{garis}%
 \renewcommand*{\theoremautorefname}{Teorema}%
 \renewcommand*{\pageautorefname}{halaman}%
+\renewcommand\thealgorithm{\thechapter.\arabic{algorithm}} 
+
 
 %%% biblatex hyperlink cite author and year
 % ref: https://tex.stackexchange.com/questions/15951/hyperlink-name-with-biblatex-authoryear-biblatex-1-4b

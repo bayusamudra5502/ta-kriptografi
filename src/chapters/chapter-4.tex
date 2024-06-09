@@ -8,7 +8,7 @@ Bagian ini menjelaskan dari implementasi solusi yang telah dirancang sebelumnya.
 Implementasi dilakukan dengan beberapa batasan dari protokol TLS yang telah didefinisikan pada \textcite{rfc5246}. Berikut ini merupakan batasan yang diterapkan:
 
 \begin{enumerate}
-  \item Implementasi hanya dilakukan menggunakan satu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
+  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
   \item Tiap pesan pada protokol \emph{handshake} dikirimkan melalui Protokol \emph{Record} yang berbeda.
   \item Fitur kompresi pada protokol TLS tidak diimplementasikan.
   \item Sertifikat digital diverifikasi secara \emph{pinning} dan tidak melakukan verifikasi \emph{revocation}.
@@ -183,16 +183,82 @@ Dalam pustaka yang dikembangkan, terdapat sebuah modul yang bertanggung jawab me
 \end{longtable}
   
 
-% \section{Pengujian}
+\section{Pengujian}
+Bagian ini menjelaskan dari pengujian yang dilakukan terhadap pustaka yang telah dibangun. Bagian ini akan menjelaskan terkait dengan detail pengujian yang dilakukan serta hasil dari pengujian tersebut.
 
-% \subsection{Tujuan Pengujian}
+\subsection{Tujuan Pengujian}
+Pengujian dilakukan dengan tujuan sebagai berikut:
+\begin{enumerate}
+  \item Menguji fungsionalitas dan keamanan dari \emph{cipher} yang dibangun.
+  \item Menguji fungsionalitas dan keamaman dari implementasi protokol TLS yang dibangun.
+\end{enumerate}
 
-% \subsection{Lingkungan Pengujian}
+Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{cipher} yang dibangun dapat menjalankan proses kriptografi dengan baik. Pengujian ini dilakukan dengan melakukan operasi kriptografi pada \emph{cipher} yang telah dibangun sesuai dengan kasus yang didefinisikan. Pengujian keamanan pada \emph{cipher} dilakukan dengan melakukan uji statistik pada sistem \emph{chaos} dan \emph{cipher} yang dibangun. Hal ini bertujuan untuk mengetahui sifat statistik yang mungkin muncul pada sistem \emph{chaos} dan hasil enkripsi dari \emph{cipher} yang dibangun. Uji statistik dilakukan dengan menggunakan NIST Statistical Test Suite yang telah diimplementasikan oleh \textcite{marek2016}. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah pertama.
 
-% \subsection{Skenario dan Hasil Pengujian}
+Pengujian fungsionalitas protokol TLS dilakukan untuk memastikan bahwa protokol yang dibangun dapat berjalan dengan baik. Pengujian ini dilakukan dengan melakukan proses \emph{handshake} pada protokol TLS yang dibangun dan proses pengiriman pesan. Pengujian ini dilakukan secara \emph{end to end} testing. Pengujian keamanan protokol TLS dilakukan dengan menguji beberapa kasus serangan yang mungkin terjadi pada protokol TLS. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah kedua.
 
-% \section{Analisis Hasil Pengujian} \label{sec:analisis-hasil-pengujian}
+\subsection{Lingkungan Pengujian}
+Adapun perangkat lunak dan pustaka yang digunakan pada pengujian ditunjukan pada tabel \ref{tab:test.lib}. Pengujian dilakukan pada perangkat dengan spesifikasi yang ditunjukan pada tabel \ref{tab:test.lib}. 
 
-% \subsection{Analisis Data Eksperimen}
+\begin{table}[!h]
+  \centering
+  \caption{Lingkungan Pengujian} \label{tab:test.env}
+  \begin{tabular}{|p{3cm}|p{6cm}|}
+    \hline
+    Jenis Lingkungan & Nilai \\ \hline
+    Sistem Operasi & Fedora Linux 40 \\ \hline
+    Kernel & Linux 6.8.9 \\ \hline
+    Manager Paket & Pip 23.3.2 \\ \hline
+    CPU & 11th Gen Intel i7-11800H (16) @ 4.600GHz \\ \hline
+    RAM & 32GB \\ \hline
+  \end{tabular}
+\end{table}
 
-% \subsection{Ancaman Validitas (Threat of Validity)}
+Pengujian dilakukan pada sistem operasi linux ditujukan untuk menggunakan fitur dari \emph{UNIX socket} yang telah disediakan oleh kernel linux. Pemilihan \emph{UNIX socket} dilibatkan dalam pengujian ini dikarenakan fitur tersebut dapat mensimulasikan proses TCP tanpa perlu membuka port. Oleh karena itu, fitur ini dapat memudahkan pengujian khususnya bila menggunakan \emph{unit testing}.
+
+\begin{table}[!h]
+  \centering
+  \caption{Pustaka Pengujian yang Digunakan} \label{tab:test.lib}
+  \begin{tabular}{|p{4cm}|p{9cm}|}
+    \hline
+    Nama Pustaka & Deskripsi \\ \hline
+    \texttt{pytest 8.1.1} & Pustaka ini digunakan untuk membantu dalam menyediakan \emph{runtime} pengujian dan membantu dalam proses \emph{debugging} bila terjadi kegagalan saat pengujian berlangsung. \\ \hline
+    \texttt{socket} & Pustaka standard ini digunakan untuk melakukan komunikasi melalui \emph{UNIX socket}.\\ \hline
+    \texttt{Fast Statictics Test v6.0.1} & Perangkat lunak ini digunakan dalam menguji keteracakan dari bytestream berdasarkan NIST Statistical Test Suite.\\ \hline
+    \texttt{Wireshark} & Perangkat lunak ini digunakan dalam mengamati pesan \emph{ciphertext} yang dihasilkan oleh protokol komunikasi.\\ \hline
+    \end{tabular}
+  \end{table}
+    
+
+  Pengujian statistik dilakukan dengan memanfaatkan Fast Statictics Test yang telah diimplementasikan oleh \textcite{marek2016}. Perangkat lunak ini merupakan optimasi dari implementasi pengujian perangkat lunak yang telah dibuat oleh NIST. Oleh karena itu, proses pengujian diharapkan dapat menjadi lebih cepat dan efisien. 
+
+\subsection{Skenario dan Hasil Pengujian}
+
+Bagian ini menjelaskan skenario pengujian yang dilakukan dan hasil dari pengujian yang telah disebutkan sebelumnya. Bagian ini dibagi menjadi dua bagian, yaitu pengujian \emph{cipher} dan pengujian implementasi protokol TLS.
+
+\subsubsection{Pengujian \emph{Cipher}}
+
+Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian fungsionalitas dan pengujian keamanan. Pengujian fungsionalitas dilakukan dengan beberapa skenario yang ditunjukan pada tabel \emph{test.case.cipher}. Pengujian keamanan dilakukan dengan menggunakan Fast Statictics Test yang telah diimplementasikan oleh \textcite{marek2016}.
+
+\begin{table}[!h]
+  \centering
+  \caption{Skenario Uji Cipher} \label{tab:test.case.cipher}
+  \begin{tabular}{|p{3cm}|p{7cm}|}
+    \hline
+    Kode Kasus Uji & Deskripsi \\ \hline
+    T1.1 & \emph{Cipher} dapat melakukan proses enkripsi pada pesan teks rahasia dengan menggunakan cipher AES-256 kunci blok dinamis\\ \hline
+    T1.2 & \emph{Cipher} dapat mendekripsi kembali pesan menggunakan cipher AES-256 kunci blok dinamis\\ \hline
+    T1.3 & Hasil dekripsi pada pesan yang dilakukan \emph{replay attack} haruslah gagal\\ \hline
+    T1.4 & Hasil dekripsi pada pesan yang mengalami \emph{bit-flip attack} haruslah gagal\\ \hline
+    T1.5 & Hasil enkripsi dari \emph{Cipher} pada dua blok yang memiliki pesan yang sama memiliki hasil blok yang berbeda\\ \hline
+  \end{tabular}
+\end{table}
+
+
+
+\section{Analisis Hasil Pengujian} 
+\label{sec:analisis-hasil-pengujian}
+
+\subsection{Analisis Data Eksperimen}
+
+\subsection{Ancaman Validitas (Threat of Validity)}

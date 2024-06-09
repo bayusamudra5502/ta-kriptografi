@@ -1,6 +1,8 @@
 \chapter{Studi Literatur}
 
 \section{Jaringan Komputer}
+\label{sec:jaringan-komputer}
+
 Menurut \textcite{forouzan2012}, jaringan komputer merupakan sebuah keterhubungan dari beberapa perangkat yang dapat melakukan komunikasi satu sama lain. Perangkat yang dapat terlibat pada jaringan komputer ini sapat berupa \emph{host} seperti komputer, laptop, dan gawai lainnya. Selain itu, perangkat pada definisi di atas dapat berupa perangkat penghubung. Beberapa contoh dari perangkat penghubung adalah \emph{router}, \emph{switch}, dan \emph{modem}.
 
 Terdapat empat buah syarat sebuah sistem dapat dikatakan sebagai jaringan komputer menurut \textcite{pratama2015}. Syarat-syarat yang perlu dipenuhi adalah sebagai berikut:
@@ -357,9 +359,13 @@ Setelah mendapatkan nilai $u_1$ dan $u_2$, Budi perlu menghitung nilai $v$ denga
 Apabila nilai $v$ sama dengan nilai $r$, maka tanda tangan yang diberikan oleh Ahmad adalah benar. Oleh karena itu, budi dapat memastikan pesan tersebut berasal dari Ahmad.
 
 \section{\emph{Transport Layer Security} (TLS)}
+\label{sec:tls}
+
 Menurut \textcite{rfc5246}, Protokol TLS merupakan protokol yang dapat memberikan perlindungan data baik secara privasi dan juga terhadap integritas dari sebuah data. Pada dasarnya protokol ini merupakan pengembangan dari protokol SSL. Protokol TLS terdiri atas dua buah layer, yaitu protokol \emph{Handshake} dan protokol \emph{Record}. Secara singkat, layer \emph{Handshake} menjelaskan terkait cara untuk menyamakan \emph{state} dari setiap partisipan. Pada layer \emph{Record}, dijelaskan terkait cara untuk membungkus pesan yang akan dikirimkan. Protokol TLS harus bekerja diatas layer transport yang reliabel. Transport yang digunakan biasanya adalah TCP.
 
 \subsection{Protokol \emph{Handshake}}
+\label{sec:tls.handshake}
+
 Proses \emph{Handshake} merupakan proses untuk menyamakan \emph{state} dari kedua partisipan yang terkoneksi melalui protokol TLS. Proses ini dilakuan setelah koneksi TCP berhasil dibuat. Secara umum, proses handshake
 digambarkan pada gambar \ref{fig:tls.handshake}.
 
@@ -536,6 +542,51 @@ Ilustrasi dari struktur data pesan ini ditunjukan pada gambar \ref{fig:tls.recor
   Sumber: \textcite{joshua2011}
 \end{figure}
 
+\section{NIST Statistical Test Suite}
+\label{sec:nist.statistical.test}
+
+Menurut \textcite{rukhin2010}, NIST Statistical Test Suite merupakan kumpulan dari beberapa tes statistik yang digunakan untuk menguji kualitas keamanan dari sebuah barisan bilangan acak terhadap ancaman statistik. Sebuah sistem penghasil bilangan acak perlu memiliki sifat keteracakan dan sifat \emph{unpredictability}. 
+
+Sifat keteracakan adalah kondisi dimana setiap bit yang dihasilkan oleh generator memiliki peluang yang sama dan saling independen. Dalam hal ini, makna dari independen adalah tiap bit yang dihasilkan tidak bergantung pada bit-bit sebelumnya. Salah satu ciri dari keteracakan adalah kelompok nilai yang dihasilkan memiliki distribusi yang uniform.
+
+Sifat \emph{unpredictability} adalah kondisi ketidakmungkinan untuk mendapatkan nilai-nilai yang akan datang dan nilai yang telah dihasilkan dari barisan bilangan acak tanpa mengetahui nilai \emph{seed} yang digunakan. Oleh karena itu, \emph{seed} dari bilangan acak tidak boleh memberikan korelasi terhadap nilai-nilai yang dihasilkan. Hal ini dapat dipastikan dengan tiap-tiap yang dihasilkan oleh \emph{generator} memiliki peluang independen yang sama.
+
+Pengujian NIST Statistical Test terbagi menjadi beberapa test. Test ini dilakukan memanfaatkan pengujian hipotesis statistik. Pengujian ini menggunakan distribusi normal dan distribusi \emph{chi-square} sebagai acuan dari distribusi. Pengujian dilakukan dengan mengamati sampel dari barisan bilangan acak yang dihasilkan. Sampel dilakukan 15 kasus pengujian yang telah didefinisikan:
+
+\begin{enumerate}
+  \item Uji \emph{Frequency} (Monobit) \\
+  Pengujian ini dilakukan untuk memastikan bahwa nilai bit 0 dan 1 memiliki jumlah yang relatif sama.
+  \item Uji \emph{Block Frequency} \\
+  Pengujian ini dilakukan untuk memastikan nilai bit 0 dan 1 memiliki jumlah relatif sama bila barisan bit dibagi dalam blok-blok yang lebih kecil.
+  \item Uji \emph{Runs} \\
+  Pengujian ini memastikan jumlah \emph{runs} pada barisan acak serupa dengan jumlah \emph{runs} pada nilai acak yang sesungguhnya. \emph{Runs} adalah kelompok bit yang memiliki nilai lama secara berturut-turut.
+  \item Uji \emph{Run of Ones} Terpanjang pada Satu Blok \\
+  Pengujian ini untuk memastikan panjang \emph{runs} dengan nilai bit 1 terpanjang konsisten dengan panjang \emph{runs} tersebut pada bilangan acak yang sesungguhnya.
+  \item Uji \emph{Rank} Matriks Biner \\
+  Pengujian dilakukan untuk memastikan tidak ada hubungan linear antara substring dari barisan yang dihasilkan.
+  \item Uji \emph{FFT} \\
+  Pengujian ini dilakukan untuk memastikan tidak adanya sifat periodik yang muncul dengan mengamati frekuensi pada barisan.
+  \item Uji \emph{Non Overlapping Template Matching} \\
+  Pengujian ini dilakukan untuk memastikan tidak adanya pola yang sering muncul memanfaatkan teknik pencarian \emph{non overlapping}.
+  \item Uji \emph{Overlapping Template Matching} \\
+  Pengujian ini dilakukan untuk memastikan tidak adanya pola yang sering muncul memanfaatkan teknik pencarian \emph{overlapping}.
+  \item Uji \emph{Universal} \\
+  Pengujian ini dilakukan untuk mengetahui sebuah barisan dapat dilakukan kompresi secara signifikan tanpa menghilangkan informasi (\emph{lossless compression}). Bila barisan dapat dilakukan kompresi secara signifikan, barisan tersebut tidak acak.
+  \item Uji Kompleksitas Linear \\
+  Pengujian ini dilakukan untuk mengetahui tingkat kompleksitas sebuah barisan acak dengan mengamati panjang dari LFSR. Semakin panjang LFSR yang dibentuk, barisan dapat disebut acak.
+  \item Uji Serial \\
+  Pengujian ini dilakukan untuk mengamati kemunculan pola substring pada barisan acak yang diuji memiliki distribusi yang sama dengan barisan acak yang sesungguhnya.
+  \item Uji Entropi \\
+  Pengujian ini dilakukan untuk mengamati frekuensi dari setiap pola substring memiliki nilai entropi yang serupa dengan barisan acak sesungguhnya.
+  \item Uji Jumlah Kumulatif \\
+  Pengujian ini dilakukan untuk memastikan jumlah kumulatif yang dihasilkan pada barisan acak yang diuji memiliki jumlah kumulatif yang setara dengan jumlah kumulatif pada barisan acak yang sesungguhnya. Hal ini akan dibandingkan melalui distribusi \emph{Standard Normal Cumulative Probability Distribution Function}. Pengujian dilakukan dengan menghitung kumulatif jumlah maju dan mundur.
+  \item Uji \emph{Random Excursions} \\
+  Pengujian ini dilakukan untuk memastikan banyaknya \emph{visit} dari jumlah kumulatif pada tiap \emph{cycle} memiliki distribusi yang serupa dengan barisan acak yang sesungguhnya.
+  \item Uji \emph{Random Excursions Variant} \\
+  Pengujian ini dilakukan untuk memastikan banyaknya \emph{visit} dari jumlah kumulatif pada barisan memiliki distribusi yang serupa dengan barisan acak yang sesungguhnya.
+\end{enumerate}
+
+
 \section{Penelitian Terkait}
 
 Penelitian terkait enkripsi dinamis telah dilakukan oleh beberapa pihak. Berikut ini adalah beberapa penelitian yang berkaitan dengan enkripsi dinamis. 
@@ -640,7 +691,6 @@ Menurut \textcite{singh2019}, S-box yang dapat dibentuk sangat sensitif terhadap
 Pada penelitian \textcite{singh2019}, algoritma enkripsi yang telah dijelaskan sebelumnya diuji dengan melakukan enkripsi gambar \emph{grayscale}. Pengujian yang dilakukan adalah pengujian analisis histogram, pengujian korelasi koefisien, kualitas enkripsi, entropi informasi, dan NPCR-UACI test. Hasil pengujian menunjukan bahwa AES dan Dynamic AES memiliki kualitas enkripsi yang cukup setara. Akan tetapi, dalam pengujian korelasi koefisien, AES dinamis memiliki hasil yang lebih baik dibandingkan dengan AES.
 
 \subsection{Perbaikan Keamanan dari Algoritma AES memanfaatkan \emph{Salt} Dinamis}
-
 Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada gambar \ref{fig:bachtiar.enc.process}.
 
 \begin{figure}[!h]
