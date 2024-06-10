@@ -16,6 +16,8 @@ repeat
     :Kembalikan ke state awal;
     stop;
   endif
+
+  :Update Counter dan Kunci Blok;
 repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
 
 stop

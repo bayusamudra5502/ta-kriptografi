@@ -3,12 +3,12 @@ package "conn" {
   [TCPServer] -down-> [TCP]
   [TCPClient] -down-> [TCP]
   [TLS] -right-> [TCP]
-  [TLS] -left-> [Handsake]
+  [TLS] -left-> [Handshake]
 }
 
 package "crypto" {
   [DynamicAES]
-  [DynamicMAC] -left-> [HenonSineMap]
+  [MAC]
   [DynamicAES] -> [HenonSineMap]
   [KeyGenerator]
 }
@@ -34,16 +34,21 @@ package "pathlib" {
   [Path]
 }
 
-DynamicMAC -down-> [Digest Comparator]
+package "util" {
+}
+
 Main -down-> Path
 Main -down-> TCPServer
 Main -down-> TCPClient
 Main -down-> TLS
 TLS -down-> DynamicAES
-TLS -down-> DynamicMAC
 TCP -> Socket
-TLS -> KeyGenerator
+Handshake -> KeyGenerator
+Handshake -down-> MAC
+TLS -down-> MAC
 DynamicAES -down-> AES
-DynamicMAC -down-> HMAC
+MAC -down-> HMAC
+MAC -down-> [Digest Comparator]
+TLS -down-> util
 
 @enduml

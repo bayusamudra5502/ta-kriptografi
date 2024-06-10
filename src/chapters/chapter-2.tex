@@ -363,6 +363,19 @@ Apabila nilai $v$ sama dengan nilai $r$, maka tanda tangan yang diberikan oleh A
 
 Menurut \textcite{rfc5246}, Protokol TLS merupakan protokol yang dapat memberikan perlindungan data baik secara privasi dan juga terhadap integritas dari sebuah data. Pada dasarnya protokol ini merupakan pengembangan dari protokol SSL. Protokol TLS terdiri atas dua buah layer, yaitu protokol \emph{Handshake} dan protokol \emph{Record}. Secara singkat, layer \emph{Handshake} menjelaskan terkait cara untuk menyamakan \emph{state} dari setiap partisipan. Pada layer \emph{Record}, dijelaskan terkait cara untuk membungkus pesan yang akan dikirimkan. Protokol TLS harus bekerja diatas layer transport yang reliabel. Transport yang digunakan biasanya adalah TCP.
 
+Menurut \textcite{munir2019}, Protokol TLS ini merupakan pengembangan dari protokol SSL yang dikembangkan oleh Netscape pada tahun 1994. Protokol ini dikembangkan untuk mengatasi kelemahan yang dimiliki oleh SSL. Protokol ini memiliki beberapa versi, diantaranya adalah TLS 1.0, TLS 1.1, TLS 1.2, dan TLS 1.3. 
+
+Protokol TLS 1.2 merupakan protokol yang paling banyak digunakan pada saat ini. Protokol ini memiliki beberapa fitur yang tidak dimiliki oleh protokol SSL dan TLS sebelumnya:
+\begin{enumerate}
+  \item Protokol TLS 1.2 mendukung HMAC berbasis SHA256
+  \item Protokol TLS 1.2 tidak lagi mendukung \emph{cipher} yang tidak aman, seperti DES dan IDEA.
+  \item PRF berbasiskan MD4/SHA-1 digantikan dengan PRF berbasis P\_SHA256.
+  \item Adanya \emph{cipher} baru seperti AES-GCM.
+\end{enumerate}
+
+Protokol TLS 1.3 merupakan protokol yang paling baru dari protokol TLS. Berdasarkan \textcite{rfc8446}, Protokol ini menawarkan optimasi proses handshake dari TLS 1.2. Selain itu, protokol ini juga hanya mendukung \emph{cipher} berbasis \emph{Authenticated Encryption with Associated Data} (AEAD).
+
+
 \subsection{Protokol \emph{Handshake}}
 \label{sec:tls.handshake}
 
@@ -419,6 +432,7 @@ Pesan pendukung lain yang perlu dikirimkan oleh \emph{server} adalah sertifikat 
 
 
 \subsubsection{Pertukaran Kunci}
+\label{sec:tls.keyexchange}
 
 Pada dasarnya, TLS mendukung dua metode pertukaran kunci sebagai berikut:
 \begin{enumerate}
@@ -554,9 +568,9 @@ Sifat \emph{unpredictability} adalah kondisi ketidakmungkinan untuk mendapatkan 
 Pengujian NIST Statistical Test terbagi menjadi beberapa test. Test ini dilakukan memanfaatkan pengujian hipotesis statistik. Pengujian ini menggunakan distribusi normal dan distribusi \emph{chi-square} sebagai acuan dari distribusi. Pengujian dilakukan dengan mengamati sampel dari barisan bilangan acak yang dihasilkan. Sampel dilakukan 15 kasus pengujian yang telah didefinisikan:
 
 \begin{enumerate}
-  \item Uji \emph{Frequency} (Monobit) \\
+  \item Uji frekueni (Monobit) \\
   Pengujian ini dilakukan untuk memastikan bahwa nilai bit 0 dan 1 memiliki jumlah yang relatif sama.
-  \item Uji \emph{Block Frequency} \\
+  \item Uji frekuensi dalam blok \\
   Pengujian ini dilakukan untuk memastikan nilai bit 0 dan 1 memiliki jumlah relatif sama bila barisan bit dibagi dalam blok-blok yang lebih kecil.
   \item Uji \emph{Runs} \\
   Pengujian ini memastikan jumlah \emph{runs} pada barisan acak serupa dengan jumlah \emph{runs} pada nilai acak yang sesungguhnya. \emph{Runs} adalah kelompok bit yang memiliki nilai lama secara berturut-turut.

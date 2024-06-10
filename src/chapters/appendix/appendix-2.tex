@@ -1,0 +1,122 @@
+\chapter{{{Daftar Fungsi dan Kelas Implementasi Pustaka}}} 
+\label{appendix:impl}
+
+Bagian ini menjelaskan daftar kelas yang digunakan dalam implementasi pustaka \emph{Chaos-based Key Block Cipher}.
+
+\section{Modul Utilitas dan kriptografi}
+\label{appendix:impl.util}
+
+\begin{table}[!h]
+  \centering
+  \caption{Fungsi pada Modul Utilitas} \label{tab:impl.util}
+  \begin{tabular}{|p{2.5cm}|p{3.5cm}|p{8cm}|}
+    \hline
+    Modul & Nama Fungsi & Deskripsi \\ \hline
+    \texttt{util} & \texttt{to\_linear(x)} & Fungsi ini ditujukan untuk melakukan proses linearisasi berdasarkan persamaan \ref{eq:chaos.linearization} \\ \hline
+    \texttt{util} & \texttt{xor(x,y)} & Fungsi ini ditujukan untuk melakukan xor pada tiap-tiap bit yang ada pada nilai $x$ dan $y$ \\ \hline
+    \texttt{util} & \texttt{to\_bytes\_big(x,y)} & Fungsi ini mengkonversi nilai $x$ dan $y$ dalam format \emph{big-endian} \\ \hline
+    \texttt{util} & \texttt{to\_int\_big(x)} & Fungsi ini mengkonversi nilai bytes $x$ menjadi integer\\ \hline
+    \texttt{crypto.sign} & \texttt{sign(data, pk)} & Fungsi ini akan membuat digital signature dengan berdasarkan kunci privat $pk$. Fungsi ini merupakan implementasi dari ID solusi S8.\\ \hline
+    \texttt{crypto.sign} & \texttt{verify(data, sign, pk)} & Fungsi ini akan mengembalikan \texttt{true} apabila signature valid berdasarkan data dan kunci publik $pk$. Fungsi ini merupakan implementasi dari ID solusi S8.\\ \hline
+    \texttt{crypto.key} & \texttt{generate\_shared} \texttt{\_secret(sp, cs)} & Fungsi ini akan menghasilkan \emph{premaster secret} yang diturunkan dari oprasi ECDSA menggunakan kunci publik $sp$ dan kunci privat $cs$. Fungsi ini merupakan implementasi dari ID solusi S2.\\ \hline
+    \texttt{crypto.key} & \texttt{generate\_master} \texttt{\_secret(pms, r\_c, s\_r)} & Fungsi ini akan menghasilkan \emph{master secret} yang diturunkan berdasarkan \ref{eq:tls.master}. Fungsi ini merupakan implementasi dari ID solusi S3.\\ \hline
+    \texttt{crypto.key} & \texttt{generate\_chaos} \texttt{\_parameter(ms, r\_c, s\_r)} & Fungsi ini akan menghasilkan objek AES dan HMAC melalui proses ekspansi kunci dan pembentukan sistem \emph{chaos}. Fungsi ini merupakan implementasi dari ID solusi S3.\\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[!h]
+  \centering
+  \caption{Kelas pada Modul Utilitas dan Crypto} \label{tab:impl.util.crypto}
+  \begin{tabular}{|p{2.75cm}|p{3.5cm}|p{8cm}|}
+    \hline
+    Modul & Nama Kelas & Deskripsi \\ \hline
+    \texttt{crypto.aes} & \texttt{DynamicState} & Kelas ini digunakan sebagai \emph{base class} dari HMAC dan AES. Kelas ini mengimplementasikan solusi S4, S5, dan S6.\\ \hline
+    \texttt{crypto.aes} & \texttt{DynamicAES} & Kelas ini digunakan untuk melakukan operasi enkripsi menggunakan AES. Kelas ini mengimplementasikan solusi S4, S5, dan S6.\\ \hline
+    \texttt{crypto.aes} & \texttt{MAC} & Kelas ini digunakan untuk melakukan operasi HMAC. Kelas ini mengimplementasikan solusi S6.\\ \hline
+    \texttt{crypto.csprng} & \texttt{SineHenonMap} & Kelas ini digunakan untuk membantu dalam menghasilkan nilai \emph{chaos} sesuai persamaan \ref{eq:tls.chaos}. Kelas ini digunakan sebagai implementasi solusi S1.\\ \hline
+  \end{tabular}
+\end{table}
+
+\section{Modul Data}
+
+\begin{longtable}{|p{3.5cm}|p{9cm}|}
+    \caption{Kelas pada Modul Data} \label{tab:impl.data} \\
+    \hline
+    Nama Kelas & Deskripsi \\ \hline
+    
+    \endfirsthead
+    \caption[]{Kelas pada Modul Data} \\
+    
+    \hline
+    Nama Kelas & Deskripsi \\ \hline
+    \endhead
+
+    \texttt{TLSPayload} & Kelas ini merupakan kelas abstrak yang merupakan induk dari semua kelas data yang merepresentasikan data pada \textcite{rfc5246}\\ \hline
+    \texttt{TLSCertificate} & Kelas ini merepresentasikan tipe data \texttt{Certificate} pada \textcite{rfc5246} \\ \hline
+    \texttt{ChangeCipherSpec} & Kelas ini merepresentasikan tipe data \texttt{ChangeCipherSpec} pada \textcite{rfc5246} \\ \hline
+    \texttt{ProtocolVersion} & Kelas ini merepresentasikan tipe data \texttt{ProtocolVersion} pada \textcite{rfc5246} \\ \hline
+    \texttt{ContentType} & Kelas ini merepresentasikan tipe data \texttt{ContentType} pada \textcite{rfc5246} \\ \hline
+    \texttt{ContentType} & Kelas ini merepresentasikan enum dari content type yang ada pada \textcite{rfc5246} \\ \hline
+    \texttt{Signature} & Kelas ini merupakan kelas yang merepresentasikan tipe data \texttt{Signature} pada \textcite{rfc5246}\\ \hline
+    \texttt{ECPoint} & Kelas ini merupakan kelas yang merepresentasikan titik kurva eliptik seperti tipe data \texttt{ECPoint} pada \textcite{rfc4492}\\ \hline
+    \texttt{ECParameter} & Kelas ini merupakan kelas yang merepresentasikan tipe data \texttt{ECParameter} pada \textcite{rfc4492}. Parameter ini digunakan untuk merepresentasikan tipe kurva saat proses ECDH.\\ \hline
+    \texttt{ECDHParameter} & Kelas ini merupakan kelas yang merepresentasikan tipe data \texttt{ECDHParameter} pada \textcite{rfc4492}. Parameter ini digunakan untuk merepresentasikan titik saat proses ECDH.\\ \hline
+    \texttt{KeyExchange} & Kelas ini merupakan kelas abstrak yang menyatakan representasi induk dari tipe data KeyExchange untuk Client dan Server.\\ \hline
+    \texttt{ServerKeyExchange} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{ServerKeyExchange} pada \textcite{rfc5246}.\\ \hline
+    \texttt{ClientKeyExchange} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{ClientKeyExchange} pada \textcite{rfc5246}.\\ \hline
+    \texttt{Finish} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{Finished} pada \textcite{rfc5246}.\\ \hline
+    \texttt{Handshake} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{Handshake} pada \textcite{rfc5246}.\\ \hline
+    \texttt{Random} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{Random} pada \textcite{rfc5246}.\\ \hline
+    \texttt{ClientHello} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{ClientHello} pada \textcite{rfc5246}.\\ \hline
+    \texttt{ServerHello} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{ServerHello} pada \textcite{rfc5246}.\\ \hline
+    \texttt{ServerHelloDone} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{ServerHelloDone} pada \textcite{rfc5246}.\\ \hline
+    \texttt{TLSRecordLayer} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{TLSRecordLayer} pada \textcite{rfc5246}.\\ \hline
+    \texttt{TLSCiphertext} & Kelas ini merupakan kelas yang menyatakan representasi data \texttt{TLSCiphertext} pada \textcite{rfc5246}.\\ \hline
+\end{longtable}
+
+\begin{table}[!h]
+  \centering
+  \caption{Enum pada Modul Data} \label{tab:impl.enum}
+  \begin{tabular}{|p{3.75cm}|p{9cm}|}
+    \hline
+    Nama Enum & Deskripsi \\ \hline
+    \texttt{ContentType} & Enum ini mengenumerasi nilai \emph{content type} yang ada pada \textcite{rfc5246} \\ \hline
+    \texttt{CipherSuite} & Enum ini mengenumerasi nilai enum dari \emph{cipher suite} yang diimplementasikan pada pustaka \\ \hline
+    \texttt{CompressionMethod} & Enum ini mengenumerasi nilai enum dari metode kompresi yang diimplementasikan pada pustaka \\ \hline
+    \texttt{HashAlgorithm} & Enum ini mengenumerasi nilai enum dari algoritma hash yang didukung pada pustaka \\ \hline
+    \texttt{SignatureAlgorithm} & Enum ini mengenumerasi nilai enum dari algoritma tanda tangan digital yang didukung pada pustaka \\ \hline
+    \texttt{ECCurveType} & Enum ini mengenumerasi nilai enum dari tipe \texttt{CurveType} yang didukung pada pustaka\\ \hline
+    \texttt{NamedCurve} & Enum ini mengenumerasi nilai enum dari kurva eliptik yang didukung pada pustaka\\ \hline
+    \texttt{HandshakeType} & Enum ini mengenumerasi nilai enum dari tipe handshake pada TLSv1.2\\ \hline
+  \end{tabular}
+\end{table}
+
+\section{Modul Komunikasi}
+
+
+\begin{longtable}{|p{4cm}|p{8cm}|}
+  \caption{Kelas pada Modul Komunikasi} \label{tab:impl.comm} \\
+  \hline
+  Nama Kelas & Deskripsi \\ \hline
+  \endfirsthead
+  \caption[]{Kelas pada Modul Komunikasi} \\
+
+  \hline
+    Nama Kelas & Deskripsi \\ \hline
+    \endhead
+
+    \texttt{TLSHandshake} & Kelas ini merupakan kelas abstrak yang bertanggung jawab dalam memberikan prototipe perilaku dari kelas yang melakukan proses TLS \emph{Handshake}.\\ \hline
+    \texttt{ClientHandshake} & Kelas ini bertanggung jawab untuk melakukan proses handshake pada sisi klien. Kelas ini merupakan implementasi dari solusi S3, S5, S7, dan S8.\\ \hline
+    \texttt{ServerHandshake} & Kelas ini bertanggung jawab untuk melakukan proses handshake pada sisi server. Kelas ini merupakan implementasi dari solusi S3, S5, S7, dan S8.\\ \hline
+    \texttt{Transport} & Kelas ini merupakan kelas abstrak yang menggambarkan perilaku dari setiap kelas yang dapat menjadi transport layer\\ \hline
+    \texttt{MemoryTransport} & Kelas ini merupakan yang mensimulasikan transport layer pada memori\\ \hline
+    \texttt{Socket} & Kelas ini merupakan yang berperasn sebagai transport layer pada Unix Socket\\ \hline
+    \texttt{SingleSocketServer} & Kelas ini merupakan kelas yang berperan sebagai \emph{UNIX Socket Server}\\ \hline
+    \texttt{SocketClient} & Kelas ini merupakan kelas yang berperan sebagai \emph{UNIX Socket Client}\\ \hline
+    \texttt{TCP} & Kelas ini merupakan kelas yang berperan sebagai transport layer pada TCP\\ \hline
+    \texttt{TCPServer} & Kelas ini merupakan kelas yang berperan sebagai \emph{server manager} pada protokol TCP\\ \hline
+    \texttt{TCPClient} & Kelas ini merupakan kelas yang berperan sebagai klien pada protokol TCP\\ \hline
+    \texttt{TLSConnection} & Kelas ini merupakan kelas yang berperan dalam mengatur alur dari protokol TLS. Kelas ini merupakan implementasi dari solusi S9.\\ \hline
+    \texttt{TLSApplication} \texttt{RecordHandler} & Kelas ini merupakan kelas yang digunakan untuk mengatur \emph{application data} pada protokol TLS. Kelas ini merupakan implementasi dari solusi S9.\\ \hline
+\end{longtable}
+  

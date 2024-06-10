@@ -1,7 +1,7 @@
 \chapter{{{Tipe Data Protokol TLSv1.2}}} 
 \label{appendix:tls12.datatype}
 
-Berikut ini merupakan daftar dari tipe data yang digunakan pada protokol TLSv1.2. Daftar ini diimplementasikan pada \textcite{rfc5246} dan \textcite{rfc4492}.
+Berikut ini merupakan daftar dari tipe data yang digunakan pada protokol TLSv1.2 serta tipe data tambahan yang berkaitan dengan \emph{cipher} berbasis sistem \emph{chaos}. Daftar ini disandur dari \textcite{rfc5246} dan \textcite{rfc4492} dengan sedikit perubahan.
 
 \section{Layer \emph{Record}}
 
@@ -33,8 +33,41 @@ Berikut ini merupakan daftar dari tipe data yang digunakan pada protokol TLSv1.2
         case stream: GenericStreamCipher;
         case block:  GenericBlockCipher;
         case aead:   GenericAEADCipher;
+
+        /* Block cipher yang dikembangkan pada penelitian ini */
+        case chaos_block: GenericChaosBlockCipher;
     } fragment;
   } TLSCiphertext;
+
+  struct {
+    opaque IV[SecurityParameters.record_iv_length];
+    block-ciphered struct {
+        opaque content[TLSCompressed.length];
+        opaque MAC[SecurityParameters.mac_length];
+        uint8 padding[GenericBlockCipher.padding_length];
+        uint8 padding_length;
+    };
+  } GenericBlockCipher;
+
+  stream-ciphered struct {
+          opaque content[TLSCompressed.length];
+          opaque MAC[SecurityParameters.mac_length];
+  } GenericStreamCipher;
+  
+  struct {
+    opaque nonce_explicit[SecurityParameters.record_iv_length];
+    aead-ciphered struct {
+        opaque content[TLSCompressed.length];
+    };
+ } GenericAEADCipher;
+
+  struct {
+    block-ciphered struct {
+      opaque content[TLSCompressed.length];
+    };
+    opaque MAC[SecurityParameters.mac_length];
+  } GenericChaosBlockCipher;
+
 
 \end{verbatim}
 
@@ -75,6 +108,46 @@ struct {
     } body;
 } Handshake;
 
+\end{verbatim}
+
+\section{Pesan \emph{Alert}}
+
+\begin{verbatim}
+  enum { warning(1), fatal(2), (255) } AlertLevel;
+
+  enum {
+    close_notify(0),
+    unexpected_message(10),
+    bad_record_mac(20),
+    decryption_failed_RESERVED(21),
+    record_overflow(22),
+    decompression_failure(30),
+    handshake_failure(40),
+    no_certificate_RESERVED(41),
+    bad_certificate(42),
+    unsupported_certificate(43),
+    certificate_revoked(44),
+    certificate_expired(45),
+    certificate_unknown(46),
+    illegal_parameter(47),
+    unknown_ca(48),
+    access_denied(49),
+    decode_error(50),
+    decrypt_error(51),
+    export_restriction_RESERVED(60),
+    protocol_version(70),
+    insufficient_security(71),
+    internal_error(80),
+    user_canceled(90),
+    no_renegotiation(100),
+    unsupported_extension(110),           /* new */
+    (255)
+  } AlertDescription;
+
+  struct {
+    AlertLevel level;
+    AlertDescription description;
+  } Alert;
 \end{verbatim}
 
 \section{Pesan Hello}

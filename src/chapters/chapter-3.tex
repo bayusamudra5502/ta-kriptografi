@@ -14,20 +14,20 @@ Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara
 
 \begin{table}[!h]
   \centering
-  \caption{Permasalahan yang dihadapi pada protokol komunikasi} \label{tab:permasalahan}
+  \caption{Permasalahan yang dihadapi pada protokol TLS dengan \emph{Cipher} berbasis sistem \emph{chaos}} \label{tab:permasalahan}
   \begin{tabular}{|c|p{6cm}|c|}
     \hline
-    No & Deskripsi & Rumusan Masalah Terkait \\
+    ID Masalah & Deskripsi & Rumusan Masalah Terkait \\
     \hline
-    P1 & Serangan MITM saat adanya komunikasi berlangsung & 2 \\ \hline
-    P2 & Serangan \emph{replay attack} saat adanya komunikasi berlangsung & 1 dan 2 \\ \hline
-    P3 & Serangan \emph{tampering} pada pesan terenkripsi & 2 \\ \hline
-    P4 & Serangan kriptografi melalui analisis pesan terenkripsi & 1 \\ \hline
-    P5 & Ancaman analisis nilai acak yang dihasilkan oleh sistem \emph{chaos} & 1 \\ \hline
-    P6 & Pembentukan nilai awal sistem \emph{chaos} melalui prosedur \emph{handshake} TLS & 1 dan 2 \\ \hline
-    P7 & Pembentukan kunci blok baru saat proses enkripsi dan dekripsi & 1 dan 2 \\ \hline
-    P8 & Ancaman \emph{flooding} kepada partisipan komunikasi & 2 \\ \hline
-
+    P1 & Pemilihan Versi Protokol TLS & 2 \\ \hline
+    P2 & Serangan MITM saat adanya komunikasi berlangsung & 2 \\ \hline
+    P3 & Serangan \emph{replay attack} saat adanya komunikasi berlangsung & 1 dan 2 \\ \hline
+    P4 & Serangan \emph{tampering} pada pesan terenkripsi & 2 \\ \hline
+    P5 & Serangan kriptografi melalui analisis pesan terenkripsi & 1 \\ \hline
+    P6 & Ancaman analisis nilai acak yang dihasilkan oleh sistem \emph{chaos} & 1 \\ \hline
+    P7 & Pembentukan nilai awal sistem \emph{chaos} & 1 dan 2 \\ \hline
+    P8 & Pembentukan kunci blok baru saat proses enkripsi dan dekripsi & 1 dan 2 \\ \hline
+    P9 & Ancaman \emph{flooding} kepada partisipan komunikasi & 2 \\ \hline
   \end{tabular}
 \end{table}
 
@@ -46,8 +46,9 @@ Pesan yang dikirimkan dalam jaringan publik dapat diamati oleh Candra. Candra da
 
 \subsection{Analisis Permasalahan Penerapan AES dengan Sistem \emph{Chaos} pada Protokol TLS}
 \label{sec:ancaman-implementasi}
+Dalam penerapan \emph{cipher} AES dengan sistem \emph{chaos} pada protokol TLS, diperlukan memilih versi protokol TLS yang tepat. Pemilihan versi protokol TLS yang tepat perlu memperhatikan keamanan yang diberikan oleh protokol tersebut. Pada dasarnya, protokol TLS memiliki beberapa versi yang berbeda, diantaranya adalah TLSv1.0, TLSv1.1, TLSv1.2, dan TLSv1.3. 
 
-Dalam penerapan \emph{cipher} AES dengan sistem \emph{chaos}, diperlukan memilih sistem \emph{chaos} yang tepat yang digunakan sebagai kunci blok. Sistem \emph{chaos} ini juga harus memiliki sifat \emph{forward unpredictability} dan \emph{backward unpredictability} sebagaimana yang dijelaskan pada bagian \ref{sec:nist.statistical.test}. Ancaman yang terkait dengan hal ini adalah adanya analisis nilai acak untuk mendapatkan nilai acak yang akan datang dan nilai acak yang telah digenerate sebelumnya. Hal ini dapat menyebabkan pesan yang dikirimkan dapat didekripsi oleh penyerang, baik pesan yang diterima dan pesan yang akan datang.
+Selain itu, sistem \emph{chaos} yang tepat perlu dipilih untuk digunakan sebagai kunci blok. Sistem \emph{chaos} ini juga harus memiliki sifat \emph{forward unpredictability} dan \emph{backward unpredictability} sebagaimana yang dijelaskan pada bagian \ref{sec:nist.statistical.test}. Ancaman yang terkait dengan hal ini adalah adanya analisis nilai acak untuk mendapatkan nilai acak yang akan datang dan nilai acak yang telah digenerate sebelumnya. Hal ini dapat menyebabkan pesan yang dikirimkan dapat didekripsi oleh penyerang, baik pesan yang diterima dan pesan yang akan datang.
 
 Sistem \emph{chaos} juga memerlukan nilai awal atau \emph{seed} yang akan digunakan sebagai nilai awal dari sistem \emph{chaos}. Nilai ini perlu dihasilkan dari proses \emph{handshake} yang dilakukan melalui protokol TLS. Oleh karena itu, diperlukan sebuah mekanisme pembangkitan nilai \emph{seed} melalui prosedur \emph{handshake} tersebut.
 
@@ -57,23 +58,34 @@ Pada protokol TLS, terdapat mekanisme pemeriksaan integritas pesan. Mekanisme in
 
 \section{Analisis Solusi}
 
-Bagian ini akan menjelaskan terkait solusi dari permaslahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan.
+Bagian ini akan menjelaskan terkait solusi dari permaslahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan. Secara garis besar, solusi yang diusulkan ditunjukkan pada tabel \ref{tab:solusi}.
+
+\begin{table}[!h]
+  \centering
+  \caption{Solusi yang diusulkan pada protokol yang dibangun} \label{tab:solusi}
+  \begin{tabular}{|c|p{6cm}|c|}
+    \hline
+    ID Solusi & Deskripsi & Permasalahan Terkait \\
+    \hline
+    S1 & Menggunakan sistem chaos berbasis \emph{Sine-Henon map} untuk pembangkit bilangan acak & P5 dan P6 \\ \hline
+    S2 & Pertukaran Kunci menggunakan Diffie-Hellman & P7 \\ \hline
+    S3 & Proses pembangkitan \emph{state} awal sistem \emph{chaos} dilakukan dari proses TLS Handshake & P7 \\ \hline
+    S4 & Cipher yang digunakan adalah AES dengan blok CTR dan kunci blok dinamis berbasiskan sistem chaos \emph{Sine-Henon map} & P3 dan P5 \\ \hline
+    S5 & Mekanisme pengubahan kunci enkripsi dan dekripsi & P8 \\ \hline
+    S6 & Pesan terenkripsi dilindungi oleh MAC yang melibatkan nomor frame & P4 dan P9 \\ \hline
+    S7 & Parameter Diffie-Hellman harus ditandatangani melalui tanda tangan digital & P2 \\ \hline
+    S8 & Mekanisme pemeriksaan tanda tangan digital & P2 \\ \hline
+    S9 & Melakukan implementasi pada protokol TLSv1.2 & P1, P2, P4, dan P4 \\ \hline
+  \end{tabular}
+\end{table}
 
 \subsection{Sistem Chaos}
 
-Pada penelitian yang dilakukan oleh \textcite{lin2021}, sistem chaos yang digunakan adalah sistem chaos berbasis Hénon Map. Nilai hasil pembangkitan diambil melalui parameter $X_n$ yang dihasilkan pada setiap iterasi. Bila diamati melalui persamaan \ref{eq:chaos.henon}, bila diketahui nilai $X_n$, akan sangat sulit untuk mendapatkan nilai $X_{n-1}$ dikarenakan diperlukannya nilai $Y_n$ yang tidak diketahui. Oleh karena itu, sistem chaos ini sukar untuk mendapatkan nilai mundur. Kelemahan dari sistem \emph{chaos} ini adalah distribusi yang tidak \emph{uniform}. Hal ini dapat dilihat pada gambar \ref{fig:chaos.henon.distribution}.
+Pada penelitian yang dilakukan oleh \textcite{lin2021}, sistem chaos yang digunakan adalah sistem chaos berbasis Hénon Map. Nilai hasil pembangkitan diambil melalui parameter $X_n$ yang dihasilkan pada setiap iterasi. Bila diamati melalui persamaan \ref{eq:chaos.henon}, bila diketahui nilai $X_n$, akan sangat sulit untuk mendapatkan nilai $X_{n-1}$ dikarenakan diperlukannya nilai $Y_n$ yang tidak diketahui. Oleh karena itu, sistem chaos ini sukar untuk dilakukan \emph{backward predictability}. Kelemahan dari sistem \emph{chaos} ini adalah sistem ini masih dapat dilakukan \emph{forward predictability} bila dua nilai berurutan yang dihasilkan oleh sistem \emph{chaos} dapat diketahui. 
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=250px]{chapters/res/chapter-3/img/henon.distribution.png}
-  \caption{Distribusi nilai dari sistem chaos Hénon Map dengan $a=1$ dan $b=0.1$} \label{fig:chaos.henon.distribution}
-\end{figure}
+Hal ini dapat diperbaiki dengan melibatkan sistem chaos lain berbasis \emph{sine map}. Sistem chaos berbasis \emph{sine map} dipilih dikarenakan sistem chaos ini menghasilkan titik diantara $0$ dan $1$ sehingga memudahkan dalam melakukan konversi dalam byte. Selain itu, nilai diantara $0$ dan $1$ juga memiliki kepadatan yang cukup baik bila diinterpretasikan pada \emph{floating point} sehingga diharapkan dapat menghasilkan nilai acak yang lebih banyak.
 
-Hal ini dapat diperbaiki dengan melibatkan sistem chaos berbasis \emph{sine map}. Sistem chaos berbasis \emph{sine map} dipilih dikarenakan sistem chaos ini menghasilkan titik diantara $0$ dan $1$ sehingga memudahkan dalam melakukan konversi dalam byte.
-
-Dalam perpaduan dua sistem \emph{chaos} ini masih memiliki kekurangan. Hal ini dikarenakan apabila seseorang mengetahui dua buah nilai berturut-turut dari sistem \emph{chaos}, nilai \emph{chaos} selanjutnya dapat diprediksi. Untuk mengatasi hal tersebut, dapat dilibatkan sistem \emph{chaos} berbasis sinus map untuk dilibatkan sebagai pengganggu parameter kedua. Pada sistem pengganggu ini, digunakannya sistem logistik dikarenakan saat melakukan \emph{inverse} dari sistem ini, memerlukan ketelitian sangat tinggi untuk mendapatkan nilai sebelumnya yang benar. Hal ini dapat mempersulit proses untuk mendapatkan nilai c yang benar. % TODO: Cari alasan yang lebih bener!!!
-
-Dari hasil tersebut, dapat dibentuk sistem \emph{chaos} yang didefinisikan pada persamaan \ref{eq:tls.chaos}.
+Peraduan antara sistem chaos berbasis \emph{sine map} dan sistem chaos berbasis Hénon Map dapat dilakukan seperti metode yang dijelaskan oleh \textcite{patel2021}. Dari hasil tersebut, dapat dibentuk sistem \emph{chaos} baru yang disebut SineHenonMap yang didefinisikan pada persamaan \ref{eq:tls.chaos}.
 
 \begin{equation}
   \begin{aligned}
@@ -84,13 +96,20 @@ Dari hasil tersebut, dapat dibentuk sistem \emph{chaos} yang didefinisikan pada 
   \label{eq:tls.chaos}
 \end{equation}
 
-Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi hasil yang lebih baik lagi. Selain itu, nilai pengali ini ditujukan untuk mengacak nilai pecahan yang dihasilkan untuk nilai-nilai yang baru.
+Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi \emph{uniform} pada nilai yang dihasilkan sebagaimana yang dilakukan oleh \textcite{nurhaliza2023}. Hal ini diilustrasikan pada gambar \ref{fig:chaos.sinehenonmap}. Pemilihan nilai $\mu$ yang digunakan adalah $3.75$ dan $a$ serta $b$ adalah $1.4$ dan $0.3$. Hal ini diambil berdasarkan nilai yang digunakan pada penelitian \textcite{lin2021} dan \textcite{patel2021}. Prasayat dari sistem chaos pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Hal ini dilakukan untuk menjamin kepadatan nilai yang dihasilkan oleh sistem \emph{chaos}.
+
+\begin{figure}[!h]
+  \label{fig:chaos.sinehenonmap}
+  \centering
+  \includegraphics[width=400px]{chapters/res/chapter-3/img/sinehenon.distribution.png}
+  \caption{Distribusi nilai dari sistem chaos Sine-Hénon Map (a) tanpa pengali dan (b) dengan pengali} \label{fig:chaos.henon.distribution}
+\end{figure}
 
 \subsection{Sinkronisasi Sistem Chaos}
 
 Menurut \textcite{lin2021}, sinkronisasi sistem \emph{chaos} dapat dilakukan dengan memanfaatkan \emph{sliding mode control}. Namun, metode ini memerlukan RTT yang cukup banyak untuk melakukan sinkronisasi. Pada protokol TLS, pada dasarnya telah disediakan mekanisme untuk pertukaran kunci dengan melalui proses \emph{handshake}. Oleh karena itu, sinkronisasi sistem \emph{chaos} dapat dilakukan dengan memanfaatkan \emph{master key} dari proses tersebut.
 
-Permasalahan selanjutnya adalah terkait dengan konversi nilai \emph{master key} menjadi nilai \emph{state} pada sistem \emph{chaos}. Prasayat dari sistem \emph{chaos} pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Oleh karena itu, proses konversi dapat dilakukan dengan menghitung perbandingan nilai pada blok hasil ekspansi kunci dengan nilai maksimum blok tersebut. Hal ini dinyatakan pada persamaan \ref{eq:tls.convert}.
+Permasalahan selanjutnya adalah terkait dengan konversi nilai bilangan bulat menjadi nilai \emph{state} pada sistem \emph{chaos}. Prasayat dari sistem \emph{chaos} pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Oleh karena itu, proses konversi dapat dilakukan dengan melakukan ekspansi kunci setidaknya $3n$ bit nilai. Selanjutnya, nilai tersebut dilakukan perbandingan nilai pada blok hasil ekspansi kunci dengan nilai maksimum blok tersebut. Hal ini dinyatakan pada persamaan \ref{eq:tls.convert}.
 
 \begin{equation}
   \begin{aligned}
@@ -101,7 +120,11 @@ Permasalahan selanjutnya adalah terkait dengan konversi nilai \emph{master key} 
 
 Dalam hal ini nilai $n$ adalah jumlah bit maksimum. Pada protokol yang dibangun, jumlah bit yang diambil adalah $n = 256$. Hal ini didasari dengan tipe data float memiliki ketelitian yang cukup baik pada 32 bit.
 
+Protokol TLS pada dasarnya mendukung dua tipe pertukaran kunci seperti yang telah dijelaskan pada \emph{sec:tls.keyexchange}. Pertukaran kunci yang cocok untuk diterapkan pada sistem \emph{chaos} adalah pertukaran kunci dengan memanfaatkan protokol Diffie-Hellman. Hal ini dikarenakan protokol ini memiliki keamanan yang lebih tinggi dibandingkan RSA. Selain itu, keteracakan dihasilkan juga oleh kedua buah pihak yang terlibat sehingga keteracakan tidak hanya tergantung oleh satu pihak. Hal ini sesuai dengan prinsip \emph{defense in depth} pada keamanan data.
+
+
 \subsection{Enkripsi dan Dekripsi Pesan}
+\label{sec:solusi.enc-dec}
 
 Pada saat proses enkripsi ataupun dekripsi pesan, diperlukan bit-bit kunci yang dibangkitkan melalui sistem \emph{chaos}. Proses pengubahan titik \emph{chaos} pada persamaan \ref{eq:tls.chaos} menjadi bilangan bulat dapat dilakukan persamaan \ref{eq:tls.convert.int}.
 
@@ -112,23 +135,25 @@ Pada saat proses enkripsi ataupun dekripsi pesan, diperlukan bit-bit kunci yang 
   \label{eq:tls.convert.int}
 \end{equation}
 
-Proses pengubahan ini diambil dikarenakan $K_i$ yang dihasilkan akan langsung berada pada jumlah bit yang dibutuhkan. Hal ini dapat menghemat operasi yang diperlukan dalam melakukan konversi.
+Proses pengubahan ini diambil dikarenakan $K_i$ yang dihasilkan akan langsung berada pada jumlah bit yang dibutuhkan. Hal ini dapat menghemat operasi yang diperlukan dalam melakukan konversi. Nilai $K_i$ yang dihasilkan akan digunakan sebagai kunci blok yang digunakan pada proses enkripsi dan dekripsi.
+
+Algoritma yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritma enkripsi ini dikarenakan dukungan terhadap algoritma ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritma ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
 
 Permasalahan selanjutnya adalah terkait dengan sistem blok yang digunakan. Pada protokol yang dibangun, sistem blok yang digunakan adalah mode CTR. Mode CTR dapat memberikan fleksibilitas dalam pembentukan kunci dikarenakan proses enkripsi dan dekripsi keduanya dapat dilakukan secara parallel. Selain itu, mode CTR dapat diubah dengan mudah menjadi cipher alir sehingga dapat digunakan untuk mengirimkan aliran pesan yang terenkripsi. Mode sistem CTR juga dapat mengaburkan hubungan antar blok dikarenakan blok akan dienkripsi dengan blok CTR yang berbeda-beda.
 
 Nilai \emph{counter} pada sistem blok CTR dibangun juga memanfaatkan sistem \emph{chaos}. Hal ini ditujukan untuk menambah keamanan dari enkripsi blok. Selain itu, menambahan sistem \emph{counter} ini juga memperpanjang orde dari kunci yang digunakan. Hal ini dapat memperbesar ruang kunci saat melakukan XOR. Oleh karena itu, upaya analisis terhadap pesan akan semakin sulit.
 
-Permasalahan terkait dengan pembaharuan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaharuan kunci. Untuk kunci enkripsi, pembaharuan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan cache apabila dibutuhkan retransmisi ulang. Selain itu, pembaharuan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang. Untuk kunci MAC, pengubahan kunci dilakukan saat berhasil membuat MAC yang akan dikirimkan. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil.
+Permasalahan terkait dengan pembaharuan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaharuan kunci. Untuk kunci enkripsi, pembaharuan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan cache apabila dibutuhkan retransmisi ulang. Selain itu, pembaharuan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang untuk melakukan dekripsi pesan yang telah dienkripsi sebelumnya. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil. 
 
-Permasalahan selanjutnya adalah terkait dengan pengubahan nilai kunci saat proses dekripsi. Perubahan kunci hanya boleh dilakukan saat MAC pesan yang diterima benar dan proses dekripsi berhasil. Hal ini untuk memastikan bahwa pesan yang diterima merupakan pesan yang benar. Pengubahan nilai counter hanya boleh dilakukan saat proses dekripsi berhasil. Hal ini untuk memastikan bahwa nilai counter yang digunakan merupakan nilai yang benar.
+Permasalahan selanjutnya adalah terkait dengan pengubahan nilai kunci saat proses dekripsi. Perubahan kunci hanya boleh dilakukan saat MAC pesan yang diterima benar dan proses dekripsi berhasil. Hal ini untuk memastikan bahwa pesan yang diterima merupakan pesan yang benar. Pengubahan nilai counter hanya boleh dilakukan saat proses dekripsi berhasil. Hal ini untuk memastikan bahwa nilai counter yang digunakan merupakan nilai yang benar. Saat melakukan proses dekripsi, nilai awal dari sistem \emph{chaos} harus disimpan terlebih dahulu. Hal ini diperlukan untuk melakukan operasi \emph{rollback} apabila terjadi kegagalan saat melakukan dekripsi.
 
 Permasalahan selanjutnya adalah terkait kegagalan saat melakukan proses dekripsi pada pesan yang diterima. Kondisi ini terjadi dengan dua kemungkinan, yaitu nilai MAC salah dan MAC benar. Apabila pesan yang diterima memiliki nilai MAC salah, maka proses dekripsi dapat langsung dibatalkan saja sehingga proses komunikasi masih dapat dilanjutkan. Apabila pesan yang diterima memiliki nilai MAC yang benar, nilai state MAC dan enkripsi harus dipulihkan ke nilai sebelum melakukan operasi. Oleh karena itu, perlu adanya penanganan rollback untuk kasus saat MAC ternyata benar.
 
-Permasalahan terkait dengan \emph{replay attack} pada dasarnya sudah teratasi dengan mekanisme MAC yang dinamis. Selain itu, pada protokol TLS, perhitungan nilai MAC didasari juga dengan urutan frame. Oleh karena itu, pesan tidak mungkin untuk dilakukan pengiriman ulang.
+Permasalahan terkait dengan \emph{replay attack} pada dasarnya sudah teratasi dengan mekanisme MAC yang dinamis. Selain itu, pada protokol TLS, perhitungan nilai MAC didasari juga dengan nomor frame. Oleh karena itu, pesan sudah terlindungi dari ancaman tersebut.
 
 Permasalahan terkait dengan integritas pesan telah terjamin dengan adanya MAC yang digunakan. MAC dapat memastikan bahwa pesan yang diterima merupakan pesan yang asli dan otentik. Oleh karena itu, permasalahan terkait dengan integritas pesan telah teratasi.
 
-Permasalahan terkait dengan \emph{denial of service} dapat dikurangi dampaknya dengan membuang paket dengan MAC yang tidak benar. Hal ini dapat menghindari sistem kehabisan \emph{resource} apabila terjadi serangan tersebut.
+Permasalahan terkait dengan \emph{denial of service} dapat dikurangi dampaknya dengan melakukan perhitungan MAC pada pesan yang telah terenkripsi. Pesan hanya boleh dilakukan dekripsi bila nilai MAC benar. Hal ini dapat meminimalisir dampak dari serangan \emph{flooding} yang dilakukan oleh penyerang.
 
 \subsection{Otentikasi Pengirim Pesan}
 
@@ -142,13 +167,11 @@ Pada MAC dan tanda tangan digital, digunakan fungsi hash SHA-2 dengan \emph{dige
 
 \section{Protokol TLS berbasis Chaos}
 
-Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang akan dibangun. Bagian ini terbagi atas beberapa bagian, yaitu spesifikasi cipher, spesifikasi \emph{handshake}, spesifikasi terkait dengan pengiriman pesan.
+Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang akan dibangun. Bagian ini terbagi atas beberapa bagian, yaitu spesifikasi cipher, spesifikasi \emph{handshake}, spesifikasi terkait dengan pengiriman pesan. Pada dasarnya, protokol yang dibangun akan mengikuti spesifikasi yang telah ada pada protokol TLSv1.2. Versi ini dipilih dikarenakan TLS versi ini masih dapat mendukung \emph{cipher} berbasis AEAD. Namun, terdapat beberapa penyesuaian yang dilakukan untuk memastikan kompatibilitas dari protokol yang dibangun.
 
 \subsection{Spesifikasi Cipher}
 
-Pada protokol TLS berbasis chaos, algoritma yang digunakan adalah AES-256. Algoritma enkripsi ini dikarenakan dukungan terhadap algoritma ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritma ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
-
-Kunci enkripsi, kunci MAC, serta nilai \emph{counter} yang digunakan pada \emph{cipher} ini bersifat dinamis memanfaatkan sistem chaos yang telah dijelaskan pada bagian III.2.1. Mode blok yang digunakan pada \emph{cipher} ini adalah counter untuk menjamin panjangnya kunci XOR yang dapat dihasilkan. Gambar \ref{fig:tls.cipher} menunjukkan struktur enkripsi dan dekripsi dari \emph{cipher} yang digunakan.
+\emph{Cipher} yang digunakan pada protokol ini adalah AES-256. Kunci enkripsi serta nilai \emph{counter} yang digunakan pada \emph{cipher} ini bersifat dinamis memanfaatkan sistem chaos yang telah dijelaskan pada bagian III.2.1. Mode blok yang digunakan pada \emph{cipher} ini adalah counter untuk menjamin panjangnya kunci XOR yang dapat dihasilkan. Gambar \ref{fig:tls.cipher} menunjukkan struktur enkripsi dan dekripsi dari \emph{cipher} yang digunakan.
 
 \begin{figure}[!h]
   \centering
@@ -156,17 +179,30 @@ Kunci enkripsi, kunci MAC, serta nilai \emph{counter} yang digunakan pada \emph{
   \caption{Ilustrasi Sistem Chaos untuk (A) Enkripsi (B) Dekripsi} \label{fig:tls.cipher}
 \end{figure}
 
-Nilai $IV$ dan $K1$ keduanya diinisialisasi berdasarkan hasil dari pertukaran kunci. Metode $\text{next}(\cdot)$ merupakan metode untuk memperbaharui sistem chaos berdasarkan persamaan \ref{eq:tls.chaos}. Metode ini dipanggil wajib memenuhi aturan yang telah didefinisikan.
+Nilai $IV$ dan $K1$ keduanya diinisialisasi berdasarkan hasil dari pertukaran kunci. Metode $\text{next}(\cdot)$ merupakan metode untuk memperbaharui sistem chaos berdasarkan persamaan \ref{eq:tls.chaos}.
 
-Aturan untuk pembaharuan kunci telah dijelaskan pada bagian III.2.3. Apabila digambarkan, proses pengubahan kunci enkripsi dan MAC dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.write}. Proses pengubahan kunci dekripsi dan MAC untuk membaca dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.read}.
+Kunci MAC yang digunakan adalah kunci statis. Proses perhitungan MAC perlu melibatkan nomor frame yang digunakan sebagaimana solusi S6. Perhitungan MAC dilakukan sesuai dengan persamaan \ref{eq:tls.data.mac}.
+
+\begin{equation}
+  \label{eq:tls.data.mac}
+  \begin{array}{l}
+    H = \text{HMAC}(\text{key}, \text{frame\_number}\text{ }|| \\ 
+      \text{   }\text{frame}.\text{type}\text{ }|| \\
+      \text{   }\text{frame}.\text{version}\text{ }|| \\ 
+      \text{   }\text{frame}.\text{length}\text{ }|| \\
+      \text{   }\text{frame}.\text{encrypted\_data} \\
+    ) 
+  \end{array}
+\end{equation}
+
+Aturan untuk pembaharuan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Bila digambarkan melalui diagram \emph{sequence}, proses pembaharuan kunci dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.write} dan \ref{fig:tls.cipher.update.mac.read}.
+
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=200px]{chapters/res/chapter-3/img/update.write.png}
-  \caption{Ilustrasi Proses Pembaharuan Kunci Enkripsi dan MAC pada Proses Penulisan} \label{fig:tls.cipher.update.mac.write}
+  \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.write}
 \end{figure}
-
-Pada proses penulisan, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
 
 \begin{figure}[!h]
   \centering
@@ -174,25 +210,40 @@ Pada proses penulisan, pesan pada mulanya akan dipotong menjadi beberapa frame y
   \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.read}
 \end{figure}
 
-Saat proses pembacaan, pertama-tama frame record harus dipastikan terlebih dahulu MAC valid. Setelah MAC yang diterima valid, maka proses dekripsi akan dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
+Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
+
+Saat proses dekripsi, pertama-tama frame record harus dipastikan terlebih dahulu MAC valid. Setelah MAC yang diterima valid, maka proses dekripsi akan dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
 
 \emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} $\text{0xff00}$ pada saat proses \emph{handshake}. Nilai awal $\text{0xff}$ berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
 
 \subsection{Spesifikasi \emph{Handshake}}
 Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada bagian \ref{sec:tls.handshake}. Proses ini dilakukan untuk membangkitkan \emph{master secret} yang digunakan. Terdapat beberapa spesifikasi khusus yang diterapkan pada protokol yang dibangun. Pertukaran kunci yang didukung hanyalah menggunakan Eliptic Curve Diffie-Hellman. Hal ini ditujukan agar keamanan dari \emph{premaster secret} dapat terjamin.
 
-Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 576 bytes. Hal ini dikarenakan diperlukannya tiga pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=400px]{chapters/res/chapter-3/img/keygen.png}
+  \caption{Ilustrasi Pembangkitan Kunci} \label{fig:tls.keygen}
+\end{figure}
 
-Persamaan \ref{eq:tls.keyexpansion} menunjukkan proses \emph{key expansion} yang dilakukan. Misalkan $K$ adalah kunci yang diekspansikan sepanjang 576 bytes.
+
+Proses pembangkitan kunci diilustrasikan melalui gambar \ref{fig:tls.keygen}. Hasil dari proses Eliptic curve Diffie-Hellman akan menghasilkan \emph{premaster secret}. Saat \emph{premaster secret}, kunci \emph{master secret} akan dihasilkan melalui fungsi PRF. Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 448 bytes. Hal ini dikarenakan diperlukannya empat pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos dan dua buah kunci MAC. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}. Ilustrasi dari ekspansi kunci dapat dilihat pada gambar \ref{fig:tls.keyexpansion}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=400px]{chapters/res/chapter-3/img/keyexpansion.png}
+  \caption{Ilustrasi Ekspansi Kunci} \label{fig:tls.keyexpansion}
+\end{figure}
+
+Persamaan \ref{eq:tls.key.convert} menunjukkan proses pengubahan kunci yang dilakukan menjadi parameter chaos. $K$ adalah potongan kunci dari hasil ekspansi.
 
 \begin{equation}
   \begin{aligned}
-    X_i = f(K[96i:96i+32]) \\
-    Y_i = f(K[96i+32:96i+64]) \\
-    Z_i = f(K[96i+64:96i+96]) \\
+    X_i = f(X'_i) \\
+    Y_i = f(Y'_i) \\
+    Z_i = f(Z'_i) \\
     E_i = (X_i, Y_i, Z_i)
   \end{aligned}
-  \label{eq:tls.keyexpansion}
+  \label{eq:tls.key.convert}
 \end{equation}
 
 Tabel \ref{tab:tls.keyexpansion} menunjukan kegunaan dari setiap hasil ekspansi kunci yang dilakukan. Tabel tersebut menjelaskan nilai awal dari sistem \emph{chaos} yang digunakan untuk pembangkitan kunci blok, kunci MAC, dan nilai IV.
@@ -202,31 +253,21 @@ Tabel \ref{tab:tls.keyexpansion} menunjukan kegunaan dari setiap hasil ekspansi 
   \caption{Parameter Hasil Ekspansi Kunci} \label{tab:tls.keyexpansion}
   \begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
     \hline
-    Nama Parameter & Parameter \emph{Chaos} & Deskripsi \\
+    Nama Parameter & Variabel & Deskripsi \\
     \hline
-    \emph{MAC Client Key} & $E_1$ & Nilai awal parameter \emph{chaos} yang digunakan client untuk membuat MAC ($H_1$) \\ \hline
-    \emph{MAC Server Key} & $E_2$ & Nilai awal parameter \emph{chaos} yang digunakan server untuk membuat MAC ($H_2$) \\ \hline
-    \emph{AES Client Key}  & $E_3$ & Nilai awal  parameter \emph{chaos} yang digunakan client untuk melakukan enkripsi ($K_1$) \\ \hline
-    \emph{AES Server Key}  & $E_4$ & Nilai awal parameter \emph{chaos} yang digunakan server untuk melakukan enkripsi ($K_1$) \\ \hline
-    \emph{IV Client Key}  & $E_5$ & Nilai $IV$ awal yang digunakan client untuk enkripsi \\ \hline
-    \emph{IV Server Key}  & $E_6$ & Nilai $IV$ awal yang digunakan server untuk enkripsi \\
+    \emph{MAC Client Key} & $\text{MAC}_1$ & Nilai Kunci MAC yang digunakan oleh client \\ \hline
+    \emph{MAC Server Key} & $\text{MAC}_2$ & Nilai Kunci MAC yang digunakan oleh server \\ \hline
+    \emph{AES Client Key}  & $E_1$ & Nilai awal  parameter \emph{chaos} yang digunakan client untuk melakukan enkripsi ($K_1$) \\ \hline
+    \emph{AES Server Key}  & $E_2$ & Nilai awal parameter \emph{chaos} yang digunakan server untuk melakukan enkripsi ($K_1$) \\ \hline
+    \emph{Initial Counter Client}  & $E_3$ & Nilai \emph{counter} awal yang digunakan client untuk enkripsi \\ \hline
+    \emph{Initial Counter Server}  & $E_4$ & Nilai \emph{counter} awal yang digunakan server untuk enkripsi \\
     \hline
   \end{tabular}
 \end{table}
 
 \subsection{Spesifikasi Pengiriman Pesan}
 
-Pada proses pengiriman pesan, pesan terlebih dahulu harus dipotong menjadi beberapa frame. Setiap frame pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Setelah pemasangan padding, akan dilakukan proses enkripsi. Setelah proses enkripsi berhasil, nilai MAC dari proses enkripsi tersebut akan dihitung. Secara matematis, nilai MAC $\text{MAC}_i$ pada frame $i$. dihitung berdasarkan persamaan \ref{eq:tls.mac}.
-
-\begin{equation}
-  \begin{aligned}
-    \text{MAC}_i = \text{HMAC}_{Hash}(H_i, CB_i) \\
-    H_i = \text{next}(H_{i-1}) \\
-    H_1 = E_2
-  \end{aligned}
-  \label{eq:tls.mac}
-\end{equation}
-
+Pada proses pengiriman pesan, pesan terlebih dahulu harus dipotong menjadi beberapa frame. Setiap frame pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Setelah pemasangan padding, akan dilakukan proses enkripsi. Setelah proses enkripsi berhasil, nilai MAC dari proses enkripsi tersebut akan dihitung sesuai dengan persamaan \ref{eq:tls.data.mac}.
 
 Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimkan. Gambar \ref{fig:tls.application.rec} menunjukkan protokol record yang digunakan untuk mengirimkan pesan.
 

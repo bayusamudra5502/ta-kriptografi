@@ -13,12 +13,11 @@ repeat ;
     stop;
   endif
 
-  :Update Kunci Enkripsi dan Counter;
+  :Update Kunci Blok dan Counter;
 
 repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
 
 :Hitung MAC;
-:Update Kunci MAC;
 
 stop
 
