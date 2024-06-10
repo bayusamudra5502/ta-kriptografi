@@ -5,7 +5,7 @@ Bagian ini menjelaskan terkait metode pengujian yang dilakukan serta hasil pengu
 
 \section{Kasus Uji T2.1}
 
-Algoritma pengujian \ref{alg:unit.test.t2.1} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa kunci yang dihasilkan oleh Alice dan Bob sama.
+Algoritme pengujian \ref{alg:unit.test.t2.1} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa kunci yang dihasilkan oleh Alice dan Bob sama.
 
 \begin{algorithm}
   \caption{Algoritme Pengujian Kasus Uji T2.1}
@@ -39,7 +39,7 @@ Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada g
 
 \section{Kasus Uji T2.2}
 
-Algoritma pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan teks yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Algoritme pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan teks yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
   \caption{Algoritme Pengujian Kasus Uji T2.2}
@@ -66,7 +66,7 @@ Algoritma pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS an
 
 \section{Kasus Uji T2.3}
 
-Algoritma pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan biner yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Algoritme pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan biner yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
   \caption{Algoritme Pengujian Kasus Uji T2.3}
@@ -95,7 +95,7 @@ Algoritma pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS an
 
 \section{Kasus Uji T2.4}
 
-Algoritma pengujian \ref{alg:unit.test.t2.4} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob saat adanya \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. Pengujian ini dilakukan untuk memastikan bahwa \emph{handshake} akan gagal saat ada \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. 
+Algoritme pengujian \ref{alg:unit.test.t2.4} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob saat adanya \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. Pengujian ini dilakukan untuk memastikan bahwa \emph{handshake} akan gagal saat ada \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. 
 
 \begin{algorithm}
   \caption{Algoritme Pengujian Kasus Uji T2.4}
@@ -197,7 +197,7 @@ Kasus uji ini menjelaskan proses pengujian TLS saat menerima pesan dengan MAC ya
     \State
     \State $tls_{bob}.send(\text{'Hello, World!'})$
     \State $frame \gets mitm.\text{getFrame}()$
-    \State $frame.mac[10] \gets frame.mac[10] \oplus \text{FF}_{16}$ \Comment {Ubah Nilai MAC}
+    \State $frame.encryptedContent[10] \gets frame.encryptedContent[10] \oplus \text{FF}_{16}$ \Comment {Ubah Nilai MAC}
     \State $mitm.\text{send}(1, frame)$
     \State
     \State $alert \gets mitm.\text{getFrame}()$
@@ -247,7 +247,7 @@ Kasus uji ini memastikan pengiriman pesan masih tetap dapat berlangsung setelah 
     \State $tls_{bob}.send(\text{'Hello, World!'})$
     \State $frame \gets mitm.\text{getFrame}()$
     \State $frameOriginal \gets frame$
-    \State $frame.mac[10] \gets frame.mac[10] \oplus \text{FF}_{16}$ \Comment {Ubah Nilai MAC}
+    \State $frame.encryptedContent[10] \gets frame.encryptedContent[10] \oplus \text{FF}_{16}$ \Comment {Ubah Nilai MAC}
     \State $mitm.\text{send}(1, frame)$
     \State $mitm.\text{send}(1, frameOriginal)$
     \State

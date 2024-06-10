@@ -8,7 +8,7 @@ Bagian ini menjelaskan dari implementasi solusi yang telah dirancang sebelumnya.
 Implementasi dilakukan dengan beberapa batasan dari protokol TLS yang telah didefinisikan pada \textcite{rfc5246}. Berikut ini merupakan batasan yang diterapkan:
 
 \begin{enumerate}
-  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
+  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritme hash SHA-256.
   \item Tiap pesan pada protokol \emph{handshake} dikirimkan melalui Protokol \emph{Record} yang berbeda.
   \item Fitur kompresi pada protokol TLS tidak diimplementasikan.
   \item Sertifikat digital diverifikasi secara \emph{pinning} dan tidak melakukan verifikasi \emph{revocation}.
@@ -83,7 +83,7 @@ Modul data digunakan untuk membantu dalam proses \emph{parsing} dan \emph{encode
 
 Struktur data dari kelas yang diimplementasikan pada modul ini merupakan turunan dari struktur data yang didefinisikan pada \textcite{rfc5246} dan \textcite{rfc4492}. Struktur data lengkap yang menggambarkan implementasi pada penelitian ini dijelaskan pada Lampiran \ref{appendix:tls12.datatype}.
 
-Modul \texttt{conn} bertanggung jawab dalam mengatur proses \emph{handshake}, proses komunikasi melalui TCP, komunikasi melalui UNIX Socket, serta proses enkripsi dan pengaturan \emph{state}. Tabel \ref{tab:impl.comm} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. Semua kelas pada bagian ini terletak pada modul \texttt{conn}. Modul ini merupakan impelementasi dari solusi S3, S5, S7, S8, dan S9.
+Modul \texttt{conn} bertanggung jawab dalam mengatur proses \emph{handshake}, proses komunikasi melalui TCP, komunikasi melalui UNIX Socket, serta proses enkripsi dan pengaturan \emph{state}. Tabel \ref{tab:impl.comm} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. Semua kelas pada bagian ini terletak pada modul \texttt{conn}. Modul ini merupakan impelementasi dari solusi S3, S5, S7, S8, S9, dan S10.
 
 \section{Pengujian}
 Bagian ini menjelaskan dari pengujian yang dilakukan terhadap pustaka yang telah dibangun. Bagian ini akan menjelaskan terkait dengan detail pengujian yang dilakukan serta hasil dari pengujian tersebut.
@@ -150,10 +150,12 @@ Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan
   \begin{tabular}{|c|p{7cm}|c|}
     \hline
     Kode Kasus Uji & Deskripsi & ID Solusi Terkait \\ \hline
-    T1.1 & \emph{Cipher} dapat melakukan proses enkripsi pada pesan teks rahasia dengan menggunakan cipher AES-256 kunci blok dinamis. Pengujian ini merupakan bagian dari pengujian fungsional. & S1, S4, dan S5\\ \hline
-    T1.2 & \emph{Cipher} dapat mendekripsi kembali pesan menggunakan cipher AES-256 kunci blok dinamis. Pengujian ini merupakan bagian dari pengujian fungsional. & S1, S4, dan S5\\ \hline
-    T1.3 & Hasil dekripsi pada pesan yang dilakukan \emph{replay attack} haruslah gagal. Pengujian ini merupakan bagian dari pengujian keamanan. & S1 dan S4\\ \hline
-    T1.4 & Hasil enkripsi dari \emph{Cipher} pada dua blok yang memiliki pesan yang sama memiliki hasil blok yang berbeda. Perequest idngujian ini merupakan bagian dari pengujian keamanan. & S1 dan S4\\ \hline
+    \multicolumn{3}{|l|}{Pengujian Fungsionalitas} \\ \hline
+    T1.1 & \emph{Cipher} dapat melakukan proses enkripsi pada pesan teks rahasia dengan menggunakan cipher AES-256 kunci blok dinamis.  & S1, S4, dan S5\\ \hline
+    T1.2 & \emph{Cipher} dapat mendekripsi kembali pesan menggunakan cipher AES-256 kunci blok dinamis. & S1, S4, dan S5\\ \hline
+    \multicolumn{3}{|l|}{Pengujian Keamanan} \\ \hline
+    T1.3 & Hasil dekripsi pada pesan yang dilakukan \emph{replay attack} haruslah gagal. & S1 dan S4\\ \hline
+    T1.4 & Hasil enkripsi dari \emph{Cipher} pada dua blok yang memiliki pesan yang sama memiliki hasil blok yang berbeda. & S1 dan S4\\ \hline
   \end{tabular}
 \end{table}
 
@@ -165,7 +167,7 @@ Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos}
 
 Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang dibangun pada penelitian ini.
 
-Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritme dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}.
+Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritme dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun dapat berjalan dengan baik pada skenario yang telah dijalankan.
 
 \begin{table}[!h]
   \centering
@@ -173,10 +175,10 @@ Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}
   \begin{tabular}{|c|c|}
     \hline
     Kode Kasus Uji & Hasil \\ \hline
-    T1.1 & \emph{Pass} \\ \hline
-    T1.2 & \emph{Pass} \\ \hline
-    T1.3 & \emph{Pass} \\ \hline
-    T1.4 & \emph{Pass} \\ \hline
+    T1.1 & Berhasil \\ \hline
+    T1.2 & Berhasil \\ \hline
+    T1.3 & Berhasil \\ \hline
+    T1.4 & Berhasil \\ \hline
   \end{tabular}
 \end{table}
 
@@ -236,16 +238,85 @@ Pengujian statistik pada \emph{cipher} dilakukan dengan membandingkan proporsi \
 
 Hasil dari pengujian statistik pada \emph{cipher} ditunjukan pada tabel \ref{tab:test.statistic.cipher}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis.
 
-Hasil dari pengujian
-
 \subsubsection{Pengujian Implementasi Protokol TLS}
 
-Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci blok dinamis dilakukan dengan pengujian skenario. Pengujian ini dilakukan secara \emph{end-to-end}. Pengujian ini dilakukan dengan tujuan untuk menguji fungsionalitas dan keamanan dari protokol TLS yang dibangun. Pengujian ini
+Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci blok dinamis dilakukan dengan pengujian skenario. Pengujian ini dilakukan secara \emph{end-to-end}. Pengujian ini dilakukan dengan tujuan untuk menguji fungsionalitas dan keamanan dari protokol TLS yang dibangun. Pengujian ini dikatakan berhasil apabila telah memenuhi semua skenario yang telah dijalankan. Skenario pengujian ditunjukan pada tabel \ref{tab:test.case.tls}.
 
+\begin{table}[!h]
+  \centering
+  \caption{Skenario Uji Implementasi Protokol TLS} \label{tab:test.case.tls}
+  \begin{tabular}{|c|p{7cm}|p{3cm}|}
+    \hline
+    Kode Kasus Uji & Deskripsi & ID Solusi Terkait \\ \hline
+    \multicolumn{3}{|l|}{Pengujian Fungsionalitas} \\ \hline
+    T2.1 & Protokol TLS dapat melakukan proses \emph{handshake} dan membentuk sistem \emph{chaos} yang sesuai pada tiap-tiap partisipan. & S2, S3, S7, S8, dan S9\\ \hline
+    T2.2 & Protokol TLS dapat digunakan untuk mengirim dan menerima pesan teks. & S1, S4, S5, S6, dan S9 \\ \hline
+    T2.3 & Protokol TLS dapat digunakan untuk mengirim dan menerima pesan biner. & S1, S4, S5, S6, dan S9 \\ \hline
+    \multicolumn{3}{|l|}{Pengujian Keamanan} \\ \hline
+    T2.4 & Protokol TLS dapat menangani kasus \emph{tampering} pada parameter ECDH. & S8 dan S9 \\ \hline
+    T2.5 & Protokol TLS dapat menangani kasus kunci privat yang salah saat menandatangani parameter ECDH.  & S7, S8, dan S9 \\ \hline
+    T2.6 & Protokol TLS dapat menangani kasus MAC yang tidak valid. & S6 dan S9 \\ \hline
+    T2.7 & Protokol TLS masih dapat menerima pesan setelah mendapatkan \emph{frame} dengan MAC yang tidak valid.  & S5, S6, dan S9 \\ \hline
+    T2.8 & Protokol TLS dapat menangani kasus \emph{replay attack} pada saat koneksi telah terjalin. & S5, S6, dan S9 \\ \hline
+    T2.9 & Protokol TLS masih dapat menerima pesan setelah mendapatkan serangan \emph{replay}. & S5, S6, dan S9 \\ \hline
+    T2.10 & Frame terenkripsi yang dihasilkan oleh protokol ini harus memiliki \emph{ciphertext} yang berbeda pada \emph{plaintext} yang sama. & S4 dan S5 \\ \hline
+    T2.11 & Protokol TLS dapat menangani kasus \emph{tampering} pada pesan Client Hello. & S9 \\ \hline
+    T2.12 & Protokol TLS dapat menangani kasus \emph{tampering} pada pesan Server Hello. & S9 \\ \hline
+    T2.13 & Protokol TLS dapat menangani kasus \emph{certificate} server yang tidak sesuai dengan \emph{certificate pinning} pada \emph{client}.  & S9 dan S10 \\ \hline
+  \end{tabular}
+\end{table}
+
+
+Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Detail implementasi dan bukti dari pengujian ini dijelaskan pada Lampiran \ref{appendix:unit.test.tls}. Hasil pengujian skenario ditunjukan pada tabel \ref{tab:test.result.tls}
+
+\begin{table}[!h]
+  \centering
+  \caption{Hasil Pengujian Implementasi TLS} \label{tab:test.result.tls}
+  \begin{tabular}{|c|c|}
+    \hline
+    Kode Kasus Uji & Hasil \\ \hline
+    T2.1 & Berhasil \\ \hline
+    T2.2 & Berhasil \\ \hline
+    T2.3 & Berhasil \\ \hline
+    T2.4 & Berhasil \\ \hline
+    T2.5 & Berhasil \\ \hline
+    T2.6 & Berhasil \\ \hline
+    T2.7 & Berhasil \\ \hline
+    T2.8 & Berhasil \\ \hline
+    T2.9 & Berhasil \\ \hline
+    T2.10 & Berhasil \\ \hline
+    T2.11 & Berhasil \\ \hline
+    T2.12 & Berhasil \\ \hline
+    T2.13 & Berhasil \\ \hline
+  \end{tabular}
+\end{table}
 
 \section{Analisis Hasil Pengujian} 
 \label{sec:analisis-hasil-pengujian}
 
+Bagian ini akan membahas terkait hasil pengujian serta ancaman validitas dari hasil pengujian yang telah dilakukan. Bagian ini akan terbagi menjadi analisis hasil pengujian untuk \emph{cipher} dan analisis hasil pengujian untuk implementasi protokol TLS.
+
 \subsection{Analisis Hasil Pengujian \emph{Cipher}}
 
+Pengujian berbasis skenario memiliki dua kelompok pengujian. Kelompok pertama adalah pengujian fungsionalitas yang dilakukan dengan skenario T1.1 dan T1.2. Kelompok kedua adalah pengujian keamanan berbasis skenario yang dilakukan pada skenario T1.3 dan T1.4. Hasil kedua kelompok pengujian tersebut menunjukan bahwa \emph{cipher} AES blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat bekerja dengan baik baik pada keamanan maupun fungsionalitas.
+
+Pengujian statistik yang dilakukan pada CSPRNG menunjukan bahwa sistem random berbasis Sine-Henon map memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}. Selain itu, pengujian statistik yang dilakukan pada \emph{cipher} AES-256 kunci blok dinamis menunjukan bahwa \emph{cipher} yang dibangun memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis. Oleh karena itu, kualitas keamanan dari \emph{cipher} yang dibangun dapat dikatakan setara dengan \emph{cipher} AES-256 kunci blok statis.
+
+Berdasarkan kedua pengujian tersebut, enkripsi dengan menggunakan AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} yang aman dan fungsional. Metode enkripsi ini dapat digunakan dalam melakukan enkripsi pesan rahasia. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah pertama dapat terjawab dengan menggunakan sistem \emph{chaos} Sine-Henon map sebagai CSPRNG penghasil kunci blok dinamis.
+
+\subsection{Analisis Hasil Pengujian Implementasi Protokol TLS}
+
+Pengujian implementasi protokol TLS menunjukan bahwa pengujian keamanan serta pengujian fungsionalitas dapat berjalan dengan baik. Pengujian keamanan yang dilakukan pada protokol TLS menunjukan bahwa protokol TLS yang dibangun dapat menangani \emph{replay attack}, serangan \emph{tampering}, serta serangan MITM.  Pengujian fungsionalitas yang dilakukan pada protokol TLS menunjukan bahwa protokol TLS yang dibangun dapat melakukan proses \emph{handshake}, enkripsi pesan, serta dekripsi pesan dengan baik. Oleh karena itu, dapat disimpulkan bahwa protokol TLS yang dibangun dapat digunakan sebagai protokol komunikasi yang aman dan fungsional.
+
+Berdasarkan hasil pengujian tersebut, dapat disimpulkan bahwa \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} pada protokol TLS. Hal ini dikarenakan \emph{cipher} yang dibangun dapat berjalan dengan baik pada protokol TLS yang dibangun. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah kedua dapat terjawab dengan menggunakan \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dengan mengikuti protokol TLSv1.2 dan penyesuaian sebagaimana yang telah dijelaskan pada bagian \ref{sec:protokol-tls-chaos}.
+
 \subsection{Ancaman Validitas (Threat of Validity)}
+
+Pengujian yang dilakukan memiliki beberapa ancaman validitas yang perlu diperhatikan. Hal ini dikarenakan terdapat beberapa asumsi yang diambil dalam menguji protokol ini. Asumsi yang diambil dalam pengujian ini adalah sebagai berikut:
+\begin{enumerate}
+  \item Pengujian mengasumsikan bahwa protokol TLS telah teruji keamanannya, sehingga serangan selain yang berkaitan dengan pembentukan \emph{cipher} dan \emph{ciphertext} tidak diuji.
+  \item Pengujian mengasumsikan bahwa \emph{cipher} AES tahan terhadap serangan \emph{brute-force} dan \emph{side-channel} sehingga metode serangan tersebut tidak diuji.
+  \item Proses serangan MITM diasumsikan dilakukan dengan mengganti sertifikat digital yang digunakan pada protokol TLS.
+  \item Serangan \emph{tampering} hanya dilakukan pada \emph{frame} yang berkaitan dengan pembentukan \emph{cipher} dan \emph{ciphertext}. Hal ini bertujuan agar dapat mengubah atau membaca pesan yang dikirimkan.
+  \item Serangan \emph{side-channel} yang dilakukan diasumsikan dilakukan dengan mengamati pola \emph{ciphertext} yang dihasilkan oleh protokol TLS.
+\end{enumerate}

@@ -64,8 +64,10 @@ Berikut ini merupakan daftar dari tipe data yang digunakan pada protokol TLSv1.2
   struct {
     block-ciphered struct {
       opaque content[TLSCompressed.length];
+      opaque MAC[SecurityParameters.mac_length];
+      uint8 padding[GenericBlockCipher.padding_length];
+      uint8 padding_length;
     };
-    opaque MAC[SecurityParameters.mac_length];
   } GenericChaosBlockCipher;
 
 

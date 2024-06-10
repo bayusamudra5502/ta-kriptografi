@@ -4,6 +4,9 @@ start
 
 :Simpan State Awal;
 
+:Hitung MAC;
+:Append Nilai MAC pada plaintext;
+
 repeat ;
   :Baca Blok Baru;
   :Enkripsi Blok;
@@ -16,8 +19,6 @@ repeat ;
   :Update Kunci Blok dan Counter;
 
 repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
-
-:Hitung MAC;
 
 stop
 

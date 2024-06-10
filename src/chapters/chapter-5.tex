@@ -1,15 +1,16 @@
 \chapter{Kesimpulan dan Saran}
 
-% Bab Kesimpulan dan Saran merupakan penutup dari bagian utama Laporan Tugas Akhir. Fokuskan kesimpulan pada hal-hal baru yang relevan dengan ketercapaian tujuan Tugas Akhir terkait dengan permasalahan yang diselesaikan dalam Tugas Akhir. Saran berisi kajian hal-hal yang masih dapat dikembangkan lebih lanjut.
-
 \section{Kesimpulan}
-Setelah dilakukan analisis, implementasi, dan pengujian, dapat diambil kesimpulan sebagai berikut:
+Berdasarkan hasil analisis, implementasi, dan pengujian yang telah dilakukan, diperoleh kesimpulan sebagai berikut:
 \begin{enumerate}
-  \item item1
+  \item Proses enkripsi pesan memanfaatkan Algoritme AES kunci blok dinamis yang aman dapat dilakukan dengan melibatkan CSPRNG berbasis \emph{chaos} pada pembangkitan kunci blok. Salah satu sistem \emph{chaos} yang cukup baik adalah Sine-Henon Map. Mode blok yang dapat digunakan pada \emph{cipher} adalah CTR. Enkripsi dilakukan dengan membagi pesan menjadi beberapa blok, selanjutnya blok tersebut dienkripsi dengan kunci blok yang dihasilkan dari \emph{chaos} dan counter yang dihasilkan dari \emph{chaos}. Proses dekripsi dilakukan dengan cara membentuk kunci dan counter menggunakan \emph{chaos}. Algoritme ini memiliki kualitas keamanan yang baik berdasarkan Uji Statistik NIST dan Skenario serangan \emph{replay}.
+  \item Pengimplementasian Algoritme AES kunci blok dinamis pada berbasis sistem \emph{chaos} dapat dilakukan pada protokol TLSv1.2. Proses implementasi dilakukan dengan membuat sebuah \emph{cipher suite} pada protokol TLSv1.2. Sebelum melakukan proses enkripsi dan dekripsi, sistem harus menyimpan nilai \emph{state} awal dari sistem \emph{chaos}. Hal ini ditujukan agar bila terjadi kegagalan pada proses enkripsi dan dekripsi, sistem dapat mengembalikan nilai \emph{state} sistem \emph{chaos} ke posisi yang semula. Hasil pengujian menunjukkan bahwa protokol yang dibangun dapat berjalan dengan baik. Berdasarkan pengujian, Protokol ini mampu tahan terhadap serangan \emph{replay}, serangan analisis \emph{ciphertext}, dan serangan \emph{tampering}.
 \end{enumerate}
 
 \section{Saran}
 Adapun saran terkait pelaksanaan Tugas Akhir ini adalah sebagai berikut:
 \begin{enumerate}
-  \item item1
+  \item Optimasi yang dilakukan pada pembangkitan nilai \emph{chaos} yang digunakan pada pembangkitan kunci blok.
+  \item Penerapan proses paralelisasi saat melakukan proses enkripsi dan dekripsi.
+  \item Implementasi \emph{cipher} AES dinamis pada protokol TLSv1.3. 
 \end{enumerate}

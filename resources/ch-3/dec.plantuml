@@ -5,9 +5,6 @@ start
 :Simpan State Awal;
 :Baca Frame;
 
-if (MAC Frame Valid?) then (Tidak)
-  stop;
-endif
 
 repeat
   :Dekripsi Blok Baru;
@@ -19,6 +16,10 @@ repeat
 
   :Update Counter dan Kunci Blok;
 repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
+
+if (MAC Frame Valid?) then (Tidak)
+  stop;
+endif
 
 stop
 

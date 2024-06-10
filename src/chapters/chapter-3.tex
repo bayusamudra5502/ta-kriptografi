@@ -27,7 +27,6 @@ Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara
     P6 & Ancaman analisis nilai acak yang dihasilkan oleh sistem \emph{chaos} & 1 \\ \hline
     P7 & Pembentukan nilai awal sistem \emph{chaos} & 1 dan 2 \\ \hline
     P8 & Pembentukan kunci blok baru saat proses enkripsi dan dekripsi & 1 dan 2 \\ \hline
-    P9 & Ancaman \emph{flooding} kepada partisipan komunikasi & 2 \\ \hline
   \end{tabular}
 \end{table}
 
@@ -72,10 +71,11 @@ Bagian ini akan menjelaskan terkait solusi dari permaslahan yang telah dipaparka
     S3 & Proses pembangkitan \emph{state} awal sistem \emph{chaos} dilakukan dari proses TLS Handshake & P7 \\ \hline
     S4 & Cipher yang digunakan adalah AES dengan blok CTR dan kunci blok dinamis berbasiskan sistem chaos \emph{Sine-Henon map} & P3 dan P5 \\ \hline
     S5 & Mekanisme pengubahan kunci enkripsi dan dekripsi & P8 \\ \hline
-    S6 & Pesan terenkripsi dilindungi oleh MAC yang melibatkan nomor frame & P4 dan P9 \\ \hline
+    S6 & Pesan terenkripsi dilindungi oleh MAC yang melibatkan nomor frame & P4 \\ \hline
     S7 & Parameter Diffie-Hellman harus ditandatangani melalui tanda tangan digital & P2 \\ \hline
     S8 & Mekanisme pemeriksaan tanda tangan digital & P2 \\ \hline
     S9 & Melakukan implementasi pada protokol TLSv1.2 & P1, P2, P4, dan P4 \\ \hline
+    S10 & Melakukan implementasi pemeriksaan \emph{certificate} pada sisi klien & P2 \\ \hline
   \end{tabular}
 \end{table}
 
@@ -137,23 +137,21 @@ Pada saat proses enkripsi ataupun dekripsi pesan, diperlukan bit-bit kunci yang 
 
 Proses pengubahan ini diambil dikarenakan $K_i$ yang dihasilkan akan langsung berada pada jumlah bit yang dibutuhkan. Hal ini dapat menghemat operasi yang diperlukan dalam melakukan konversi. Nilai $K_i$ yang dihasilkan akan digunakan sebagai kunci blok yang digunakan pada proses enkripsi dan dekripsi.
 
-Algoritma yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritma enkripsi ini dikarenakan dukungan terhadap algoritma ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritma ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
+Algoritme yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritme enkripsi ini dikarenakan dukungan terhadap algoritme ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritme ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
 
 Permasalahan selanjutnya adalah terkait dengan sistem blok yang digunakan. Pada protokol yang dibangun, sistem blok yang digunakan adalah mode CTR. Mode CTR dapat memberikan fleksibilitas dalam pembentukan kunci dikarenakan proses enkripsi dan dekripsi keduanya dapat dilakukan secara parallel. Selain itu, mode CTR dapat diubah dengan mudah menjadi cipher alir sehingga dapat digunakan untuk mengirimkan aliran pesan yang terenkripsi. Mode sistem CTR juga dapat mengaburkan hubungan antar blok dikarenakan blok akan dienkripsi dengan blok CTR yang berbeda-beda.
 
 Nilai \emph{counter} pada sistem blok CTR dibangun juga memanfaatkan sistem \emph{chaos}. Hal ini ditujukan untuk menambah keamanan dari enkripsi blok. Selain itu, menambahan sistem \emph{counter} ini juga memperpanjang orde dari kunci yang digunakan. Hal ini dapat memperbesar ruang kunci saat melakukan XOR. Oleh karena itu, upaya analisis terhadap pesan akan semakin sulit.
 
-Permasalahan terkait dengan pembaharuan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaharuan kunci. Untuk kunci enkripsi, pembaharuan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan cache apabila dibutuhkan retransmisi ulang. Selain itu, pembaharuan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang untuk melakukan dekripsi pesan yang telah dienkripsi sebelumnya. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil. 
+Permasalahan terkait dengan pembaharuan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaharuan kunci. Untuk kunci enkripsi, pembaharuan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan \emph{cache} apabila dibutuhkan retransmisi ulang. Selain itu, pembaharuan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang untuk melakukan dekripsi pesan yang telah dienkripsi sebelumnya. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil. 
 
 Permasalahan selanjutnya adalah terkait dengan pengubahan nilai kunci saat proses dekripsi. Perubahan kunci hanya boleh dilakukan saat MAC pesan yang diterima benar dan proses dekripsi berhasil. Hal ini untuk memastikan bahwa pesan yang diterima merupakan pesan yang benar. Pengubahan nilai counter hanya boleh dilakukan saat proses dekripsi berhasil. Hal ini untuk memastikan bahwa nilai counter yang digunakan merupakan nilai yang benar. Saat melakukan proses dekripsi, nilai awal dari sistem \emph{chaos} harus disimpan terlebih dahulu. Hal ini diperlukan untuk melakukan operasi \emph{rollback} apabila terjadi kegagalan saat melakukan dekripsi.
 
-Permasalahan selanjutnya adalah terkait kegagalan saat melakukan proses dekripsi pada pesan yang diterima. Kondisi ini terjadi dengan dua kemungkinan, yaitu nilai MAC salah dan MAC benar. Apabila pesan yang diterima memiliki nilai MAC salah, maka proses dekripsi dapat langsung dibatalkan saja sehingga proses komunikasi masih dapat dilanjutkan. Apabila pesan yang diterima memiliki nilai MAC yang benar, nilai state MAC dan enkripsi harus dipulihkan ke nilai sebelum melakukan operasi. Oleh karena itu, perlu adanya penanganan rollback untuk kasus saat MAC ternyata benar.
+Permasalahan selanjutnya adalah terkait kegagalan saat melakukan proses dekripsi pada pesan yang diterima. Kondisi ini terjadi dengan dua kemungkinan, yaitu nilai MAC salah dan padding pesan salah. Apabila pesan yang diterima memiliki nilai padding salah, maka proses dekripsi dapat langsung dibatalkan saja sehingga proses komunikasi masih dapat dilanjutkan. Apabila pesan yang diterima memiliki nilai MAC yang salah, nilai state enkripsi harus dipulihkan ke nilai sebelum melakukan operasi. Oleh karena itu, perlu adanya penanganan hal tersebut.
 
-Permasalahan terkait dengan \emph{replay attack} pada dasarnya sudah teratasi dengan mekanisme MAC yang dinamis. Selain itu, pada protokol TLS, perhitungan nilai MAC didasari juga dengan nomor frame. Oleh karena itu, pesan sudah terlindungi dari ancaman tersebut.
+Permasalahan terkait dengan \emph{replay attack} pada dasarnya sudah teratasi dengan mekanisme MAC pada TLS. Pada protokol TLS, perhitungan nilai MAC didasari juga dengan nomor frame. Oleh karena itu, pesan sudah terlindungi dari ancaman tersebut.
 
 Permasalahan terkait dengan integritas pesan telah terjamin dengan adanya MAC yang digunakan. MAC dapat memastikan bahwa pesan yang diterima merupakan pesan yang asli dan otentik. Oleh karena itu, permasalahan terkait dengan integritas pesan telah teratasi.
-
-Permasalahan terkait dengan \emph{denial of service} dapat dikurangi dampaknya dengan melakukan perhitungan MAC pada pesan yang telah terenkripsi. Pesan hanya boleh dilakukan dekripsi bila nilai MAC benar. Hal ini dapat meminimalisir dampak dari serangan \emph{flooding} yang dilakukan oleh penyerang.
 
 \subsection{Otentikasi Pengirim Pesan}
 
@@ -161,17 +159,19 @@ Pada protokol TLS, telah terdapat mekanisme otentikasi pengirim pesan. Mekanisme
 
 Tanda tangan digital tersebut dibuktikan dengan data terkait sertifikat digital yang dikirimkan. Hal ini memastikan hanyalah pihak yang otentik saja yang dapat menghasilkan tanda tangan tersebut. Hal ini dijamin dengan adanya tanda tangan dari CA yang dipercaya oleh kedua belah pihak. Selama CA belum melakukan upaya \emph{revocation} ataupun sertifikat tidak kadaluarsa, maka tanda tangan tersebut dapat dipercaya berasal dari pihak yang sesungguhnya.
 
+Sertifikat digital yang digunakan pada protokol ini adalah sertifikat digital yang dikeluarkan oleh CA yang dipercaya oleh kedua belah pihak. Sertifikat digital perlu diperiksa oleh \emph{client} untuk memastikan tidak adanya serangan MITM yang berlangsung. Pihak \emph{client} dapat juga menanam sertifikat yang dipercaya. Teknik ini akan menambah keamanan dari serangan MITM yang mungkin terjadi. 
+
 Pada proses pengiriman pesan, terdapat mekanisme otentikasi pengirim pesan melalui MAC. MAC yang digunakan pada protokol ini bersifat dinamis. Hal ini dapat mencegah adanya MITM attack serta dapat memberikan nirpenyangkalan yang lebih tinggi dikarenakan partisipan yang terlibat dari awal komunikasi saja yang dapat menghasilkan MAC yang benar. Hal ini dikarenakan selain dibutuhkannya nilai awal dari sistem \emph{chaos}, diperlukan juga urutan frame saat ini untuk dapat menghasilkan MAC yang benar.
 
 Pada MAC dan tanda tangan digital, digunakan fungsi hash SHA-2 dengan \emph{digest size} 256. Hal ini dikarenakan fungsi hash ini merupakan fungsi hash yang cukup umum digunakan. Selain itu, hingga saat ini fungsi hash masih belum ditemukan kerentanannya.
 
-\section{Protokol TLS berbasis Chaos}
+\section{Protokol TLS berbasis Chaos} \label{sec:protokol-tls-chaos}
 
 Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang akan dibangun. Bagian ini terbagi atas beberapa bagian, yaitu spesifikasi cipher, spesifikasi \emph{handshake}, spesifikasi terkait dengan pengiriman pesan. Pada dasarnya, protokol yang dibangun akan mengikuti spesifikasi yang telah ada pada protokol TLSv1.2. Versi ini dipilih dikarenakan TLS versi ini masih dapat mendukung \emph{cipher} berbasis AEAD. Namun, terdapat beberapa penyesuaian yang dilakukan untuk memastikan kompatibilitas dari protokol yang dibangun.
 
 \subsection{Spesifikasi Cipher}
 
-\emph{Cipher} yang digunakan pada protokol ini adalah AES-256. Kunci enkripsi serta nilai \emph{counter} yang digunakan pada \emph{cipher} ini bersifat dinamis memanfaatkan sistem chaos yang telah dijelaskan pada bagian III.2.1. Mode blok yang digunakan pada \emph{cipher} ini adalah counter untuk menjamin panjangnya kunci XOR yang dapat dihasilkan. Gambar \ref{fig:tls.cipher} menunjukkan struktur enkripsi dan dekripsi dari \emph{cipher} yang digunakan.
+\emph{Cipher} yang digunakan pada protokol ini adalah AES-256. Kunci enkripsi serta nilai \emph{counter} yang digunakan pada \emph{cipher} ini bersifat dinamis memanfaatkan sistem chaos yang telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Mode blok yang digunakan pada \emph{cipher} ini adalah counter. Gambar \ref{fig:tls.cipher} menunjukkan struktur enkripsi dan dekripsi dari \emph{cipher} yang digunakan.
 
 \begin{figure}[!h]
   \centering
@@ -190,7 +190,7 @@ Kunci MAC yang digunakan adalah kunci statis. Proses perhitungan MAC perlu melib
       \text{   }\text{frame}.\text{type}\text{ }|| \\
       \text{   }\text{frame}.\text{version}\text{ }|| \\ 
       \text{   }\text{frame}.\text{length}\text{ }|| \\
-      \text{   }\text{frame}.\text{encrypted\_data} \\
+      \text{   }\text{frame}.\text{plaintext} \\
     ) 
   \end{array}
 \end{equation}
@@ -210,9 +210,9 @@ Aturan untuk pembaharuan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-
   \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.read}
 \end{figure}
 
-Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
+Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, akan dihitung nilai MAC dari frame tersebut lalu nilainya akan ditempelkan pada pesan. Selanjutnya, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
 
-Saat proses dekripsi, pertama-tama frame record harus dipastikan terlebih dahulu MAC valid. Setelah MAC yang diterima valid, maka proses dekripsi akan dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
+Pada saat menerima pesan, penerima akan melakukan proses dekripsi yang dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan dihitung MAC-nya. Bila nilai MAC valid, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
 
 \emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} $\text{0xff00}$ pada saat proses \emph{handshake}. Nilai awal $\text{0xff}$ berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
 
@@ -267,9 +267,7 @@ Tabel \ref{tab:tls.keyexpansion} menunjukan kegunaan dari setiap hasil ekspansi 
 
 \subsection{Spesifikasi Pengiriman Pesan}
 
-Pada proses pengiriman pesan, pesan terlebih dahulu harus dipotong menjadi beberapa frame. Setiap frame pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Setelah pemasangan padding, akan dilakukan proses enkripsi. Setelah proses enkripsi berhasil, nilai MAC dari proses enkripsi tersebut akan dihitung sesuai dengan persamaan \ref{eq:tls.data.mac}.
-
-Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimkan. Gambar \ref{fig:tls.application.rec} menunjukkan protokol record yang digunakan untuk mengirimkan pesan.
+Pada proses pengiriman pesan, pesan terlebih dahulu dilakukan operasi kriptografi sebagaimana penjelasan pada bagian \ref{sec:solusi.enc-dec}. Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimkan. Gambar \ref{fig:tls.application.rec} menunjukkan protokol record yang digunakan untuk mengirimkan pesan.
 
 \begin{figure}[!h]
   \centering
@@ -277,13 +275,13 @@ Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimka
   \caption{Ilustrasi \emph{Application Record} yang digunakan} \label{fig:tls.application.rec}
 \end{figure}
 
-Berdasarkan \textcite{rfc5246}, Nilai tipe haruslah 33. Hal ini menyatakan bahwa pesan yang dikirimkan merupakan \emph{Application Data}. Nilai \emph{version} yang digunakan adalah $\text{0x0303}$. Hal ini menyatakan protokol yang digunakan adalah TLSv1.2. Panjang pesan ($L$) merupakan panjang dari pesan terenkripsi dan MAC. Secara matematis dihitung berdasarkan persamaan \ref{eq:tls.record.length}.
+Berdasarkan \textcite{rfc5246}, Nilai tipe haruslah 33. Hal ini menyatakan bahwa pesan yang dikirimkan merupakan \emph{Application Data}. Nilai \emph{version} yang digunakan adalah $\text{0x0303}$. Hal ini menyatakan protokol yang digunakan adalah TLSv1.2. Panjang pesan ($L$) merupakan panjang dari pesan dan MAC dalam keadaan terenkripsi. Secara matematis dihitung berdasarkan persamaan \ref{eq:tls.record.length}.
 
 \begin{equation}
   \begin{aligned}
-    L = \text{len}(\text{CB}_i\text{ }||\text{ }\text{MAC}_i)
+    L = \text{len}(CB_{i})
   \end{aligned}
   \label{eq:tls.record.length}
 \end{equation}
 
-Pesan terenkripsi merupakan gabungan dari semua blok pesan yang berhasil dienkripsi melalui cipher yang telah dijelaskan sebelumnya.
+Blok pesan terenkripsi merupakan hasil dari proses enkripsi yang dilakukan pada bagian \ref{sec:solusi.enc-dec}. Blok tersebut berisi informasi terkait dengan \emph{plaintext} dan MAC dalam keadaan terenkripsi. Hal ini dilakukan untuk mencegah adanya serangan \emph{side-channel} dengan mengamati waktu dekripsi pesan.
