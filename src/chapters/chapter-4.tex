@@ -35,7 +35,7 @@ Lingkungan implementasi dari protokol TLS ditunjukan pada tabel \ref{tab:impl.en
   \caption{Lingkungan Implementasi} \label{tab:impl.env}
   \begin{tabular}{|p{3cm}|p{6cm}|}
     \hline
-    Jenis Lingkungan & Nilai \\ \hline
+    \textbf{Jenis Lingkungan} & \textbf{Nilai} \\ \hline
     Sistem Operasi & Fedora Linux 40 \\ \hline
     Bahasa Pemrograman & Python 3.12.3 \\ \hline
     Kernel & Linux 6.8.9 \\ \hline
@@ -54,7 +54,7 @@ Terdapat beberapa pustaka yang digunakan sebagai dependensi dari pustaka yang di
   \caption{Pustaka yang Digunakan} \label{tab:impl.lib}
   \begin{tabular}{|p{4cm}|p{9cm}|}
     \hline
-    Nama Pustaka & Deskripsi \\ \hline
+    \textbf{Nama Pustaka} & \textbf{Deskripsi} \\ \hline
     \texttt{cryptography 42.0.5} & Pustaka ini digunakan untuk membantu dalam proses validasi tanda tangan digital dan \emph{parsing} sertifikat digital. Pustaka ini juga membantu dalam menghitung hasil Eliptic Curve Diffie-Hellman yang dilakukan pada saat \emph{Handshake} \\ \hline
     \texttt{pycryptodome 3.19.0} & Pustaka ini digunakan untuk membantu dalam melakukan proses enkripsi serta dekripsi pesan. Selain itu, pustaka ini juga membantu dalam menghitung operasi HMAC. \\ \hline
     \texttt{numpy 1.26.2} & Pustaka ini digunakan untuk membantu operasi pada array serta operasi \emph{floating-point}.\\ \hline
@@ -102,7 +102,7 @@ Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{ci
   \caption{Lingkungan Pengujian} \label{tab:test.env}
   \begin{tabular}{|p{3cm}|p{6cm}|}
     \hline
-    Jenis Lingkungan & Nilai \\ \hline
+    \textbf{Jenis Lingkungan} & \textbf{Nilai} \\ \hline
     Sistem Operasi & Fedora Linux 40 \\ \hline
     Kernel & Linux 6.8.9 \\ \hline
     Manager Paket & Pip 23.3.2 \\ \hline
@@ -124,7 +124,7 @@ Pengujian dilakukan pada sistem operasi linux ditujukan untuk menggunakan fitur 
   \caption{Pustaka Pengujian yang Digunakan} \label{tab:test.lib}
   \begin{tabular}{|p{4cm}|p{9cm}|}
     \hline
-    Nama Pustaka & Deskripsi \\ \hline
+    \textbf{Nama Pustaka} & \textbf{Deskripsi} \\ \hline
     \texttt{pytest 8.1.1} & Pustaka ini digunakan untuk membantu dalam menyediakan \emph{runtime} pengujian dan membantu dalam proses \emph{debugging} bila terjadi kegagalan saat pengujian berlangsung. \\ \hline
     \texttt{socket} & Pustaka standard ini digunakan untuk melakukan komunikasi melalui \emph{UNIX socket}.\\ \hline
     \texttt{Fast Statictics Test v6.0.1} & Perangkat lunak ini digunakan dalam menguji keteracakan dari bytestream berdasarkan NIST Statistical Test Suite.\\ \hline
@@ -149,7 +149,7 @@ Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan
   \caption{Skenario Uji Cipher} \label{tab:test.case.cipher}
   \begin{tabular}{|c|p{7cm}|c|}
     \hline
-    Kode Kasus Uji & Deskripsi & ID Solusi Terkait \\ \hline
+    \textbf{Kode Kasus Uji} & \textbf{Deskripsi} & \textbf{ID Solusi Terkait} \\ \hline
     \multicolumn{3}{|l|}{Pengujian Fungsionalitas} \\ \hline
     T1.1 & \emph{Cipher} dapat melakukan proses enkripsi pada pesan teks rahasia dengan menggunakan cipher AES-256 kunci blok dinamis.  & S1, S4, dan S5\\ \hline
     T1.2 & \emph{Cipher} dapat mendekripsi kembali pesan menggunakan cipher AES-256 kunci blok dinamis. & S1, S4, dan S5\\ \hline
@@ -174,7 +174,7 @@ Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}
   \caption{Hasil Pengujian Cipher dengan Metode Skenario} \label{tab:test.result.cipher}
   \begin{tabular}{|c|c|}
     \hline
-    Kode Kasus Uji & Hasil \\ \hline
+    \textbf{Kode Kasus Uji} & \textbf{Hasil} \\ \hline
     T1.1 & Berhasil \\ \hline
     T1.2 & Berhasil \\ \hline
     T1.3 & Berhasil \\ \hline
@@ -189,7 +189,7 @@ Pengujian statistik CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} p
   \caption{Hasil Pengujian Statistik pada CSPRNG Berbasis Sistem \emph{Chaos} Sine-Henon Map dan \texttt{/dev/urandom}} \label{tab:test.statistic.chaos}
   \begin{tabular}{|c|c|c|c|}
     \hline
-    Nama Pengujian & \texttt{/dev/urandom} & Sine-Henon Map & P-Value \\ \hline
+    \textbf{Nama Pengujian }& \textbf{\texttt{/dev/urandom}} & \textbf{Sine-Henon Map} & \textbf{P-Value} \\ \hline
     Uji Entropi & 98,8\% & 99\% & 0,000606 \\ \hline
     Uji Frekuensi Blok & 99,2\% & 99,2\% & 0,000000 \\ \hline
     Uji Jumlah Kumulatif & 98,9\% & 99,7\% & 0,003034 \\ \hline
@@ -217,7 +217,7 @@ Pengujian statistik pada \emph{cipher} dilakukan dengan membandingkan proporsi \
   \caption{Hasil Pengujian Statistik pada Cipher Blok Statis dan Blok Dinamis} \label{tab:test.statistic.cipher}
   \begin{tabular}{|c|c|c|c|}
     \hline
-    Nama Pengujian & Blok Statis & Blok Dinamis & P-Value \\ \hline
+    \textbf{Nama Pengujian} & \textbf{Blok Statis} & \textbf{Blok Dinamis} & \textbf{P-Value} \\ \hline
     Uji Entropi & 98,6\% & 98,2\% & -0,504049 \\ \hline
     Uji Frekuensi Blok & 99,0\% & 98,4\% & 0,837512 \\ \hline
     Uji Jumlah Kumulatif & 98,5\% & 99,2\% & 1.038080 \\ \hline
@@ -247,7 +247,7 @@ Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci
   \caption{Skenario Uji Implementasi Protokol TLS} \label{tab:test.case.tls}
   \begin{tabular}{|c|p{7cm}|p{3cm}|}
     \hline
-    Kode Kasus Uji & Deskripsi & ID Solusi Terkait \\ \hline
+    \textbf{Kode Kasus Uji} & \textbf{Deskripsi} & \textbf{ID Solusi Terkait} \\ \hline
     \multicolumn{3}{|l|}{Pengujian Fungsionalitas} \\ \hline
     T2.1 & Protokol TLS dapat melakukan proses \emph{handshake} dan membentuk sistem \emph{chaos} yang sesuai pada tiap-tiap partisipan. & S2, S3, S7, S8, dan S9\\ \hline
     T2.2 & Protokol TLS dapat digunakan untuk mengirim dan menerima pesan teks. & S1, S4, S5, S6, dan S9 \\ \hline
@@ -274,7 +274,7 @@ Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah d
   \caption{Hasil Pengujian Implementasi TLS} \label{tab:test.result.tls}
   \begin{tabular}{|c|c|}
     \hline
-    Kode Kasus Uji & Hasil \\ \hline
+    \textbf{Kode Kasus Uji} & \textbf{Hasil} \\ \hline
     T2.1 & Berhasil \\ \hline
     T2.2 & Berhasil \\ \hline
     T2.3 & Berhasil \\ \hline
