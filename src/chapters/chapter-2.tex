@@ -296,10 +296,10 @@ Menurut \textcite{munir2019}, tanda tangan digital merupakan sebuah metode kript
 
 Proses tanda tangan digital pada umumnya melibatkan kriptografi kunci publik. Salah satu skema yang digunakan dalam membangkitkan tanda tangan adalah ECDSA (\emph{Eliptic Curve Digital Signature Algorithm}). Menurut \textcite{munir2019}, ECDSA merupakan sebuah skema yang diturunkan dari algoritme tanda tangan digital Elgamal. Untuk menjelaskan proses kriptografi yang dilakukan, diasumsikan terdapat dua buah entitas, yaitu Ahmad dan Budi yang akan melakukan pertukaran pesan. Ahmad akan mengirimkan pesan kepada Budi dengan dibubuhi tanda tangan digital.
 
-Pada mulanya, Ahmad dan budi akan menyepakati kurva eliptik yang akan digunakan serta titik generator ($G$). Keduanya akan membangkitkan dua buah kunci, yaitu kunci publik dan kunci privat. Persamaan \ref{eq:ecdsa.key}, menjelaskan proses pembangkitan kunci publik dan kunci privat.
+Pada mulanya, Ahmad dan budi akan menyepakati kurva eliptik yang akan digunakan serta titik generator ($G$). Keduanya akan membangkitkan dua buah kunci, yaitu kunci publik dan kunci privat. Persamaan \ref{eq:ecdsa.keygen}, menjelaskan proses pembangkitan kunci publik dan kunci privat.
 
 \begin{equation}
-  \label{eq:ecdsa.key}
+  \label{eq:ecdsa.keygen}
   \begin{array}{l}   
     P = x \cdot G \\
   \end{array}
@@ -307,7 +307,7 @@ Pada mulanya, Ahmad dan budi akan menyepakati kurva eliptik yang akan digunakan 
 
 Kunci $P$ pada masing-masing partisipan akan saling dipetukarkan, sedangkan nilai $x$ merupakan kunci privat yang dibangkitkan secara acak. Misalkan kunci publikdari Ahmad dan Budi secara berturut-turut didefinisikan dengan $P_{A}$ dan $P_{B}$, sedangkan kunci privat mereka didefinisikan dengan $a$ dan $b$.
 
-Saat Ahmad akan membuat tanda tangan, Ahmad perlu memilih nilai acak $k$. Nilai ini harus diambil dari rentang $[1, p-1]$. Selanjutnya, ahmad perlu menghitung nilai $r$ sesuai dengan persamaan \ref{eq:ecdsa.r}. Apabila nilai $r$ adalah 0, Ahmad perlu memilih nilai $k$ yang lain.
+Saat Ahmad akan membuat tanda tangan, Ahmad perlu memilih nilai acak $k$. Nilai ini harus diambil dari rentang $[1, p-1]$. Selanjutnya, ahmad perlu menghitung nilai $r$ sesuai dengan persamaan \ref{eq:ecdsa.key}. Apabila nilai $r$ adalah 0, Ahmad perlu memilih nilai $k$ yang lain.
 
 \begin{equation}
   \label{eq:ecdsa.key}
