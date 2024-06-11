@@ -8,7 +8,7 @@ Bagian ini menjelaskan dari implementasi solusi yang telah dirancang sebelumnya.
 Implementasi dilakukan dengan beberapa batasan dari protokol TLS yang telah didefinisikan pada \textcite{rfc5246}. Berikut ini merupakan batasan yang diterapkan:
 
 \begin{enumerate}
-  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritme hash SHA-256.
+  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
   \item Tiap pesan pada protokol \emph{handshake} dikirimkan melalui Protokol \emph{Record} yang berbeda.
   \item Fitur kompresi pada protokol TLS tidak diimplementasikan.
   \item Sertifikat digital diverifikasi secara \emph{pinning} dan tidak melakukan verifikasi \emph{revocation}.
@@ -167,7 +167,7 @@ Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos}
 
 Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang dibangun pada penelitian ini.
 
-Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritme dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun dapat berjalan dengan baik pada skenario yang telah dijalankan.
+Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritma dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun dapat berjalan dengan baik pada skenario yang telah dijalankan.
 
 \begin{table}[!h]
   \centering

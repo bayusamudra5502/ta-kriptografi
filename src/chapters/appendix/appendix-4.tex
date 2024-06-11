@@ -5,10 +5,10 @@ Bagian ini menjelaskan terkait metode pengujian yang dilakukan serta hasil pengu
 
 \section{Kasus Uji T2.1}
 
-Algoritme pengujian \ref{alg:unit.test.t2.1} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa kunci yang dihasilkan oleh Alice dan Bob sama.
+Algoritma pengujian \ref{alg:unit.test.t2.1} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa kunci yang dihasilkan oleh Alice dan Bob sama.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.1}
+  \caption{Algoritma Pengujian Kasus Uji T2.1}
   \label{alg:unit.test.t2.1}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -39,10 +39,10 @@ Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada g
 
 \section{Kasus Uji T2.2}
 
-Algoritme pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan teks yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Algoritma pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan teks yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.2}
+  \caption{Algoritma Pengujian Kasus Uji T2.2}
   \label{alg:unit.test.t2.2}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -66,10 +66,10 @@ Algoritme pengujian \ref{alg:unit.test.t2.2} menjelaskan proses pengujian TLS an
 
 \section{Kasus Uji T2.3}
 
-Algoritme pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan biner yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Algoritma pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS antara Alice dan Bob. Pengujian ini dilakukan untuk memastikan bahwa pesan biner yang dikirim oleh Alice diterima oleh Bob dan sebaliknya. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.3}
+  \caption{Algoritma Pengujian Kasus Uji T2.3}
   \label{alg:unit.test.t2.3}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -95,10 +95,10 @@ Algoritme pengujian \ref{alg:unit.test.t2.3} menjelaskan proses pengujian TLS an
 
 \section{Kasus Uji T2.4}
 
-Algoritme pengujian \ref{alg:unit.test.t2.4} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob saat adanya \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. Pengujian ini dilakukan untuk memastikan bahwa \emph{handshake} akan gagal saat ada \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. 
+Algoritma pengujian \ref{alg:unit.test.t2.4} menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob saat adanya \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. Pengujian ini dilakukan untuk memastikan bahwa \emph{handshake} akan gagal saat ada \emph{tampering} pada \emph{frame} \emph{ServerKeyExchange}. 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.4}
+  \caption{Algoritma Pengujian Kasus Uji T2.4}
   \label{alg:unit.test.t2.4}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -147,7 +147,7 @@ Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.4}. Pada g
 Kasus uji ini menjelaskan proses pengujian TLS \emph{handshake} antara Alice dan Bob saat adanya pengubahan \emph{private key} pada \emph{frame} \emph{ServerKeyExchange}. Pengujian ini dilakukan untuk memastikan bahwa \emph{handshake} akan gagal saat ada pengubahan \emph{private key} pada \emph{frame} \emph{ServerKeyExchange}.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.5}
+  \caption{Algoritma Pengujian Kasus Uji T2.5}
   \label{alg:unit.test.t2.5}
   \begin{algorithmic}
     \State $cert_1, prk_1 \gets generatePairCertificate()$
@@ -168,10 +168,10 @@ Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.1}. Pada g
 
 \section{Kasus Uji T2.6}
 
-Kasus uji ini menjelaskan proses pengujian TLS saat menerima pesan dengan MAC yang tidak valid. Kasus uji ini dijelaskan melalui algoritme pengujian \ref{alg:unit.test.t2.6}. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.4}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menjelaskan proses pengujian TLS saat menerima pesan dengan MAC yang tidak valid. Kasus uji ini dijelaskan melalui algoritma pengujian \ref{alg:unit.test.t2.6}. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.4}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.6}
+  \caption{Algoritma Pengujian Kasus Uji T2.6}
   \label{alg:unit.test.t2.6}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -216,11 +216,11 @@ Kasus uji ini menjelaskan proses pengujian TLS saat menerima pesan dengan MAC ya
 
 \section{Kasus Uji T2.7}
 
-Kasus uji ini memastikan pengiriman pesan masih tetap dapat berlangsung setelah menerima \emph{frame} dengan MAC tidak valid. Algoritme \ref{alg:unit.test.t2.7} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.4}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini memastikan pengiriman pesan masih tetap dapat berlangsung setelah menerima \emph{frame} dengan MAC tidak valid. Algoritma \ref{alg:unit.test.t2.7} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.4}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.7}
+  \caption{Algoritma Pengujian Kasus Uji T2.7}
   \label{alg:unit.test.t2.7}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -265,11 +265,11 @@ Kasus uji ini memastikan pengiriman pesan masih tetap dapat berlangsung setelah 
 
 \section{Kasus Uji T2.8}
 
-Kasus uji ini menguji terkait dengan \emph{replay attack} pada protokol TLS. Algoritme \ref{alg:unit.test.t2.8} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.8}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menguji terkait dengan \emph{replay attack} pada protokol TLS. Algoritma \ref{alg:unit.test.t2.8} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.8}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.8}
+  \caption{Algoritma Pengujian Kasus Uji T2.8}
   \label{alg:unit.test.t2.8}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -317,11 +317,11 @@ Kasus uji ini menguji terkait dengan \emph{replay attack} pada protokol TLS. Alg
 
 \section{Kasus Uji T2.9}
 
-Kasus uji ini menguji terkait dengan \emph{replay attack} pada protokol TLS. Pada kasus ini, protokol harus tetap dapat bekerja setelah mendapatkan \emph{replay attack}. Algoritme \ref{alg:unit.test.t2.9} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.9}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menguji terkait dengan \emph{replay attack} pada protokol TLS. Pada kasus ini, protokol harus tetap dapat bekerja setelah mendapatkan \emph{replay attack}. Algoritma \ref{alg:unit.test.t2.9} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.9}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.9}
+  \caption{Algoritma Pengujian Kasus Uji T2.9}
   \label{alg:unit.test.t2.9}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -387,10 +387,10 @@ Hasil dari pengujian ini menunjukkan bahwa \emph{frame} yang dikirimkan memiliki
 
 \section{Kasus Uji T2.11}
 
-Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tampering} pada \emph{frame} \emph{ClientHello}. Algoritme \ref{alg:unit.test.t2.11} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.11}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tampering} pada \emph{frame} \emph{ClientHello}. Algoritma \ref{alg:unit.test.t2.11} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.11}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.11}
+  \caption{Algoritma Pengujian Kasus Uji T2.11}
   \label{alg:unit.test.t2.11}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -433,11 +433,11 @@ Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tam
 
 \section{Kasus Uji T2.12}
 
-Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tampering} pada \emph{frame} \emph{ServerHello}. Algoritme \ref{alg:unit.test.t2.12} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.12}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tampering} pada \emph{frame} \emph{ServerHello}. Algoritma \ref{alg:unit.test.t2.12} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.12}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.12}
+  \caption{Algoritma Pengujian Kasus Uji T2.12}
   \label{alg:unit.test.t2.12}
   \begin{algorithmic}
     \State $cert, prk \gets generatePairCertificate()$
@@ -479,7 +479,7 @@ Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tam
 
 \section{Kasus Uji T2.13}
 
-Kasus uji ini menguji proses \emph{handshake} apabila \emph{certificate} yang dilakukan \emph{pinning} pada \emph{client} tidak sesuai dengan \emph{certificate} yang diterima dari \emph{server}. Algoritme \ref{alg:unit.test.t2.13} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.13}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
+Kasus uji ini menguji proses \emph{handshake} apabila \emph{certificate} yang dilakukan \emph{pinning} pada \emph{client} tidak sesuai dengan \emph{certificate} yang diterima dari \emph{server}. Algoritma \ref{alg:unit.test.t2.13} menjelaskan terkait implementasi kasus uji ini. Hasil dari pengujian ini ditunjukan oleh gambar \ref{fig:unit.test.t2.13}. Pada gambar tersebut, terlihat bahwa pengujian berhasil.
 
 \begin{figure}[ht]
   \centering
@@ -490,7 +490,7 @@ Kasus uji ini menguji proses \emph{handshake} apabila \emph{certificate} yang di
 
 
 \begin{algorithm}
-  \caption{Algoritme Pengujian Kasus Uji T2.13}
+  \caption{Algoritma Pengujian Kasus Uji T2.13}
   \label{alg:unit.test.t2.13}
   \begin{algorithmic}
     \State $cert_1, prk_1 \gets generatePairCertificate()$

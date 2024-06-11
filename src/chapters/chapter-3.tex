@@ -136,7 +136,7 @@ Pada saat proses enkripsi ataupun dekripsi pesan, diperlukan bit-bit kunci yang 
 
 Proses pengubahan ini diambil dikarenakan $K_i$ yang dihasilkan akan langsung berada pada jumlah bit yang dibutuhkan. Hal ini dapat menghemat operasi yang diperlukan dalam melakukan konversi. Nilai $K_i$ yang dihasilkan akan digunakan sebagai kunci blok yang digunakan pada proses enkripsi dan dekripsi.
 
-Algoritme yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritme enkripsi ini dikarenakan dukungan terhadap algoritme ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritme ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
+Algoritma yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritma enkripsi ini dikarenakan dukungan terhadap algoritma ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritma ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
 
 Permasalahan selanjutnya adalah terkait dengan sistem blok yang digunakan. Pada protokol yang dibangun, sistem blok yang digunakan adalah mode CTR. Mode CTR dapat memberikan fleksibilitas dalam pembentukan kunci dikarenakan proses enkripsi dan dekripsi keduanya dapat dilakukan secara parallel. Selain itu, mode CTR dapat diubah dengan mudah menjadi cipher alir sehingga dapat digunakan untuk mengirimkan aliran pesan yang terenkripsi. Mode sistem CTR juga dapat mengaburkan hubungan antar blok dikarenakan blok akan dienkripsi dengan blok CTR yang berbeda-beda.
 
