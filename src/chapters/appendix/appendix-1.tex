@@ -344,7 +344,7 @@ struct {
   struct {
       select (PublicValueEncoding) {
           case implicit: struct {};
-          case explicit: opaque DH_Yc<1..2^16-1>;
+          case explicit: ECPoint DH_Yc;
       } dh_public;
   } ClientDiffieHellmanPublic;
 

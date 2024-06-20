@@ -13,7 +13,7 @@ Terdapat beberapa penelitian yang merancang algoritma enkripsi dinamis untuk men
 
 Penelitian yang dilakukan oleh \textcite{lin2021} memanfaatkan teori \emph{chaos} untuk membangkitkan kunci yang dinamis. Selain itu, penelitian ini juga membahas terkait sinkronisasi sistem \emph{chaos} memanfaatkan \emph{sliding mode control}. Proses sinkronisasi memanfaatkan teknik tersebut memiliki sebuah kekurangan bila diimplementasikan untuk sistem enkripsi ujung ke ujung, yaitu jumlah pengiriman pesan yang perlu dilakukan selama sinkronisasi tidak konstan. Selain itu, penelitian yang dilakukan oleh \textcite{lin2021} tidak menjelaskan terkait protokol pengiriman pesan.
 
-Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan membahas implementasi algoritma enkripsi simetris dinamis dalam pengiriman pesan memanfaatkan sistem \emph{chaos} pada protokol TLS. Penelitian ini akan membahas terkait mekanisme sinkronisasi \emph{state} melalui fitur yang ada pada protokol TLS. Penelitian ini juga akan membahas terkait pengujian keamanan dari protokol yang dibangun.
+Dari beberapa permasalahan dan studi yang telah disebutkan, penelitian ini akan membahas implementasi algoritma enkripsi simetris dinamis dalam pengiriman pesan memanfaatkan sistem \emph{chaos} pada protokol TLS. Penelitian ini akan membahas terkait mekanisme sinkronisasi \emph{state} melalui fitur yang ada pada protokol TLS. Penelitian ini juga akan membahas terkait pengujian keamanan dari protokol yang diusulkan.
 
 \section{Rumusan Masalah}
 Berdasarkan latar belakang yang telah dijelaskan sebelumnya, dapat disimpulkan bahwa terdapat permasalahan terkait pengiriman memanfaatkan algoritma enkripsi kunci simetris dinamis pada protokol TLS. Untuk menyelesaikan permasalahan tersebut, dibentuk beberapa rumusan masalah:
@@ -35,7 +35,7 @@ Penelitian ini dilakukan dengan tujuan sebagai berikut:
 Dalam penelitian ini, terdapat batasan masalah yang digunakan, yaitu sebagai berikut:
 \begin{enumerate}
   \item Komunikasi dilakukan hanya oleh dua entitas.
-  \item Protokol TLS yang dibangun berjalan di atas jaringan yang reliable.
+  \item Protokol TLS berjalan di atas jaringan yang reliable.
   \item Proses implementasi protokol TLS hanya dilakukan hingga tahap pembuatan prototype.
 \end{enumerate}
 
@@ -46,10 +46,10 @@ Metodologi yang digunakan pada penelitian ini terdapat empat tahap. Berikut ini 
   Penelitian pada tahap ini berfokus pada permasalahan protokol yang telah dibentuk saat ini. Pada tahap ini juga akan dijelaskan permasalahan yang mungkin muncul apabila mengimplementasikan sistem enkripsi simetris dengan kunci blok dinamis pada protokol TLS. Pada tahap ini juga akan dijelaskan terkait kebutuhan dari protokol TLS yang akan dibangun.
 
   \item Perancangan protokol komunikasi\\
-  Setelah melakukan analisis permasalahan, perlu dilakukan perancangan solusi berupa skema protokol TLS dan sistem enkripsinya. Pada bagian ini, Penelitian mengkaji jenis mode blok yang digunakan pada protokol yang dibangun. Pada tahap ini juga, penelitian mengkaji terkait pembangkitan \emph{chaos state} berdasarkan dari kunci sesi yang telah dibentuk pada protokol TLS.
+  Setelah melakukan analisis permasalahan, perlu dilakukan perancangan solusi berupa skema protokol TLS dan sistem enkripsinya. Pada bagian ini, Penelitian mengkaji jenis mode blok yang digunakan pada protokol yang diusulkan. Pada tahap ini juga, penelitian mengkaji terkait pembangkitan \emph{chaos state} berdasarkan dari kunci sesi yang telah dibentuk pada protokol TLS.
 
   \item Pembangunan prototype protokol komunikasi\\
-  Pada tahap ini, prototype protokol komunikasi yang telah dirancang sebelumnya dibangun. Pembangunan prototype dilakukan berdasarkan perancangan desain yang telah disusun pada bagian sebelumnya. Prototype dibangun dalam bentuk program kecil yang dapat mengirimkan pesan secara bolak balik sebagai bukti bahwa protokol yang dibangun dapat berjalan.
+  Pada tahap ini, prototype protokol komunikasi yang telah dirancang sebelumnya dibangun. Pembangunan prototype dilakukan berdasarkan perancangan desain yang telah disusun pada bagian sebelumnya. Prototype dibangun dalam bentuk program kecil yang dapat mengirimkan pesan secara bolak balik sebagai bukti bahwa protokol yang diusulkan dapat berjalan.
 
   \item Simulasi dan Evaluasi\\
   Pada tahap ini, prototype yang telah dibuat dilakukan simulasi. Simulasi dilakukan dengan cara mengirimkan pesan berupa teks dan file binari. Hal ini dilakukan dengan menggunakan beberapa file dan teks yang berbeda. Setiap gambar yang telah diterima akan diperiksa integritasnya. Pesan terenkripsi juga akan dilakukan secara statistik dan visual. Pengujian keteracakan dilakukan dengan menggunakan NIST SP 800-22 \emph{randomness test}. Selain itu, akan dilakukan pengujian analisis entropi informasi untuk melihat keterkaitan antara satu blok dengan blok lainnya. Pengujian visual dilakukan dengan cara menampilkan gambar yang terenkripsi.
@@ -69,7 +69,7 @@ Pembahasan pada buku laporan ini akan dibagi menjadi beberapa bab. Berikut ini m
   Bab ini berfokus kepada analisis terkait ancaman-ancaman yang ada pada sebuah protokol komunikasi TLS. Pada bab ini juga dijelaskan terkait komposisi \emph{cipher suite} yang akan digunakan pada protokol TLS. Pada bab ini juga dijelaskan terkait rancangan protokol yang akan dibangun didasari oleh kebutuhan yang telah didefinisikan.
 
   \item Bab IV Implementasi Solusi dan Pengujian\\
-  Pada bab ini, pembahasan akan berfokus pada implementasi dan pengujian dari protokol yang telah dijelaskan sebelumnya pada bab III. Pada bab ini akan dibahas terkait eksperimen terkait sistem \emph{chaos} yang telah dipilih. Pada bab ini juga akan dibahas terkait lingkungan protokol komunikasi yang dibangun. Selain itu, pada bab ini akan dibahas terkait hasil pengujian protokol yang telah dibangun.
+  Pada bab ini, pembahasan akan berfokus pada implementasi dan pengujian dari protokol yang telah dijelaskan sebelumnya pada bab III. Pada bab ini akan dibahas terkait eksperimen terkait sistem \emph{chaos} yang telah dipilih. Pada bab ini juga akan dibahas terkait lingkungan protokol komunikasi yang diujulkan. Selain itu, pada bab ini akan dibahas terkait hasil pengujian protokol yang telah dibangun.
 
   \item Bab V Kesimpulan dan Saran\\
   Bab ini berisi terkait kesimpulan dari penelitian ini. Pada bab ini juga akan diberikan saran untuk penelitian yang selanjutnya.

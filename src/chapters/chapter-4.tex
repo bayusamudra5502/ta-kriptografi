@@ -91,11 +91,11 @@ Bagian ini menjelaskan dari pengujian yang dilakukan terhadap pustaka yang telah
 \subsection{Tujuan Pengujian}
 Pengujian dilakukan dengan tujuan sebagai berikut:
 \begin{enumerate}
-  \item Menguji fungsionalitas dan keamanan dari \emph{cipher} yang dibangun.
-  \item Menguji fungsionalitas dan keamaman dari implementasi protokol TLS yang dibangun.
+  \item Menguji fungsionalitas dan keamanan \emph{cipher} yang diusulkan.
+  \item Menguji fungsionalitas dan keamanan implementasi protokol TLS yang dibangun.
 \end{enumerate}
 
-Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{cipher} yang dibangun dapat menjalankan proses kriptografi dengan baik. Pengujian ini dilakukan dengan melakukan operasi kriptografi pada \emph{cipher} yang telah dibangun sesuai dengan kasus yang didefinisikan. Pengujian keamanan pada \emph{cipher} dilakukan dengan melakukan uji statistik pada sistem \emph{chaos} dan \emph{cipher} yang dibangun. Hal ini bertujuan untuk mengetahui sifat statistik yang mungkin muncul pada sistem \emph{chaos} dan hasil enkripsi dari \emph{cipher} yang dibangun. Uji statistik dilakukan dengan menggunakan NIST Statistical Test Suite yang telah diimplementasikan oleh \textcite{marek2016}. Selain itu, pengujian keamanan juga dilakukan dengan menguji beberapa skenario serangan. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah pertama.
+Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{cipher} yang diusulkan dapat menjalankan proses kriptografi dengan baik. Pengujian ini dilakukan dengan melakukan operasi kriptografi pada \emph{cipher} sesuai dengan kasus yang didefinisikan. Pengujian keamanan pada \emph{cipher} dilakukan dengan melakukan uji statistik pada sistem \emph{chaos} dan \emph{cipher} yang diusulkan. Hal ini bertujuan untuk mengetahui sifat statistik yang mungkin muncul pada sistem \emph{chaos} dan hasil enkripsi dari \emph{cipher} yang diusulkan. Uji statistik dilakukan dengan menggunakan NIST Statistical Test Suite yang telah diimplementasikan oleh \textcite{marek2016}. Selain itu, pengujian keamanan juga dilakukan dengan menguji beberapa skenario serangan. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah pertama.
 
 \begin{table}[!h]
   \centering
@@ -165,9 +165,9 @@ Pengujian statistik pada dasarnya dilakukan dengan menguji keteracakan dari byte
 
 Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos} adalah sistem acak \texttt{/dev/urandom} yang ada pada sistem linux. Acuan ini dipilih dikarenakan sistem acak \texttt{urandom} termasuk sistem acak aman yang sering digunakan dalam proses kriptografi. 
 
-Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang dibangun pada penelitian ini.
+Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang diusulkan pada penelitian ini.
 
-Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritma dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun dapat berjalan dengan baik pada skenario yang telah dijalankan.
+Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritma dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan dapat berjalan dengan baik pada skenario yang telah dijalankan.
 
 \begin{table}[!h]
   \centering
@@ -182,7 +182,7 @@ Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}
   \end{tabular}
 \end{table}
 
-Pengujian statistik CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} pada CSPRNG berbasis Sine-Henon dan CSPRNG berbasis \texttt{/dev/urandom}. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} dari Sine-Henon map sama dengan atau lebih besar dari proporsi \emph{pass} dari \text. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari Sine-Henon map lebih kecil dari proporsi \emph{pass} dari \texttt{/dev/urandom}. Nilai titik kritis dari pengujian ini adalah -1.64.
+Pengujian statistik CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} pada CSPRNG berbasis Sine-Henon dan CSPRNG berbasis \texttt{/dev/urandom}. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} CSPRNG berbasis sistem \emph{chaos} Sine-Henon map sama dengan atau lebih besar dari proporsi \emph{pass} dari CSPRNG \texttt{/dev/urandom}. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari Sine-Henon map lebih kecil dari proporsi \emph{pass} dari \texttt{/dev/urandom}. Nilai titik kritis dari pengujian ini adalah -1.64.
 
 \begin{table}[!h]
   \centering
@@ -236,7 +236,7 @@ Pengujian statistik pada \emph{cipher} dilakukan dengan membandingkan proporsi \
   \end{tabular}
 \end{table}
 
-Hasil dari pengujian statistik pada \emph{cipher} ditunjukan pada tabel \ref{tab:test.statistic.cipher}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang dibangun memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis.
+Hasil dari pengujian statistik pada \emph{cipher} ditunjukan pada tabel \ref{tab:test.statistic.cipher}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis.
 
 \subsubsection{Pengujian Implementasi Protokol TLS}
 
@@ -300,7 +300,7 @@ Bagian ini akan membahas terkait hasil pengujian serta ancaman validitas dari ha
 
 Pengujian berbasis skenario memiliki dua kelompok pengujian. Kelompok pertama adalah pengujian fungsionalitas yang dilakukan dengan skenario T1.1 dan T1.2. Kelompok kedua adalah pengujian keamanan berbasis skenario yang dilakukan pada skenario T1.3 dan T1.4. Hasil kedua kelompok pengujian tersebut menunjukan bahwa \emph{cipher} AES blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat bekerja dengan baik baik pada keamanan maupun fungsionalitas.
 
-Pengujian statistik yang dilakukan pada CSPRNG menunjukan bahwa sistem random berbasis Sine-Henon map memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}. Selain itu, pengujian statistik yang dilakukan pada \emph{cipher} AES-256 kunci blok dinamis menunjukan bahwa \emph{cipher} yang dibangun memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis. Oleh karena itu, kualitas keamanan dari \emph{cipher} yang dibangun dapat dikatakan setara dengan \emph{cipher} AES-256 kunci blok statis.
+Pengujian statistik yang dilakukan pada CSPRNG menunjukan bahwa sistem random berbasis Sine-Henon map memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}. Selain itu, pengujian statistik yang dilakukan pada \emph{cipher} AES-256 kunci blok dinamis menunjukan bahwa \emph{cipher} yang diusulkan memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis. Oleh karena itu, kualitas keamanan dari \emph{cipher} yang diusulkan dapat dikatakan setara dengan \emph{cipher} AES-256 kunci blok statis.
 
 Berdasarkan kedua pengujian tersebut, enkripsi dengan menggunakan AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} yang aman dan fungsional. Metode enkripsi ini dapat digunakan dalam melakukan enkripsi pesan rahasia. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah pertama dapat terjawab dengan menggunakan sistem \emph{chaos} Sine-Henon map sebagai CSPRNG penghasil kunci blok dinamis.
 
@@ -308,7 +308,7 @@ Berdasarkan kedua pengujian tersebut, enkripsi dengan menggunakan AES kunci blok
 
 Pengujian implementasi protokol TLS menunjukan bahwa pengujian keamanan serta pengujian fungsionalitas dapat berjalan dengan baik. Pengujian keamanan yang dilakukan pada protokol TLS menunjukan bahwa protokol TLS yang dibangun dapat menangani \emph{replay attack}, serangan \emph{tampering}, serta serangan MITM.  Pengujian fungsionalitas yang dilakukan pada protokol TLS menunjukan bahwa protokol TLS yang dibangun dapat melakukan proses \emph{handshake}, enkripsi pesan, serta dekripsi pesan dengan baik. Oleh karena itu, dapat disimpulkan bahwa protokol TLS yang dibangun dapat digunakan sebagai protokol komunikasi yang aman dan fungsional.
 
-Berdasarkan hasil pengujian tersebut, dapat disimpulkan bahwa \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} pada protokol TLS. Hal ini dikarenakan \emph{cipher} yang dibangun dapat berjalan dengan baik pada protokol TLS yang dibangun. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah kedua dapat terjawab dengan menggunakan \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dengan mengikuti protokol TLSv1.2 dan penyesuaian sebagaimana yang telah dijelaskan pada bagian \ref{sec:protokol-tls-chaos}.
+Berdasarkan hasil pengujian tersebut, dapat disimpulkan bahwa \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} pada protokol TLS. Hal ini dikarenakan \emph{cipher} yang diusulkan dapat berjalan dengan baik pada protokol TLS yang dibangun. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah kedua dapat terjawab dengan menggunakan \emph{cipher} AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dengan mengikuti protokol TLSv1.2 dan penyesuaian sebagaimana yang telah dijelaskan pada bagian \ref{sec:protokol-tls-chaos}.
 
 \subsection{Ancaman Validitas (Threat of Validity)}
 

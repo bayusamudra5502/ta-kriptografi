@@ -210,7 +210,7 @@ Kasus uji ini menjelaskan proses pengujian TLS saat menerima pesan dengan MAC ya
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{chapters/res/appendix-4/2.6.png}
-  \caption{Hasil Pengujian Kasus Uji T2.4}
+  \caption{Hasil Pengujian Kasus Uji T2.6}
   \label{fig:unit.test.t2.6}
 \end{figure}
 
@@ -404,15 +404,13 @@ Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tam
     \State $tls_{alice}.\text{connect}()$ \Comment {Alice dan Bob melakukan proses handshake} 
     \State
     \State $hello \gets mitm.\text{getFrame}()$ \Comment {MITM mengambil \emph{frame} ClientHello}
-    \State $hello.random.random_bytes \gets generateRandomBytes(28)$
+    \State $hello.random.random\_bytes \gets generateRandomBytes(28)$
     \State $mitm.\text{send}(2, hello)$
     \State
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} ServerHello ke socket 1}
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} Certificate ke socket 1}
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} ServerKeyExchange ke socket 1}
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} ServerHelloDone}
-    \State $mitm.\text{forward}(2)$ \Comment {MITM meneruskan \emph{frame} ClientKeyExchange}
-    \State $mitm.\text{forward}(2)$ \Comment {MITM meneruskan \emph{frame} Finished (dari client)}
     \State
     \State $alert \gets mitm.\text{getFrame}()$
     \State $mitm.\text{send}(1, alert)$
@@ -452,13 +450,11 @@ Kasus uji ini menguji proses \emph{handshake} apabila dilakukan proses \emph{tam
     \State $tls_{alice}.\text{connect}()$ \Comment {Alice dan Bob melakukan proses handshake} 
     \State
     \State $hello \gets mitm.\text{getFrame}()$ \Comment {MITM mengambil \emph{frame} ServerHello}
-    \State $hello.random.random_bytes \gets generateRandomBytes(28)$
+    \State $hello.random.random\_bytes \gets generateRandomBytes(28)$
     \State $mitm.\text{send}(1, hello)$
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} Certificate ke socket 1}
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} ServerKeyExchange ke socket 1}
     \State $mitm.\text{forward}(1)$ \Comment {MITM meneruskan \emph{frame} ServerHelloDone}
-    \State $mitm.\text{forward}(2)$ \Comment {MITM meneruskan \emph{frame} ClientKeyExchange}
-    \State $mitm.\text{forward}(2)$ \Comment {MITM meneruskan \emph{frame} Finished (dari client)}
     \State
     \State $alert \gets mitm.\text{getFrame}()$
     \State $mitm.\text{send}(1, alert)$

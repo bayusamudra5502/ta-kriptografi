@@ -15,7 +15,7 @@ Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara
 \begin{table}[!h]
   \centering
   \caption{Permasalahan yang dihadapi pada protokol TLS dengan \emph{Cipher} berbasis sistem \emph{chaos}} \label{tab:permasalahan}
-  \begin{tabular}{|c|p{6cm}|c|}
+  \begin{tabular}{|c|p{6cm}|p{4cm}|}
     \hline
     \textbf{ID Masalah} & \textbf{Deskripsi} & \textbf{Rumusan Masalah Terkait} \\
     \hline
@@ -33,7 +33,7 @@ Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara
 \subsection{Ancaman Keamanan pada Protokol Komunikasi}
 \label{sec:ancaman-keamanan}
 
-Pihak ketiga mungkin terlibat dalam komunikasi baik secara aktif maupun pasif. Hal ini dapat menimbulkan beberapa ancaman keamanan yang ada pada protokol komunikasi yang dibangun. Bagian ini akan menjelaskan rincian analisis ancaman keamanan yang dihadapi oleh protokol ini. Untuk mempermudah penjelasan, diasumsikan terdapat dua buah pihak yang melakukan komunikasi, yaitu Ahmad dan Budi. Terdapat pihak ketiga dalam komunikasi bernama Candra sebagai pihak yang tidak berhak terlibat dalam komunikasi. 
+Pihak ketiga mungkin terlibat dalam komunikasi baik secara aktif maupun pasif. Hal ini dapat menimbulkan beberapa ancaman keamanan yang ada pada protokol komunikasi. Bagian ini akan menjelaskan rincian analisis ancaman keamanan yang dihadapi oleh protokol ini. Untuk mempermudah penjelasan, diasumsikan terdapat dua buah pihak yang melakukan komunikasi, yaitu Ahmad dan Budi. Terdapat pihak ketiga dalam komunikasi bernama Candra sebagai pihak yang tidak berhak terlibat dalam komunikasi. 
 
 Dalam komunikasi, memungkinkan Candra mengaku sebagai salah satu pihak yang terlibat dalam komunikasi, yaitu Ahmad dan Budi. Hal ini dapat dilakukan dengan melakukan serangan MITM di antara kedua belah pihak. Dengan melakukan serangan ini, memungkinkan Candra mendapatkan informasi yang dikirimkan oleh Ahmad dan Budi. Oleh karena itu, perlu adanya mekanisme untuk memastikan bahwa pihak yang terlibat merupakan pihak yang dipercaya.
 
@@ -61,7 +61,7 @@ Bagian ini akan menjelaskan terkait solusi dari permaslahan yang telah dipaparka
 
 \begin{table}[!h]
   \centering
-  \caption{Solusi yang diusulkan pada protokol yang dibangun} \label{tab:solusi}
+  \caption{Solusi yang diusulkan pada protokol yang diusulkan} \label{tab:solusi}
   \begin{tabular}{|c|p{6cm}|c|}
     \hline
     \textbf{ID Solusi} & \textbf{Deskripsi} & \textbf{Permasalahan Terkait} \\
@@ -200,13 +200,13 @@ Aturan untuk pembaharuan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-
 \begin{figure}[!h]
   \centering
   \includegraphics[width=200px]{chapters/res/chapter-3/img/update.write.png}
-  \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.write}
+  \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.read}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=200px]{chapters/res/chapter-3/img/update.read.png}
-  \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.read}
+  \caption{Ilustrasi Proses Pembaharuan Kunci Enkripsi dan MAC pada Proses Penulisan} \label{fig:tls.cipher.update.mac.write}
 \end{figure}
 
 Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, akan dihitung nilai MAC dari frame tersebut lalu nilainya akan ditempelkan pada pesan. Selanjutnya, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
