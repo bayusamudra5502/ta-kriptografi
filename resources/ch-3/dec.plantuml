@@ -18,6 +18,8 @@ repeat
 repeat while (Masih ada blok lainnya?) is (Ya) not (Tidak)
 
 if (MAC Frame Valid?) then (Tidak)
+  :Kembalikan ke state awal;
+  :Drop Frame;
   stop;
 endif
 
