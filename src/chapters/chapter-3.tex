@@ -158,6 +158,12 @@ Pada protokol TLS, telah terdapat mekanisme otentikasi pengirim pesan. Mekanisme
 
 Tanda tangan digital tersebut dibuktikan dengan data terkait sertifikat digital yang dikirimkan. Hal ini memastikan hanyalah pihak yang otentik saja yang dapat menghasilkan tanda tangan tersebut. Hal ini dijamin dengan adanya tanda tangan dari CA yang dipercaya oleh kedua belah pihak. Selama CA belum melakukan upaya \emph{revocation} ataupun sertifikat tidak kadaluarsa, maka tanda tangan tersebut dapat dipercaya berasal dari pihak yang sesungguhnya.
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-3/img/cipher.png}
+  \caption{Ilustrasi \emph{cipher} AES dengan kunci blok dinamis berbasis Sistem Chaos untuk (A) Enkripsi (B) Dekripsi} \label{fig:tls.cipher}
+\end{figure}
+
 Sertifikat digital yang digunakan pada protokol ini adalah sertifikat digital yang dikeluarkan oleh CA yang dipercaya oleh kedua belah pihak. Sertifikat digital perlu diperiksa oleh \emph{client} untuk memastikan tidak adanya serangan MITM yang berlangsung. Pihak \emph{client} dapat juga menanam sertifikat yang dipercaya. Teknik ini akan menambah keamanan dari serangan MITM yang mungkin terjadi. 
 
 Pada proses pengiriman pesan, terdapat mekanisme otentikasi pengirim pesan melalui MAC. MAC yang digunakan pada protokol ini bersifat dinamis. Hal ini dapat mencegah adanya MITM attack serta dapat memberikan nirpenyangkalan yang lebih tinggi dikarenakan partisipan yang terlibat dari awal komunikasi saja yang dapat menghasilkan MAC yang benar. Hal ini dikarenakan selain dibutuhkannya nilai awal dari sistem \emph{chaos}, diperlukan juga urutan frame saat ini untuk dapat menghasilkan MAC yang benar.
@@ -171,12 +177,6 @@ Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang
 \subsection{Spesifikasi Cipher}
 
 \emph{Cipher} yang digunakan pada protokol ini adalah AES-256. Kunci enkripsi serta nilai \emph{counter} yang digunakan pada \emph{cipher} ini bersifat dinamis memanfaatkan sistem chaos yang telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Mode blok yang digunakan pada \emph{cipher} ini adalah counter. Gambar \ref{fig:tls.cipher} menunjukkan struktur enkripsi dan dekripsi dari \emph{cipher} yang digunakan.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-3/img/cipher.png}
-  \caption{Ilustrasi Sistem Chaos untuk (A) Enkripsi (B) Dekripsi} \label{fig:tls.cipher}
-\end{figure}
 
 Nilai $IV$ dan $K1$ keduanya diinisialisasi berdasarkan hasil dari pertukaran kunci. Metode $\text{next}(\cdot)$ merupakan metode untuk memperbaharui sistem chaos berdasarkan persamaan \ref{eq:tls.chaos}.
 
@@ -199,13 +199,13 @@ Aturan untuk pembaruan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-de
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=200px]{chapters/res/chapter-3/img/update.write.png}
+  \includegraphics[width=170px]{chapters/res/chapter-3/img/update.write.png}
   \caption{Ilustrasi Proses Pembaharuan Kunci Dekripsi dan MAC pada Proses Pembacaan} \label{fig:tls.cipher.update.mac.read}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=200px]{chapters/res/chapter-3/img/update.read.png}
+  \includegraphics[width=170px]{chapters/res/chapter-3/img/update.read.png}
   \caption{Ilustrasi Proses Pembaharuan Kunci Enkripsi dan MAC pada Proses Penulisan} \label{fig:tls.cipher.update.mac.write}
 \end{figure}
 
@@ -213,7 +213,7 @@ Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame ya
 
 Pada saat menerima pesan, penerima akan melakukan proses dekripsi yang dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan dihitung MAC-nya. Bila nilai MAC valid, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
 
-\emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} $\text{0xff00}$ pada saat proses \emph{handshake}. Nilai awal $\text{0xff}$ berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
+\emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} \texttt{0xff00} pada saat proses \emph{handshake}. Nilai awal \texttt{0xff} berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
 
 \subsection{Spesifikasi \emph{Handshake}}
 Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada bagian \ref{sec:tls.handshake}. Proses ini dilakukan untuk membangkitkan \emph{master secret} yang digunakan. Terdapat beberapa spesifikasi khusus yang diterapkan pada protokol yang dibangun. Pertukaran kunci yang didukung hanyalah menggunakan Eliptic Curve Diffie-Hellman. Hal ini ditujukan agar keamanan dari \emph{premaster secret} dapat terjamin.
@@ -226,12 +226,6 @@ Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada ba
 
 
 Proses pembangkitan kunci diilustrasikan melalui gambar \ref{fig:tls.keygen}. Hasil dari proses Eliptic curve Diffie-Hellman akan menghasilkan \emph{premaster secret}. Saat \emph{premaster secret}, kunci \emph{master secret} akan dihasilkan melalui fungsi PRF. Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 448 bytes. Hal ini dikarenakan diperlukannya empat pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos dan dua buah kunci MAC. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}. Ilustrasi dari ekspansi kunci dapat dilihat pada gambar \ref{fig:tls.keyexpansion}.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=400px]{chapters/res/chapter-3/img/keyexpansion.png}
-  \caption{Ilustrasi Ekspansi Kunci} \label{fig:tls.keyexpansion}
-\end{figure}
 
 Persamaan \ref{eq:tls.key.convert} menunjukkan proses pengubahan kunci yang dilakukan menjadi parameter chaos. $K$ adalah potongan kunci dari hasil ekspansi.
 
@@ -246,6 +240,24 @@ Persamaan \ref{eq:tls.key.convert} menunjukkan proses pengubahan kunci yang dila
 \end{equation}
 
 Tabel \ref{tab:tls.keyexpansion} menunjukan kegunaan dari setiap hasil ekspansi kunci yang dilakukan. Tabel tersebut menjelaskan nilai awal dari sistem \emph{chaos} yang digunakan untuk pembangkitan kunci blok, kunci MAC, dan nilai IV.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=400px]{chapters/res/chapter-3/img/keyexpansion.png}
+  \caption{Ilustrasi Ekspansi Kunci} \label{fig:tls.keyexpansion}
+\end{figure}
+
+\subsection{Spesifikasi Pengiriman Pesan}
+
+Pada proses pengiriman pesan, pesan terlebih dahulu dilakukan operasi kriptografi sebagaimana penjelasan pada bagian \ref{sec:solusi.enc-dec}. Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimkan. Gambar \ref{fig:tls.application.rec} menunjukkan protokol record yang digunakan untuk mengirimkan pesan.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{chapters/res/chapter-3/img/tls.application.record.png}
+  \caption{Ilustrasi \emph{Application Record} yang digunakan} \label{fig:tls.application.rec}
+\end{figure}
+
+Berdasarkan \textcite{rfc5246}, Nilai tipe haruslah 33. Hal ini menyatakan bahwa pesan yang dikirimkan merupakan \emph{Application Data}. Nilai \emph{version} yang digunakan adalah $\text{0x0303}$. Hal ini menyatakan protokol yang digunakan adalah TLSv1.2. Panjang pesan ($L$) merupakan panjang dari pesan dan MAC dalam keadaan terenkripsi. Secara matematis dihitung berdasarkan persamaan \ref{eq:tls.record.length}.
 
 \begin{table}[!h]
   \centering
@@ -264,17 +276,6 @@ Tabel \ref{tab:tls.keyexpansion} menunjukan kegunaan dari setiap hasil ekspansi 
   \end{tabular}
 \end{table}
 
-\subsection{Spesifikasi Pengiriman Pesan}
-
-Pada proses pengiriman pesan, pesan terlebih dahulu dilakukan operasi kriptografi sebagaimana penjelasan pada bagian \ref{sec:solusi.enc-dec}. Setelah itu, pesan akan disusun menjadi sebuah \emph{record} yang akan dikirimkan. Gambar \ref{fig:tls.application.rec} menunjukkan protokol record yang digunakan untuk mengirimkan pesan.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=\textwidth]{chapters/res/chapter-3/img/tls.application.record.png}
-  \caption{Ilustrasi \emph{Application Record} yang digunakan} \label{fig:tls.application.rec}
-\end{figure}
-
-Berdasarkan \textcite{rfc5246}, Nilai tipe haruslah 33. Hal ini menyatakan bahwa pesan yang dikirimkan merupakan \emph{Application Data}. Nilai \emph{version} yang digunakan adalah $\text{0x0303}$. Hal ini menyatakan protokol yang digunakan adalah TLSv1.2. Panjang pesan ($L$) merupakan panjang dari pesan dan MAC dalam keadaan terenkripsi. Secara matematis dihitung berdasarkan persamaan \ref{eq:tls.record.length}.
 
 \begin{equation}
   \begin{aligned}
