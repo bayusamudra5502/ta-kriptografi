@@ -8,7 +8,7 @@ Bagian ini menjelaskan dari implementasi solusi yang telah dirancang sebelumnya.
 Implementasi dilakukan dengan beberapa batasan dari protokol TLS yang telah didefinisikan pada \textcite{rfc5246}. Berikut ini merupakan batasan yang diterapkan:
 
 \begin{enumerate}
-  \item Implementasi hanya dilakukan menggunakan satdu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
+  \item Implementasi hanya dilakukan menggunakan satu \emph{cipher suite} saja, yaitu enkripsi menggunakan AES-256 berbasis sistem \emph{chaos}, pertukaran kunci ECDSA, algoritma hash SHA-256.
   \item Tiap pesan pada protokol \emph{handshake} dikirimkan melalui Protokol \emph{Record} yang berbeda.
   \item Fitur kompresi pada protokol TLS tidak diimplementasikan.
   \item Sertifikat digital diverifikasi secara \emph{pinning} dan tidak melakukan verifikasi \emph{revocation}.
@@ -22,7 +22,7 @@ Pemilihan pertukaran kunci berbasis ECDSA didasarkan pada kekuatan dari ECDSA. M
 
 Pengiriman pesan \emph{handshake} pada dasarnya dapat disatukan dalam sebuah protokol \emph{record}. Akan tetapi, pada implementasi pustaka ini, pesan \emph{handshake} dikirimkan terpisah dengan tujuan  membantu pada fase \emph{debugging} melalui aplikasi Wireshark dikarenakan tiap layer protokol \emph{record} akan ditampilkan secara terpisah.
 
-Pada implementasi, fitur kompresi dinonaktifkan. Hal ini dikarenakan untuk melihat kualitas dari hasil enkripsi pada layer TLS. Kualitas yang dapat terlihat salah satunya terkait dengan hubungan antar blok serta keteracakan dari hasil enkripsi. Apabila plainteks dikomporesi, hasil enkripsi akan lebih mampat sehingga keteracakan akan sangat terlihat dan hilangnya hubungan antar blok.
+Pada implementasi, fitur kompresi dinonaktifkan. Hal ini dikarenakan untuk melihat kualitas dari hasil enkripsi pada layer TLS. Kualitas yang dapat terlihat salah satunya terkait dengan hubungan antar blok serta keteracakan dari hasil enkripsi. Apabila plainteks dikompresi, hasil enkripsi akan lebih mampat sehingga keteracakan akan sangat terlihat dan hilangnya hubungan antar blok.
 
 Sertifikat digital yang digunakan pada implementasi ini merupakan sertifikat yang \emph{self-signed}. Fokus utama dari implementasi sertifikat digital hanya untuk memastikan bahwa MITM tidak terjadi. Oleh karena itu, implementasi berbentuk \emph{pinning} dan \emph{self-signed certificate} dinilai sudah cukup.
 
@@ -58,7 +58,7 @@ Terdapat beberapa pustaka yang digunakan sebagai dependensi dari pustaka yang di
     \texttt{cryptography 42.0.5} & Pustaka ini digunakan untuk membantu dalam proses validasi tanda tangan digital dan \emph{parsing} sertifikat digital. Pustaka ini juga membantu dalam menghitung hasil Eliptic Curve Diffie-Hellman yang dilakukan pada saat \emph{Handshake} \\ \hline
     \texttt{pycryptodome 3.19.0} & Pustaka ini digunakan untuk membantu dalam melakukan proses enkripsi serta dekripsi pesan. Selain itu, pustaka ini juga membantu dalam menghitung operasi HMAC. \\ \hline
     \texttt{numpy 1.26.2} & Pustaka ini digunakan untuk membantu operasi pada array serta operasi \emph{floating-point}.\\ \hline
-    \texttt{secrets} & Pustaka standard ini digunakan untuk melakukan \emph{secure comparation} dan membangkitkan nilai CSPRNG yang berasal dari sistem operasi. \\ \hline
+    \texttt{secrets} & Pustaka standard ini digunakan untuk melakukan \emph{secure comparison} dan membangkitkan nilai CSPRNG yang berasal dari sistem operasi. \\ \hline
     \texttt{socket} & Pustaka standard ini digunakan untuk melakukan komunikasi menggunakan protokol TCP.\\ \hline
   \end{tabular}
 \end{table}
@@ -83,7 +83,7 @@ Modul data digunakan untuk membantu dalam proses \emph{parsing} dan \emph{encode
 
 Struktur data dari kelas yang diimplementasikan pada modul ini merupakan turunan dari struktur data yang didefinisikan pada \textcite{rfc5246} dan \textcite{rfc4492}. Struktur data lengkap yang menggambarkan implementasi pada penelitian ini dijelaskan pada Lampiran \ref{appendix:tls12.datatype}.
 
-Modul \texttt{conn} bertanggung jawab dalam mengatur proses \emph{handshake}, proses komunikasi melalui TCP, komunikasi melalui UNIX Socket, serta proses enkripsi dan pengaturan \emph{state}. Tabel \ref{tab:impl.comm} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. Semua kelas pada bagian ini terletak pada modul \texttt{conn}. Modul ini merupakan impelementasi dari solusi S3, S5, S7, S8, S9, dan S10.
+Modul \texttt{conn} bertanggung jawab dalam mengatur proses \emph{handshake}, proses komunikasi melalui TCP, komunikasi melalui UNIX Socket, serta proses enkripsi dan pengaturan \emph{state}. Tabel \ref{tab:impl.comm} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. Semua kelas pada bagian ini terletak pada modul \texttt{conn}. Modul ini merupakan implementasi dari solusi S3, S5, S7, S8, S9, dan S10.
 
 \section{Pengujian}
 Bagian ini menjelaskan dari pengujian yang dilakukan terhadap pustaka yang telah dibangun. Bagian ini akan menjelaskan terkait dengan detail pengujian yang dilakukan serta hasil dari pengujian tersebut.
@@ -127,14 +127,14 @@ Pengujian dilakukan pada sistem operasi linux ditujukan untuk menggunakan fitur 
     \textbf{Nama Pustaka} & \textbf{Deskripsi} \\ \hline
     \texttt{pytest 8.1.1} & Pustaka ini digunakan untuk membantu dalam menyediakan \emph{runtime} pengujian dan membantu dalam proses \emph{debugging} bila terjadi kegagalan saat pengujian berlangsung. \\ \hline
     \texttt{socket} & Pustaka standard ini digunakan untuk melakukan komunikasi melalui \emph{UNIX socket}.\\ \hline
-    \texttt{Fast Statictics Test v6.0.1} & Perangkat lunak ini digunakan dalam menguji keteracakan dari bytestream berdasarkan NIST Statistical Test Suite.\\ \hline
+    \texttt{Fast Statistics Test v6.0.1} & Perangkat lunak ini digunakan dalam menguji keteracakan dari \emph{bytestream} berdasarkan NIST Statistical Test Suite.\\ \hline
     \texttt{Wireshark} & Perangkat lunak ini digunakan dalam mengamati pesan \emph{ciphertext} yang dihasilkan oleh protokol komunikasi.\\ \hline
     \texttt{Python 3.12.3} & Perangkat lunak ini digunakan sebagai \emph{runtime} pustaka yang diuji.\\ \hline
     \end{tabular}
   \end{table}
     
 
-  Pengujian statistik dilakukan dengan memanfaatkan Fast Statictics Test yang telah diimplementasikan oleh \textcite{marek2016}. Perangkat lunak ini merupakan optimasi dari implementasi pengujian perangkat lunak yang telah dibuat oleh NIST. Oleh karena itu, proses pengujian diharapkan dapat menjadi lebih cepat dan efisien. 
+  Pengujian statistik dilakukan dengan memanfaatkan Fast Statistics Test yang telah diimplementasikan oleh \textcite{marek2016}. Perangkat lunak ini merupakan optimasi dari implementasi pengujian perangkat lunak yang telah dibuat oleh NIST. Oleh karena itu, proses pengujian diharapkan dapat menjadi lebih cepat dan efisien. 
 
 \subsection{Skenario dan Hasil Pengujian}
 
@@ -142,7 +142,7 @@ Bagian ini menjelaskan skenario pengujian yang dilakukan dan hasil dari pengujia
 
 \subsubsection{Pengujian \emph{Cipher}}
 
-Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan pengujian statistik. Pengujian berbasis skenario dilakukan dengan beberapa skenario yang ditunjukan pada tabel \emph{test.case.cipher}. Pengujian statistik dilakukan dengan menggunakan Fast Statictics Test yang telah diimplementasikan oleh \textcite{marek2016}. Pengujian statistik ditujukan untuk menguji solusi S1 dan S4.
+Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan pengujian statistik. Pengujian berbasis skenario dilakukan dengan beberapa skenario yang ditunjukan pada tabel \emph{test.case.cipher}. Pengujian statistik dilakukan dengan menggunakan Fast Statistics Test yang telah diimplementasikan oleh \textcite{marek2016}. Pengujian statistik ditujukan untuk menguji solusi S1 dan S4.
 
 \begin{table}[!h]
   \centering
@@ -161,7 +161,7 @@ Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan
 
 Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Pengujian ini dilakukan dengan menggunakan skenario yang telah dijelaskan pada tabel \ref{tab:test.case.cipher}. Pengujian skenario dikatakan berhasil apabila semua skenario yang telah dijalankan mendapatkan hasil \emph{pass}.
 
-Pengujian statistik pada dasarnya dilakukan dengan menguji keteracakan dari bytestream yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher}. Alasan dilakukannya pengujian keteracakan pada \emph{cipher} adalah memastikan bahwa cipher tidak memiliki pola-pola statistik yang memungkinkan melemahkan \emph{cipher} yang digunakan. Hasil dari pengujian statistik akan dibandingkan dengan acuan yang dipilih. Uji statistik ini berhasil apabila kualitas dari bytestream yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher} memiliki kualitas yang setara atau lebih baik dengan acuan yang dipilih. Kualitas ditentukan berdasarkan proporsi \emph{pass} dari uji statistik yang dilakukan. Pengujian kesetaraan dilakukan dengan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%.
+Pengujian statistik pada dasarnya dilakukan dengan menguji keteracakan dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher}. Alasan dilakukannya pengujian keteracakan pada \emph{cipher} adalah memastikan bahwa cipher tidak memiliki pola-pola statistik yang memungkinkan melemahkan \emph{cipher} yang digunakan. Hasil dari pengujian statistik akan dibandingkan dengan acuan yang dipilih. Uji statistik ini berhasil apabila kualitas dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher} memiliki kualitas yang setara atau lebih baik dengan acuan yang dipilih. Kualitas ditentukan berdasarkan proporsi \emph{pass} dari uji statistik yang dilakukan. Pengujian kesetaraan dilakukan dengan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%.
 
 Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos} adalah sistem acak \texttt{/dev/urandom} yang ada pada sistem linux. Acuan ini dipilih dikarenakan sistem acak \texttt{urandom} termasuk sistem acak aman yang sering digunakan dalam proses kriptografi. 
 

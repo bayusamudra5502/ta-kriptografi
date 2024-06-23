@@ -41,7 +41,7 @@ Selain itu, Candra juga dapat melakukan serangan berupa \emph{replay attack}. Da
 
 Dalam komunikasi, Candra dapat mengubah \emph{frame} yang dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat menyebabkan pesan yang dikirimkan tidak dapat dipahami oleh penerima. Selain itu, hal ini dapat memberikan efek yang tidak diinginkan oleh penerima, seperti serangan \emph{bit flip}. Oleh karena itu, perlu adanya mekanisme untuk menjaga integritas pesan yang dikirimkan oleh Ahmad ataupun Budi.
 
-Pesan yang dikirimkan dalam jaringan publik dapat diamati oleh Candra. Candra dapat mengetahui isi pesan terenkripsi yang telah dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat dicapai dengan melakukan beberapa teknik diantaranya adalah melakukan \emph{brute force} terhadap kunci enkripsi. Teknik lainnya yang dapat dilakukan oleh Candra adalah melakukan analisis teks enkripsi. Salah satu teknik yang bisa dilakukan adalah melakukan analisis berbasikan \emph{plaintext} yang telah diketahui. Candra dapat mengamati pola yang dibentuk dari hasil enkripsi. Candra juga dapat melakukan analisis terhadap \emph{ciphertext} yang telah diterima. Hal ini dapat dilakukan dengan melakukan analisis frekuensi terhadap blok pesan ataupun melakukan analisis secara visual terhadap \emph{ciphertext}. Harapan dari proses ini mendapatkan pola dari \emph{ciphertext} sehingga dapat dianalisis apa isi pesan yang terenkripsi.
+Pesan yang dikirimkan dalam jaringan publik dapat diamati oleh Candra. Candra dapat mengetahui isi pesan terenkripsi yang telah dikirimkan oleh Ahmad ataupun Budi. Hal ini dapat dicapai dengan melakukan beberapa teknik diantaranya adalah melakukan \emph{brute force} terhadap kunci enkripsi. Teknik lainnya yang dapat dilakukan oleh Candra adalah melakukan analisis teks enkripsi. Salah satu teknik yang bisa dilakukan adalah melakukan analisis berbasiskan \emph{plaintext} yang telah diketahui. Candra dapat mengamati pola yang dibentuk dari hasil enkripsi. Candra juga dapat melakukan analisis terhadap \emph{ciphertext} yang telah diterima. Hal ini dapat dilakukan dengan melakukan analisis frekuensi terhadap blok pesan ataupun melakukan analisis secara visual terhadap \emph{ciphertext}. Harapan dari proses ini mendapatkan pola dari \emph{ciphertext} sehingga dapat dianalisis apa isi pesan yang terenkripsi.
 
 \subsection{Analisis Permasalahan Penerapan AES dengan Sistem \emph{Chaos} pada Protokol TLS}
 \label{sec:ancaman-implementasi}
@@ -51,13 +51,13 @@ Selain itu, sistem \emph{chaos} yang tepat perlu dipilih untuk digunakan sebagai
 
 Sistem \emph{chaos} juga memerlukan nilai awal atau \emph{seed} yang akan digunakan sebagai nilai awal dari sistem \emph{chaos}. Nilai ini perlu dihasilkan dari proses \emph{handshake} yang dilakukan melalui protokol TLS. Oleh karena itu, diperlukan sebuah mekanisme pembangkitan nilai \emph{seed} melalui prosedur \emph{handshake} tersebut.
 
-Pada protokol TLS berbasis chaos, kunci blok yang digunakan bersifat dinamis. Hal ini memerlukan analisis lebih lanjut terkait metode pembaharuan kunci blok yang digunakan pada protokol ini pada masing-masing pihak. Hal ini diperlukan agar \emph{state} dari kunci blok dapat terjamin.
+Pada protokol TLS berbasis chaos, kunci blok yang digunakan bersifat dinamis. Hal ini memerlukan analisis lebih lanjut terkait metode pembaruan kunci blok yang digunakan pada protokol ini pada masing-masing pihak. Hal ini diperlukan agar \emph{state} dari kunci blok dapat terjamin.
 
-Pada protokol TLS, terdapat mekanisme pemeriksaan integritas pesan. Mekanisme ini memanfaatkan MAC yang dienkripsi bersama pesan. Ancaman dari mekanisme ini adalah adanya serangan dengan mengirimkan pesan yang tidak sah. Pembangkitan nilai acak pada sistem \emph{chaos} dinilai cukup berat sehingga bila ancaman ini terjadi, penerima dapat kehabisan \emph{resource} dalam melakukan dekripsi. Oleh karena itu, perlu adanya mekanisme untuk melakukan mekanisme pemeriksaan integeritas pesan yang diterima yang lebih efisien.
+Pada protokol TLS, terdapat mekanisme pemeriksaan integritas pesan. Mekanisme ini memanfaatkan MAC yang dienkripsi bersama pesan. Ancaman dari mekanisme ini adalah adanya serangan dengan mengirimkan pesan yang tidak sah. Pembangkitan nilai acak pada sistem \emph{chaos} dinilai cukup berat sehingga bila ancaman ini terjadi, penerima dapat kehabisan \emph{resource} dalam melakukan dekripsi. Oleh karena itu, perlu adanya mekanisme untuk melakukan mekanisme pemeriksaan integritas pesan yang diterima yang lebih efisien.
 
 \section{Analisis Solusi}
 
-Bagian ini akan menjelaskan terkait solusi dari permaslahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan. Secara garis besar, solusi yang diusulkan ditunjukkan pada tabel \ref{tab:solusi}.
+Bagian ini akan menjelaskan terkait solusi dari permasalahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan. Secara garis besar, solusi yang diusulkan ditunjukkan pada tabel \ref{tab:solusi}.
 
 \begin{table}[!h]
   \centering
@@ -96,7 +96,7 @@ Peraduan antara sistem chaos berbasis \emph{sine map} dan sistem chaos berbasis 
   \label{eq:tls.chaos}
 \end{equation}
 
-Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi \emph{uniform} pada nilai yang dihasilkan sebagaimana yang dilakukan oleh \textcite{nurhaliza2023}. Hal ini diilustrasikan pada gambar \ref{fig:chaos.sinehenonmap.dist}. Pemilihan nilai $\mu$ yang digunakan adalah $3.75$ dan $a$ serta $b$ adalah $1.4$ dan $0.3$. Hal ini diambil berdasarkan nilai yang digunakan pada penelitian \textcite{lin2021} dan \textcite{patel2021}. Prasayat dari sistem chaos pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Hal ini dilakukan untuk menjamin kepadatan nilai yang dihasilkan oleh sistem \emph{chaos}.
+Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi \emph{uniform} pada nilai yang dihasilkan sebagaimana yang dilakukan oleh \textcite{nurhaliza2023}. Hal ini diilustrasikan pada gambar \ref{fig:chaos.sinehenonmap.dist}. Pemilihan nilai $\mu$ yang digunakan adalah $3.75$ dan $a$ serta $b$ adalah $1.4$ dan $0.3$. Hal ini diambil berdasarkan nilai yang digunakan pada penelitian \textcite{lin2021} dan \textcite{patel2021}. Prasyarat dari sistem chaos pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Hal ini dilakukan untuk menjamin kepadatan nilai yang dihasilkan oleh sistem \emph{chaos}.
 
 \begin{figure}[!h]
   \centering
@@ -138,11 +138,11 @@ Proses pengubahan ini diambil dikarenakan $K_i$ yang dihasilkan akan langsung be
 
 Algoritma yang digunakan untuk proses enkripsi dan dekripsi adalah AES-256. Algoritma enkripsi ini dikarenakan dukungan terhadap algoritma ini sudah sangat baik pada berbagai sistem. Selain itu, kekuatan dari AES-256 sampai saat ini masih sangat baik. Algoritma ini juga dapat dijalankan pada berbagai perangkat dengan kecepatan yang baik dengan adanya bantuan microprocessor yang mendukung instruksi AES.
 
-Permasalahan selanjutnya adalah terkait dengan sistem blok yang digunakan. Pada protokol yang dibangun, sistem blok yang digunakan adalah mode CTR. Mode CTR dapat memberikan fleksibilitas dalam pembentukan kunci dikarenakan proses enkripsi dan dekripsi keduanya dapat dilakukan secara parallel. Selain itu, mode CTR dapat diubah dengan mudah menjadi cipher alir sehingga dapat digunakan untuk mengirimkan aliran pesan yang terenkripsi. Mode sistem CTR juga dapat mengaburkan hubungan antar blok dikarenakan blok akan dienkripsi dengan blok CTR yang berbeda-beda.
+Permasalahan selanjutnya adalah terkait dengan sistem blok yang digunakan. Pada protokol yang dibangun, sistem blok yang digunakan adalah mode CTR. Mode CTR dapat memberikan fleksibilitas dalam pembentukan kunci dikarenakan proses enkripsi dan dekripsi keduanya dapat dilakukan secara paralel. Selain itu, mode CTR dapat diubah dengan mudah menjadi \emph{cipher} alir sehingga dapat digunakan untuk mengirimkan aliran pesan yang terenkripsi. Mode sistem CTR juga dapat mengaburkan hubungan antar blok dikarenakan blok akan dienkripsi dengan blok CTR yang berbeda-beda.
 
 Nilai \emph{counter} pada sistem blok CTR dibangun juga memanfaatkan sistem \emph{chaos}. Hal ini ditujukan untuk menambah keamanan dari enkripsi blok. Selain itu, menambahan sistem \emph{counter} ini juga memperpanjang orde dari kunci yang digunakan. Hal ini dapat memperbesar ruang kunci saat melakukan XOR. Oleh karena itu, upaya analisis terhadap pesan akan semakin sulit.
 
-Permasalahan terkait dengan pembaharuan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaharuan kunci. Untuk kunci enkripsi, pembaharuan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan \emph{cache} apabila dibutuhkan retransmisi ulang. Selain itu, pembaharuan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang untuk melakukan dekripsi pesan yang telah dienkripsi sebelumnya. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil. 
+Permasalahan terkait dengan pembaruan kunci blok dapat diselesaikan dengan memberikan aturan terkait dengan pembaruan kunci. Untuk kunci enkripsi, pembaruan kunci dilakukan setelah proses enkripsi berhasil. Hal ini cukup untuk dilakukan karena frame yang terenkripsi dapat dilakukan \emph{cache} apabila dibutuhkan retransmisi ulang. Selain itu, pembaruan kunci segera juga mencegah kunci yang digunakan untuk enkripsi diambil oleh penyerang untuk melakukan dekripsi pesan yang telah dienkripsi sebelumnya. Untuk pengubahan nilai \emph{counter}, dapat dilakukan setelah proses enkripsi selesai. Hal ini untuk memastikan nilai \emph{counter} berubah hanya saat proses enkripsi berhasil. 
 
 Permasalahan selanjutnya adalah terkait dengan pengubahan nilai kunci saat proses dekripsi. Perubahan kunci hanya boleh dilakukan saat MAC pesan yang diterima benar dan proses dekripsi berhasil. Hal ini untuk memastikan bahwa pesan yang diterima merupakan pesan yang benar. Pengubahan nilai counter hanya boleh dilakukan saat proses dekripsi berhasil. Hal ini untuk memastikan bahwa nilai counter yang digunakan merupakan nilai yang benar. Saat melakukan proses dekripsi, nilai awal dari sistem \emph{chaos} harus disimpan terlebih dahulu. Hal ini diperlukan untuk melakukan operasi \emph{rollback} apabila terjadi kegagalan saat melakukan dekripsi.
 
@@ -166,7 +166,7 @@ Pada MAC dan tanda tangan digital, digunakan fungsi hash SHA-2 dengan \emph{dige
 
 \section{Protokol TLS berbasis Chaos} \label{sec:protokol-tls-chaos}
 
-Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang akan dibangun. Bagian ini terbagi atas beberapa bagian, yaitu spesifikasi cipher, spesifikasi \emph{handshake}, spesifikasi terkait dengan pengiriman pesan. Pada dasarnya, protokol yang dibangun akan mengikuti spesifikasi yang telah ada pada protokol TLSv1.2. Versi ini dipilih dikarenakan TLS versi ini masih dapat mendukung \emph{cipher} berbasis AEAD. Namun, terdapat beberapa penyesuaian yang dilakukan untuk memastikan kompatibilitas dari protokol yang dibangun.
+Bagian ini menjelaskan terkait spesifikasi dari protokol TLS berbasis chaos yang akan dibangun. Bagian ini terbagi atas beberapa bagian, yaitu spesifikasi \emph{cipher}, spesifikasi \emph{handshake}, spesifikasi terkait dengan pengiriman pesan. Pada dasarnya, protokol yang dibangun akan mengikuti spesifikasi yang telah ada pada protokol TLSv1.2. Versi ini dipilih dikarenakan TLS versi ini masih dapat mendukung \emph{cipher} berbasis AEAD. Namun, terdapat beberapa penyesuaian yang dilakukan untuk memastikan kompatibilitas dari protokol yang dibangun.
 
 \subsection{Spesifikasi Cipher}
 
@@ -194,7 +194,7 @@ Kunci MAC yang digunakan adalah kunci statis. Proses perhitungan MAC perlu melib
   \end{array}
 \end{equation}
 
-Aturan untuk pembaharuan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Bila digambarkan melalui diagram \emph{sequence}, proses pembaharuan kunci dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.write} dan \ref{fig:tls.cipher.update.mac.read}.
+Aturan untuk pembaruan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Bila digambarkan melalui diagram \emph{sequence}, proses pembaruan kunci dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.write} dan \ref{fig:tls.cipher.update.mac.read}.
 
 
 \begin{figure}[!h]
