@@ -76,7 +76,7 @@ Menurut \textcite{schneier1996}, keamanan kriptografi modern tidak hanya cukup a
 
 Sebuah algoritma kriptografi tentu membutuhkan kunci untuk melakukan proses enkripsi dan dekripsi. Menurut \textcite{schneier1996}, algoritma kriptografi dapat dibagi menjadi dua, yaitu Kriptografi kunci simetrik dan kriptografi publik. Perbedaan dari kedua algoritma tersebut terletak pada kunci yang digunakan untuk melakukan enkripsi serta dekripsi pesan. 
 
-Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sama saat melakukan proses enkripsi serta dekripsi pesan. Asumsi yang diterapkan pada penggunaan algoritma ini adalah pengirim serta penerima sudah melakukan proses pembagian kunci. Skema proses enkripsi digambarkan pada gambar \ref{fig:crypto.symetric}.
+Menurut \textcite{munir2019}, algoritma kunci simetri menggunakan kunci yang sama saat melakukan proses enkripsi serta dekripsi pesan. Asumsi yang diterapkan pada penggunaan algoritma ini adalah pengirim serta penerima sudah melakukan proses pembagian kunci. Skema proses enkripsi digambarkan pada Gambar \ref{fig:crypto.symetric}.
 
 \begin{figure}[!h]
   \centering
@@ -120,7 +120,7 @@ Salah satu bentuk mode blok yang sering digunakan dalam melakukan enkripsi adala
 
 Menurut \textcite{munir2019}, terdapat keuntungan saat menggunakan mode blok CTR dalam melakukan enkripsi. Keuntungan utamanya adalah hasil enkripsi akan memberikan hasil cipherteks yang berbeda untuk plainteks yang sama. Hal ini disebabkan aliran kunci yang dihasilkan pada masing-masing blok berbeda. Bila dibandingkan dengan mode blok berbasis CBC, mode blok CTR bebas dari serangan \emph{padding oracle}. Hal ini dikarenakan blok yang dihasilkan pada mode CTR tidak bergantung pada input plainteks ataupun cipherteks dari blok sebelumnya. Akan tetapi, untuk menjamin keamanan yang maksimal dari mode blok ini, input counter haruslah unik. Hal ini ditujukan agar aliran kunci yang dihasilkan juga unik.
 
-Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
+Menurut \textcite{munir2019}, algoritma kunci publik (atau bisa disebut algoritma kunci nirsimetris) merupakan algoritma enkripsi yang menggunakan kunci yang berbeda pada saat melakukan proses enkripsi dan juga proses dekripsi. Pada saat melakukan komunikasi menggunakan algoritma ini, pihak yang terlibat harus memiliki satu buah kunci, yaitu kunci publik dan kunci privat. Pengirim pesan akan menggunakan kunci publik untuk mengunci pesan. Akan tetapi, penerima menggunakan kunci privat miliknya untuk membuka pesan. Dengan menggunakan algoritma ini, hanya penerima pesan yang dapat membuka pesan. Ilustrasi terkait enkripsi memanfaatkan algoritma ini terdapat pada Gambar \ref{fig:crypto.asymetric}. Beberapa contoh algoritma enkripsi kunci publik adalah RSA, \emph{Elgamal}, dan DSA.
 
 \begin{figure}[!h]
   \centering
@@ -142,7 +142,7 @@ Kriptografi Kurva Eliptik pada dasarnya merupakan sebuah metode yang memanfaatka
 
 Menurut \textcite{munir2019}, Syarat dari persamaan ini adalah $4a^3 + 27b^2 \neq 0$. Nilai $a$ dan nilai $b$ yang berbeda dapat menghasilkan kurva eliptik yang berbeda. Keunikan dari kurva eliptik ini adalah hasil penjumlahan dari dua buah titik yang berada pada kurva eliptik akan menghasilkan titik lain yang juga berada pada kurva eliptik. Hal ini dikecualikan untuk titik $O$ yang direpresentasikan dengan titik tak hingga. Menurut \textcite{betaccini2022}, Kekuatan dari sistem kriptografi kurva eliptik terletak pada kesulitan dalam menyelesaikan persamaan diskrit logaritma. Oleh karena itu, kriptografi kurva eliptik dapat diimplementasikan pada algoritma kunci publik, seperti Diffie-Hellman.
 
-Menurut \textcite{certicom2000}, Salah satu contoh kurva eliptik yang direkomendasikan adalah kurva eliptik secp256r1. Kurva ini didefinisikan dengan parameter pada tabel \ref{tab:crypto.secp256r1}.
+Menurut \textcite{certicom2000}, Salah satu contoh kurva eliptik yang direkomendasikan adalah kurva eliptik secp256r1. Kurva ini didefinisikan dengan parameter pada Tabel \ref{tab:crypto.secp256r1}.
 
 \begin{table}[!h]
   \centering
@@ -160,7 +160,7 @@ Menurut \textcite{certicom2000}, Salah satu contoh kurva eliptik yang direkomend
   \end{tabular}
 \end{table}
 
-Nilai titik $G = (G_x, G_y)$ pada tabel \ref{tab:crypto.secp256r1} merupakan titik pembangkit dari kurva eliptik secp256r1. Titik ini digunakan sebagai titik yang digunakan untuk membangkitkan titik-titik lain yang akan digunakan dalam proses kriptografi.
+Nilai titik $G = (G_x, G_y)$ pada Tabel \ref{tab:crypto.secp256r1} merupakan titik pembangkit dari kurva eliptik secp256r1. Titik ini digunakan sebagai titik yang digunakan untuk membangkitkan titik-titik lain yang akan digunakan dalam proses kriptografi.
 
 \section{Enkripsi Dinamis}
 Enkripsi dinamis pertama kali dikenalkan oleh \textcite{knudsen2015}. Menurut \textcite{knudsen2015}, Enkripsi dinamis merupakan sebuah pendekatan kriptografi yang menyebabkan penerima pesan tidak perlu mengetahui detail proses enkripsi selain nilai dari \emph{secret key} dalam melakukan proses dekripsi. Pengirim pesan dapat menentukan algoritma enkripsi yang akan digunakan. Akan tetapi, penerima pesan tidak perlu mengetahui proses enkripsi yang dilakukan. Hal ini tentu mengharuskan bahwa penerima pesan dapat melakukan proses dekripsi dengan baik walaupun proses enkripsi tidak diketahui. 
@@ -170,7 +170,7 @@ Terdapat beberapa pendekatan yang ditawarkan oleh \textcite{knudsen2015}, salah 
 Menurut \textcite{knudsen2015}, terdapat varian lain dalam melakukan enkripsi dinamis, yaitu dengan menggunakan \emph{cipher} RAES. Pada \emph{cipher} RAES, proses enkripsi dilakukan sebagaimana AES-128 dilakukan. Akan tetapi, S-box yang digunakan berbeda. Terdapat dua buah kunci yang digunakan dalam melakukan enkripsi, yaitu kunci untuk digunakan pada AES-128 dan kunci untuk membangkitkan S-box. Menurut \textcite{knudsen2015}, keamanan menggunakan metode ini setidaknya sama kuatnya dengan menggunakan S-box.
 
 \section{Pertukaran Kunci \emph{Diffie–Hellman} dengan Kurva Eliptik}
-Algoritma pertukaran kunci \emph{Diffie–Hellman} dengan Kurva Eliptik merupakan algoritma yang digunakan untuk berbagi kunci sesi antara dua pihak atau lebih dengan memanfaatkan kurva eliptik. Menurut \textcite{munir2019}, algoritma pertukaran kunci ini merupakan solusi dari permasalahan kriptografi kunci simetri, yaitu pengiriman kunci pada komunikasi jaringan yang tidak aman. Secara garis besar, setiap pihak yang akan melakukan pertukaran kunci menggunakan \emph{Diffie–Hellman}, akan mengirimkan parameter publiknya kepada setiap pihak. Penerima parameter publik akan membangkitkan kunci sesi berdasarkan parameter publik yang diterima dan parameter privat yang dimiliki olehnya. Ilustrasi pertukaran kunci ini digambarkan pada gambar \ref{fig:crypto.ecdh}.
+Algoritma pertukaran kunci \emph{Diffie–Hellman} dengan Kurva Eliptik merupakan algoritma yang digunakan untuk berbagi kunci sesi antara dua pihak atau lebih dengan memanfaatkan kurva eliptik. Menurut \textcite{munir2019}, algoritma pertukaran kunci ini merupakan solusi dari permasalahan kriptografi kunci simetri, yaitu pengiriman kunci pada komunikasi jaringan yang tidak aman. Secara garis besar, setiap pihak yang akan melakukan pertukaran kunci menggunakan \emph{Diffie–Hellman}, akan mengirimkan parameter publiknya kepada setiap pihak. Penerima parameter publik akan membangkitkan kunci sesi berdasarkan parameter publik yang diterima dan parameter privat yang dimiliki olehnya. Ilustrasi pertukaran kunci ini digambarkan pada Gambar \ref{fig:crypto.ecdh}.
 
 \begin{figure}[!h]
   \centering
@@ -204,7 +204,7 @@ Menurut \textcite{staling2011}, AES memiliki empat tahap yang digunakan dalam me
   \item Tahap \emph{Subtitute Bytes}\\Menurut \textcite{munir2019}, tahap ini merupakan tahap substitusi berdasarkan sebuah tabel yang bernama S-Box. Pada tahap ini, nilai pada \emph{state} akan dipetakan nilainya berdasarkan S-box yang digunakan. AES hanya memiliki sebuah table S-box yang digunakan pada setiap putaran serta pembangkitan kunci.
 \end{enumerate}
 
-Secara garis besar, proses enkripsi melalui algoritma \emph{Rijndael} ini ditunjukan pada gambar \ref{fig:crypto.aes}.
+Secara garis besar, proses enkripsi melalui algoritma \emph{Rijndael} ini ditunjukan pada Gambar \ref{fig:crypto.aes}.
 
 
 \begin{figure}[!h]
@@ -233,7 +233,7 @@ Terdapat berbagai contoh dari sistem \emph{chaos} yang telah didefinisikan pada 
   X_{n+1} = \mu \cdot \sin(\pi \cdot X_n) / 4
 \end{equation}
 
-Menurut \textcite{patel2021}, Nilai awal dari sistem ini harus berada pada range $(0, 1)$. Nilai $\mu$ yang berada pada range $(3.57, 4)$ akan menghasilkan sifat \emph{chaos} pada sistem ini. Hasil bifurcation diagram pada sistem peta sinus dapat dilihat pada gambar \ref{fig:chaos.sin.bifurcation}.
+Menurut \textcite{patel2021}, Nilai awal dari sistem ini harus berada pada range $(0, 1)$. Nilai $\mu$ yang berada pada range $(3.57, 4)$ akan menghasilkan sifat \emph{chaos} pada sistem ini. Hasil bifurcation diagram pada sistem peta sinus dapat dilihat pada Gambar \ref{fig:chaos.sin.bifurcation}.
 
 \begin{figure}[!h]
   \centering
@@ -253,7 +253,7 @@ Selain sistem \emph{chaos} berbasiskan persamaan sinus, terdapat sistem chaos me
   \end{array}
 \end{equation}
 
-Menurut \textcite{aybar2013}, untuk nilai $b = 0.3$ dihasilkan peta \emph{bifurcation} yang ditunjukan pada gambar \ref{fig:henon.bifurcation}. gambar \ref{fig:henon.bifurcation} memperlihatkan bahwa saat nilai $a$ mendekati $1.2$, sifat \emph{chaos} terjadi. Hal ini terjadi dikarenakan proses \emph{bifurcation} terjadi sangat cepat sehingga muncul sifat \emph{chaos} pada sistem tersebut.
+Menurut \textcite{aybar2013}, untuk nilai $b = 0.3$ dihasilkan peta \emph{bifurcation} yang ditunjukan pada Gambar \ref{fig:henon.bifurcation}. gambar \ref{fig:henon.bifurcation} memperlihatkan bahwa saat nilai $a$ mendekati $1.2$, sifat \emph{chaos} terjadi. Hal ini terjadi dikarenakan proses \emph{bifurcation} terjadi sangat cepat sehingga muncul sifat \emph{chaos} pada sistem tersebut.
 
 \begin{figure}[!h]
   \centering
@@ -289,7 +289,7 @@ Menurut \textcite{munir2019}, MAC merupakan perbaikan dari permasalahan yang mun
   Sumber: \textcite{munir2019}
 \end{figure}
 
-Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada gambar \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
+Menurut \textcite{munir2019}, MAC dapat digunakan sebagai otentikasi pesan tanpa perlu melakukan enkripsi pada pesan tersebut. Hal ini dapat dilakukan dengan cara melekatkan nilai MAC pada pesan yang dikirimkan. Proses tersebut digambarkan pada Gambar \ref{fig:mac}. Proses verifikasi pesan dilakukan dengan membandingkan nilai MAC dari pesan yang dihitung ulang berdasarkan pesan yang diterima dengan nilai MAC yang dikirimkan. Apabila pesan tidak diubah, kedua nilai ini menghasilkan nilai yang sama. Keuntungan menggunakan MAC ini adalah adanya nilai $K$ sehingga nilai hash yang dilekatkan pada pesan tidak secara mudah dapat diganti.
 
 \section{Tanda Tangan Digital berbasis Kurva Eliptik}
 Menurut \textcite{munir2019}, tanda tangan digital merupakan sebuah metode kriptografi yang dapat mengotentikasi pengirim dari pesan yang diterima. Dalam tanda tangan digital, terdapat beberapa layanan kriptografi yang digunakan diantaranya adalah penjagaan integritas dari data, otentikasi pengirim, serta anti penyangkalan. Tanda tangan digital ini dapat dibuat dengan dua buah cara, yaitu dengan melakukan enkripsi terhadap pesan tersebut ataupun melakukan enkripsi dari hash pesan tersebut. 
@@ -380,7 +380,7 @@ Protokol TLS 1.3 merupakan protokol yang paling baru dari protokol TLS. Berdasar
 \label{sec:tls.handshake}
 
 Proses \emph{Handshake} merupakan proses untuk menyamakan \emph{state} dari kedua partisipan yang terkoneksi melalui protokol TLS. Proses ini dilakukan setelah koneksi TCP berhasil dibuat. Secara umum, proses handshake
-digambarkan pada gambar \ref{fig:tls.handshake}.
+digambarkan pada Gambar \ref{fig:tls.handshake}.
 
 \begin{figure}[!h]
   \centering
@@ -390,7 +390,7 @@ digambarkan pada gambar \ref{fig:tls.handshake}.
 \end{figure}
 
 \subsubsection{Pesan \emph{Hello} dan Sertifikat Digital}
-Menurut \textcite{rfc5246}, proses handshake diawali dengan mengirimkan pesan berupa \emph{client hello}. Pesan ini diilustrasikan pada gambar \ref{fig:tls.clienthello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
+Menurut \textcite{rfc5246}, proses handshake diawali dengan mengirimkan pesan berupa \emph{client hello}. Pesan ini diilustrasikan pada Gambar \ref{fig:tls.clienthello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
 \begin{enumerate}
   \item Versi dari protokol TLS yang digunakan.
   \item Waktu \emph{client} saat ini.
@@ -402,33 +402,33 @@ Menurut \textcite{rfc5246}, proses handshake diawali dengan mengirimkan pesan be
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.hello.client.png}
+  \includegraphics[width=400px]{chapters/res/chapter-2/img/tls.hello.client.png}
   \caption{Ilustrasi pesan \emph{client hello}} \label{fig:tls.clienthello}
   Sumber: \textcite{joshua2011}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=350px]{chapters/res/chapter-2/img/tls.hello.server.png}
+  \includegraphics[width=400px]{chapters/res/chapter-2/img/tls.hello.server.png}
   \caption{Ilustrasi pesan \emph{server hello}} \label{fig:tls.serverhello}
   Sumber: \textcite{joshua2011}
 \end{figure}
 
- Daftar cipher standard didefinisikan pada \textcite{rfc5246}. Menurut \textcite{rfc5246}, cipher suite yang diawali oleh bit $0xff$ merupakan cipher suite yang dapat digunakan untuk lingkungan privat. Selain itu, dijelaskan juga beberapa cipher lain yang memanfaatkan Eliptic Curve pada \textcite{rfc4492}. 
+ Daftar \emph{cipher} standar didefinisikan pada \textcite{rfc5246}. Menurut \textcite{rfc5246}, \emph{cipher suite} yang diawali oleh bit $0xff$ merupakan \emph{cipher suite} yang dapat digunakan untuk lingkungan privat. Selain itu, dijelaskan juga beberapa \emph{cipher} lain yang memanfaatkan Eliptic Curve pada \textcite{rfc4492}. 
 
-Setelah menerima pesan \emph{client hello}, \emph{server} akan mengirimkan pesan \emph{server hello}. Pesan ini diilustrasikan pada gambar \ref{fig:tls.serverhello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
+Setelah menerima pesan \emph{client hello}, \emph{server} akan mengirimkan pesan \emph{server hello}. Pesan ini diilustrasikan pada Gambar \ref{fig:tls.serverhello}. Pesan ini setidaknya berisi beberapa nilai sebagai berikut:
 \begin{enumerate}
   \item Versi dari protokol TLS yang digunakan.
   \item Waktu \emph{server} saat ini.
   \item Nilai random $r_s$ yang dibangkitkan oleh server 
-  \item Cipher suite yang dipilih oleh server dari daftar cipher yang didukung oleh \emph{client}.
-  \item Metode kompresi yang dipilih oleh server dari daftar kompresi yang didukung oleh \emph{client}.
+  \item Cipher suite yang dipilih oleh \emph{server} dari daftar cipher yang didukung oleh \emph{client}.
+  \item Metode kompresi yang dipilih oleh \emph{server} dari daftar kompresi yang didukung oleh \emph{client}.
   \item Ekstensi yang akan digunakan oleh \emph{server}.
 \end{enumerate}
 
 Nilai random $r_c$ dan $r_s$ akan digunakan saat membangkitkan \emph{premaster secret} yang akan diturunkan sebagai kunci enkripsi dan dekripsi.
 
-Pesan pendukung lain yang perlu dikirimkan oleh \emph{server} adalah sertifikat digital \emph{server} yang digunakan oleh \emph{server}. Sertifikat ini akan dilakukan proses encoding dengan format DER pada sertifikat dengan format X509v3. Sertifikat yang dikirimkan dapat lebih dari satu untuk menyatakan \emph{chain of trust} dari sertifikat tersebut. Fungsi dari sertifikat digital ini adalah sebagai media otentikasi dari server tersebut.
+Pesan pendukung lain yang perlu dikirimkan oleh \emph{server} adalah sertifikat digital \emph{server} yang digunakan oleh \emph{server}. Sertifikat ini akan dilakukan proses \emph{encoding} dengan format DER pada sertifikat dengan format X509v3. Sertifikat yang dikirimkan dapat lebih dari satu untuk menyatakan \emph{chain of trust} dari sertifikat tersebut. Fungsi dari sertifikat digital ini adalah sebagai media otentikasi dari server tersebut.
 
 
 \subsubsection{Pertukaran Kunci}
@@ -465,7 +465,7 @@ Pada persamaan \ref{eq:tls.prf}, nilai $K$ merupakan nilai kunci dari PRF yang d
   \end{array}
 \end{equation}
 
-Pada persamaan \ref{eq:tls.ph}, nilai $A$ adalah nilai keadaan yang didefinisikan pada persamaan \ref{eq:tls.a}. Hash yang digunakan pada proses ini adalah hash yang digunakan pada cipher suite yang dipilih. Pada umumnya, hash yang digunakan adalah SHA-256. Jumlah pengulangan pada fungsi $P$ dilakukan hingga bit-bit yang dihasilkan telah mencukupi.
+Pada persamaan \ref{eq:tls.ph}, nilai $A$ adalah nilai keadaan yang didefinisikan pada persamaan \ref{eq:tls.a}. Hash yang digunakan pada proses ini adalah hash yang digunakan pada \emph{cipher suite} yang dipilih. Pada umumnya, hash yang digunakan adalah SHA-256. Jumlah pengulangan pada fungsi $P$ dilakukan hingga bit-bit yang dihasilkan telah mencukupi.
 
 \begin{equation}
   \label{eq:tls.a}
@@ -532,7 +532,7 @@ Record layer menjelaskan terkait cara sebuah pesan dapat dibungkus dalam sebuah 
   \item \emph{Data} merupakan pesan yang dikirimkan.
 \end{enumerate}
 
-Ilustrasi dari struktur data pesan ini digambarkan pada Gambar \ref{fig:tls.record}. Menurut \textcite{rfc5246}, Nilai \emph{Content Type} yang digunakan pada protokol TLS dituliskan pada tabel \ref{tab:tls.contenttype}.
+Ilustrasi dari struktur data pesan ini digambarkan pada Gambar \ref{fig:tls.record}. Menurut \textcite{rfc5246}, Nilai \emph{Content Type} yang digunakan pada protokol TLS dituliskan pada Tabel \ref{tab:tls.contenttype}.
 
 \begin{table}[!h]
   \centering
@@ -655,7 +655,7 @@ A = \begin{bmatrix}
   \end{bmatrix}
 \end{equation}
 
-Dalam membangkitkan kunci dinamis, \textcite{lin2021} memanfaatkan fungsi hash SHA256. Hal ini bertujuan untuk memberikan panjang yang cukup pada saat melakukan enkripsi menggunakan AES. Ilustrasi dari proses pembangkitan kunci ini dapat dilihat pada gambar \ref{fig:lin.keygen}.
+Dalam membangkitkan kunci dinamis, \textcite{lin2021} memanfaatkan fungsi hash SHA256. Hal ini bertujuan untuk memberikan panjang yang cukup pada saat melakukan enkripsi menggunakan AES. Ilustrasi dari proses pembangkitan kunci ini dapat dilihat pada Gambar \ref{fig:lin.keygen}.
 
 \begin{figure}[!h]
   \centering
@@ -664,7 +664,7 @@ Dalam membangkitkan kunci dinamis, \textcite{lin2021} memanfaatkan fungsi hash S
   Sumber: \textcite{lin2021}
 \end{figure}
 
-Proses sinkronisasi sistem \emph{chaos} dapat dilakukan dengan melakukan dekomposisi nilai $u(k)$ menjadi nilai $u_m(k)$ dan $u_s(k)$. Pemecahan nilai ini ditujukan untuk meningkatkan keamanan saat implementasi. Nilai $u_m(k)$ akan dikirimkan dari \emph{transmitter} menuju \emph{receiver}. Sistem ini dapat dijelaskan melalui gambar . Menurut \textcite{lin2021}, sistem itu aman. Hal ini dikarenakan apabila \emph{hacker} memiliki parameter-parameter yang digunakan untuk sinkronisasi, mereka tidak dapat mendapatkan \emph{state} dari master dan slave. Ilustrasi yang proses enkripsi dan dekripsi serta sinkronisasi yang dilakukan terdapat pada gambar \ref{fig:lin.caes}.
+Proses sinkronisasi sistem \emph{chaos} dapat dilakukan dengan melakukan dekomposisi nilai $u(k)$ menjadi nilai $u_m(k)$ dan $u_s(k)$. Pemecahan nilai ini ditujukan untuk meningkatkan keamanan saat implementasi. Nilai $u_m(k)$ akan dikirimkan dari \emph{transmitter} menuju \emph{receiver}. Sistem ini dapat dijelaskan melalui gambar . Menurut \textcite{lin2021}, sistem itu aman. Hal ini dikarenakan apabila \emph{hacker} memiliki parameter-parameter yang digunakan untuk sinkronisasi, mereka tidak dapat mendapatkan \emph{state} dari master dan slave. Ilustrasi yang proses enkripsi dan dekripsi serta sinkronisasi yang dilakukan terdapat pada Gambar \ref{fig:lin.caes}.
 
 \begin{figure}[!h]
   \centering
@@ -673,7 +673,7 @@ Proses sinkronisasi sistem \emph{chaos} dapat dilakukan dengan melakukan dekompo
   Sumber: \textcite{lin2021}
 \end{figure}
 
-Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara membandingkan proses enkripsi gambar yang dihasilkan memanfaatkan AES-ECB, AES-CBC, dan CAES-EBC. gambar yang diuji merupakan gambar berukuran $256 \times 256$. Pada algoritma CAES, kunci dinamis yang dihasilkan sebanyak 49.152 kunci. Setiap kunci ini dibuat secara langsung melalui proses \emph{update} pada setiap \emph{round} enkripsi. Hasil enkripsi pada gambar \ref{fig:lin.result} menunjukan bahwa CAES-ECB bila diobservasi secara visual memiliki kualitas yang cukup baik bila dibandingkan dengan AES-EBC. Menurut \textcite{lin2021}, Hal ini dapat membuktikan bahwa algoritma CAES-CBC lebih unggul dibandingkan AES-EBC dan AES-CBC.
+Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara membandingkan proses enkripsi gambar yang dihasilkan memanfaatkan AES-ECB, AES-CBC, dan CAES-EBC. gambar yang diuji merupakan gambar berukuran $256 \times 256$. Pada algoritma CAES, kunci dinamis yang dihasilkan sebanyak 49.152 kunci. Setiap kunci ini dibuat secara langsung melalui proses \emph{update} pada setiap \emph{round} enkripsi. Hasil enkripsi pada Gambar \ref{fig:lin.result} menunjukan bahwa CAES-ECB bila diobservasi secara visual memiliki kualitas yang cukup baik bila dibandingkan dengan AES-EBC. Menurut \textcite{lin2021}, Hal ini dapat membuktikan bahwa algoritma CAES-CBC lebih unggul dibandingkan AES-EBC dan AES-CBC.
 
 \begin{figure}[!h]
   \centering
@@ -682,11 +682,11 @@ Pengujian dari sistem yang dilakukan oleh \textcite{lin2021} adalah dengan cara 
   Sumber: \textcite{lin2021}
 \end{figure}
 
-Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes yang dilakukan berdasarkan parameter uji yang telah didefinisikan oleh National Institute of Standards and Technology (NIST). Pengujian yang dilakukan oleh \textcite{lin2021} menggunakan data \emph{stream} sepanjang 10.000.000 bit data dengan jumlah bit setiap stream sebesar 30. Hasil tersebut menunjukan bahwa algoritma CAES memenuhi persyaratan NIST SP 800-22 \emph{random number detection}. Hasil dari pengujian NIST juga menunjukan bahwa algoritma CAES lebih unggul dibandingkan dengan AES-CBC dan AES-EBC. Hal ini ditunjukan dengan data pada gambar \ref{fig:lin.analytic-result}.
+Proses enkripsi tersebut juga dilakukan proses pengujian secara analitik. Tes yang dilakukan berdasarkan parameter uji yang telah didefinisikan oleh National Institute of Standards and Technology (NIST). Pengujian yang dilakukan oleh \textcite{lin2021} menggunakan data \emph{stream} sepanjang 10.000.000 bit data dengan jumlah bit setiap stream sebesar 30. Hasil tersebut menunjukan bahwa algoritma CAES memenuhi persyaratan NIST SP 800-22 \emph{random number detection}. Hasil dari pengujian NIST juga menunjukan bahwa algoritma CAES lebih unggul dibandingkan dengan AES-CBC dan AES-EBC. Hal ini ditunjukan dengan data pada Gambar \ref{fig:lin.analytic-result}.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=350px]{chapters/res/chapter-2/img/lin.analytic-test.png}
+  \includegraphics[width=400px]{chapters/res/chapter-2/img/lin.analytic-test.png}
   \caption{Hasil Analitik Algoritma CAES} \label{fig:lin.analytic-result}
   Sumber: \textcite{lin2021}
 \end{figure}
@@ -705,7 +705,7 @@ Menurut \textcite{singh2019}, S-box yang dapat dibentuk sangat sensitif terhadap
 Pada penelitian \textcite{singh2019}, algoritma enkripsi yang telah dijelaskan sebelumnya diuji dengan melakukan enkripsi gambar \emph{grayscale}. Pengujian yang dilakukan adalah pengujian analisis histogram, pengujian korelasi koefisien, kualitas enkripsi, entropi informasi, dan NPCR-UACI test. Hasil pengujian menunjukan bahwa AES dan Dynamic AES memiliki kualitas enkripsi yang cukup setara. Akan tetapi, dalam pengujian korelasi koefisien, AES dinamis memiliki hasil yang lebih baik dibandingkan dengan AES.
 
 \subsection{Perbaikan Keamanan dari Algoritma AES memanfaatkan \emph{Salt} Dinamis}
-Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada gambar \ref{fig:bachtiar.enc.process}.
+Pada penelitian yang dilakukan oleh \textcite{bachtiar2018}, proses enkripsi dinamis dilakukan dengan cara menambahkan \emph{salt} pada pesan yang akan dienkripsi. Nilai \emph{salt} dibuat berdasarkan hasil dari algortima \emph{Linear Congruental Generator} (LCG). Secara global, proses enkripsi dilakukan dengan melakukan proses enkripsi dinamis terlebih dahulu. Setelah itu, proses enkripsi akan dilakukan dengan melakukan AES pada pesan yang telah dilakukan enkripsi dinamis. Proses ini dapat digambarkan pada Gambar \ref{fig:bachtiar.enc.process}.
 
 \begin{figure}[!h]
   \centering

@@ -10,7 +10,7 @@
 \section{Analisis Masalah}
 \label{sec:analisis-masalah}
 
-Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian \ref{sec:jaringan-komputer}. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Selain itu, penerapan enkripsi dinamis pada sistem \emph{chaos} menimbulkan beberapa masalah kompatibilitas. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini. Secara garis besar, permasalahan yang muncul ditunjukan pada tabel \ref{tab:permasalahan}.
+Protokol komunikasi pada dasarnya dibangun untuk melayani komunikasi data antara dua buah pihak yang berbeda. Hal ini sesuai syarat jaringan komputer yang telah dijelaskan pada bagian \ref{sec:jaringan-komputer}. Protokol komunikasi harus dapat memastikan pesan yang dikirimkan dapat diterima oleh pihak penerima pesan serta dipahami isinya. Selain itu, protokol komunikasi juga harus memastikan ancaman apabila terdapat pihak ketiga yang terlibat baik secara aktif ataupun pasif. Selain itu, penerapan enkripsi dinamis pada sistem \emph{chaos} menimbulkan beberapa masalah kompatibilitas. Oleh karena itu, terdapat beberapa permasalahan yang akan dibahas pada bagian ini. Secara garis besar, permasalahan yang muncul ditunjukan pada Tabel \ref{tab:permasalahan}.
 
 \begin{table}[!h]
   \centering
@@ -57,7 +57,7 @@ Pada protokol TLS, terdapat mekanisme pemeriksaan integritas pesan. Mekanisme in
 
 \section{Analisis Solusi}
 
-Bagian ini akan menjelaskan terkait solusi dari permasalahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan. Secara garis besar, solusi yang diusulkan ditunjukkan pada tabel \ref{tab:solusi}.
+Bagian ini akan menjelaskan terkait solusi dari permasalahan yang telah dipaparkan sebelumnya. Bagian ini akan dibagi menjadi beberapa kategori, diantaranya adalah solusi terkait dengan proses sistem chaos, sinkronisasi sistem chaos, proses enkripsi dan dekripsi, dan proses otentikasi pengirim pesan. Secara garis besar, solusi yang diusulkan ditunjukkan pada Tabel \ref{tab:solusi}.
 
 \begin{table}[!h]
   \centering
@@ -96,7 +96,7 @@ Peraduan antara sistem chaos berbasis \emph{sine map} dan sistem chaos berbasis 
   \label{eq:tls.chaos}
 \end{equation}
 
-Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi \emph{uniform} pada nilai yang dihasilkan sebagaimana yang dilakukan oleh \textcite{nurhaliza2023}. Hal ini diilustrasikan pada gambar \ref{fig:chaos.sinehenonmap.dist}. Pemilihan nilai $\mu$ yang digunakan adalah $3.75$ dan $a$ serta $b$ adalah $1.4$ dan $0.3$. Hal ini diambil berdasarkan nilai yang digunakan pada penelitian \textcite{lin2021} dan \textcite{patel2021}. Prasyarat dari sistem chaos pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Hal ini dilakukan untuk menjamin kepadatan nilai yang dihasilkan oleh sistem \emph{chaos}.
+Pada persamaan \ref{eq:tls.chaos}, terdapat pengali dengan nilai $100$. Nilai ini digunakan untuk memperoleh distribusi \emph{uniform} pada nilai yang dihasilkan sebagaimana yang dilakukan oleh \textcite{nurhaliza2023}. Hal ini diilustrasikan pada Gambar \ref{fig:chaos.sinehenonmap.dist}. Pemilihan nilai $\mu$ yang digunakan adalah $3.75$ dan $a$ serta $b$ adalah $1.4$ dan $0.3$. Hal ini diambil berdasarkan nilai yang digunakan pada penelitian \textcite{lin2021} dan \textcite{patel2021}. Prasyarat dari sistem chaos pada persamaan \ref{eq:tls.chaos} adalah nilai $X_0$, $Y_0$, dan $Z_0$ harus berada pada range $(0,1)$. Hal ini dilakukan untuk menjamin kepadatan nilai yang dihasilkan oleh sistem \emph{chaos}.
 
 \begin{figure}[!h]
   \centering
@@ -194,7 +194,7 @@ Kunci MAC yang digunakan adalah kunci statis. Proses perhitungan MAC perlu melib
   \end{array}
 \end{equation}
 
-Aturan untuk pembaruan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Bila digambarkan melalui diagram \emph{sequence}, proses pembaruan kunci dapat dilihat pada gambar \ref{fig:tls.cipher.update.mac.write} dan \ref{fig:tls.cipher.update.mac.read}.
+Aturan untuk pembaruan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-dec}. Bila digambarkan melalui diagram \emph{sequence}, proses pembaruan kunci dapat dilihat pada Gambar \ref{fig:tls.cipher.update.mac.write} dan \ref{fig:tls.cipher.update.mac.read}.
 
 
 \begin{figure}[!h]
@@ -209,9 +209,9 @@ Aturan untuk pembaruan kunci telah dijelaskan pada bagian \ref{sec:solusi.enc-de
   \caption{Ilustrasi Proses Pembaharuan Kunci Enkripsi dan MAC pada Proses Penulisan} \label{fig:tls.cipher.update.mac.write}
 \end{figure}
 
-Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, akan dihitung nilai MAC dari frame tersebut lalu nilainya akan ditempelkan pada pesan. Selanjutnya, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
+Pada proses enkripsi, pesan pada mulanya akan dipotong menjadi beberapa frame yang kecil. Setiap frame, akan dihitung nilai MAC dari frame tersebut lalu nilainya akan ditempelkan pada pesan. Selanjutnya, pesan akan dilakukan proses \emph{padding} dengan kelipatan 16 bytes. Hal ini agar sesuai dengan panjang blok enkripsi. Setelah pesan dilakukan \emph{padding}, tiap frame akan dilakukan operasi sebagaimana pada Gambar \ref{fig:tls.cipher.update.mac.write}. Pesan yang berhasil dienkripsi akan disusun menjadi sebuah \emph{record} yang akan dikirimkan.
 
-Pada saat menerima pesan, penerima akan melakukan proses dekripsi yang dilakukan sebagaimana pada gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan dihitung MAC-nya. Bila nilai MAC valid, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
+Pada saat menerima pesan, penerima akan melakukan proses dekripsi yang dilakukan sebagaimana pada Gambar \ref{fig:tls.cipher.update.mac.read}. Setelah proses dekripsi berhasil, pesan akan dihitung MAC-nya. Bila nilai MAC valid, pesan akan digabungkan dan dilanjutkan ke \emph{layer} yang lebih tinggi. Hash yang digunakan pada MAC adalah SHA-256.
 
 \emph{Cipher} yang dijelaskan pada bagian ini akan ditandai dengan kode \emph{cipher suite} \texttt{0xff00} pada saat proses \emph{handshake}. Nilai awal \texttt{0xff} berdasarkan \textcite{rfc5246} merupakan nilai yang privat sehingga dapat dijamin tidak akan bertabrakan dengan \emph{cipher suite} yang telah ada.
 
@@ -225,7 +225,7 @@ Proses handshake dilakukan sebagaimana pada protokol TLS yang dijelaskan pada ba
 \end{figure}
 
 
-Proses pembangkitan kunci diilustrasikan melalui gambar \ref{fig:tls.keygen}. Hasil dari proses Eliptic curve Diffie-Hellman akan menghasilkan \emph{premaster secret}. Saat \emph{premaster secret}, kunci \emph{master secret} akan dihasilkan melalui fungsi PRF. Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 448 bytes. Hal ini dikarenakan diperlukannya empat pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos dan dua buah kunci MAC. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}. Ilustrasi dari ekspansi kunci dapat dilihat pada gambar \ref{fig:tls.keyexpansion}.
+Proses pembangkitan kunci diilustrasikan melalui gambar \ref{fig:tls.keygen}. Hasil dari proses Eliptic curve Diffie-Hellman akan menghasilkan \emph{premaster secret}. Saat \emph{premaster secret}, kunci \emph{master secret} akan dihasilkan melalui fungsi PRF. Saat \emph{master secret} berhasil dibangkitkan, perlu dilakukan proses \emph{key expansion}. Panjang kunci yang harus diekspansi adalah 448 bytes. Hal ini dikarenakan diperlukannya empat pasang sistem \emph{chaos} yang digunakan untuk pembangkitan sistem chaos dan dua buah kunci MAC. Tiap sistem \emph{chaos} memerlukan tiga buah parameter sehingga dibutuhkan 96 bytes per sistem \emph{chaos}. Ilustrasi dari ekspansi kunci dapat dilihat pada Gambar \ref{fig:tls.keyexpansion}.
 
 Persamaan \ref{eq:tls.key.convert} menunjukkan proses pengubahan kunci yang dilakukan menjadi parameter chaos. $K$ adalah potongan kunci dari hasil ekspansi.
 

@@ -28,7 +28,7 @@ Sertifikat digital yang digunakan pada implementasi ini merupakan sertifikat yan
 
 \subsection{Lingkungan Implementasi}
 
-Lingkungan implementasi dari protokol TLS ditunjukan pada tabel \ref{tab:impl.env}.
+Lingkungan implementasi dari protokol TLS ditunjukan pada Tabel \ref{tab:impl.env}.
 
 \begin{table}[!h]
   \centering
@@ -75,7 +75,7 @@ Implementasi dilakukan dengan membentuk pustaka TLS yang mendukung protokol TLS 
 
 Modul \texttt{main} merupakan \emph{entry point} dari aplikasi penguji dari pustaka yang dibangun. Pustaka terdiri atas beberapa modul penting, yaitu modul \texttt{data}, \texttt{conn}, dan \texttt{crypto}. Modul \texttt{data} digunakan untuk merepresentasikan data yang ada pada protokol TLS. Modul \texttt{conn} digunakan untuk mengatur komunikasi antara \emph{client} dan \emph{server}. Pada modul ini juga implementasi terkait protokol TLS dan TCP dibangun. Modul \texttt{crypto} digunakan untuk mengatur operasi kriptografi yang ada pada protokol TLS. 
 
-Modul utilitas dan kriptografi digunakan untuk membantu dalam menyediakan fungsi-fungsi yang dapat membantu proses kriptografi, pembangkitan kunci, dan operasi lain yang dibutuhkan dalam proses pengembangan pustaka. Kelas yang ada pada modul ini dijelaskan pada tabel \ref{tab:impl.util}. Modul ini merupakan implementasi dari solusi S1, S2, S3, S4, S5, dan S6.
+Modul utilitas dan kriptografi digunakan untuk membantu dalam menyediakan fungsi-fungsi yang dapat membantu proses kriptografi, pembangkitan kunci, dan operasi lain yang dibutuhkan dalam proses pengembangan pustaka. Kelas yang ada pada modul ini dijelaskan pada Tabel \ref{tab:impl.util}. Modul ini merupakan implementasi dari solusi S1, S2, S3, S4, S5, dan S6.
 
 Tabel \ref{tab:impl.util} menjelaskan terkait fungsi utilitas yang diimplementasikan pada pustaka yang dibangun. Selain utilitas umum, terdapat beberapa kelas yang diimplementasikan sebagai utilitas yang memfasilitasi operasi kriptografi dan pembangkitan kunci acak. Tabel \ref{tab:impl.util.crypto} menjelaskan beberapa kelas yang diimplementasikan pada pustaka yang dibangun. 
 
@@ -95,7 +95,7 @@ Pengujian dilakukan dengan tujuan sebagai berikut:
   \item Menguji fungsionalitas dan keamanan implementasi protokol TLS yang dibangun.
 \end{enumerate}
 
-Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{cipher} yang diusulkan dapat menjalankan proses kriptografi dengan baik. Pengujian ini dilakukan dengan melakukan operasi kriptografi pada \emph{cipher} sesuai dengan kasus yang didefinisikan. Pengujian keamanan pada \emph{cipher} dilakukan dengan melakukan uji statistik pada sistem \emph{chaos} dan \emph{cipher} yang diusulkan. Hal ini bertujuan untuk mengetahui sifat statistik yang mungkin muncul pada sistem \emph{chaos} dan hasil enkripsi dari \emph{cipher} yang diusulkan. Uji statistik dilakukan dengan menggunakan NIST Statistical Test Suite yang telah diimplementasikan oleh \textcite{marek2016}. Selain itu, pengujian keamanan juga dilakukan dengan menguji beberapa skenario serangan. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah pertama.
+Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{cipher} yang diusulkan dapat menjalankan proses kriptografi dengan baik. Pengujian ini dilakukan dengan melakukan operasi kriptografi pada \emph{cipher} sesuai dengan kasus yang didefinisikan. Pengujian keamanan pada \emph{cipher} dilakukan dengan melakukan uji keacakan pada sistem \emph{chaos} dan \emph{cipher} yang diusulkan. Hal ini bertujuan untuk mengetahui sifat statistik yang mungkin muncul pada sistem \emph{chaos} dan hasil enkripsi dari \emph{cipher} yang diusulkan. Uji keacakan dilakukan dengan menggunakan NIST Statistical Test Suite yang telah diimplementasikan oleh \textcite{marek2016}. Selain itu, pengujian keamanan juga dilakukan dengan menguji beberapa skenario serangan. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah pertama.
 
 \begin{table}[!h]
   \centering
@@ -115,7 +115,7 @@ Pengujian fungsionalitas \emph{cipher} dilakukan untuk memastikan bahwa \emph{ci
 Pengujian fungsionalitas protokol TLS dilakukan untuk memastikan bahwa protokol yang dibangun dapat berjalan dengan baik. Pengujian ini dilakukan dengan menggunakan skenario. Pengujian ini dilakukan secara \emph{end to end} testing. Pengujian keamanan protokol TLS dilakukan dengan menguji beberapa skenario serangan yang mungkin terjadi pada protokol TLS. Pengujian ini dilakukan untuk menguji jawaban atas rumusan masalah kedua.
 
 \subsection{Lingkungan Pengujian}
-Perangkat lunak dan pustaka yang digunakan pada pengujian ditunjukan pada tabel \ref{tab:test.lib}. Pengujian dilakukan pada perangkat dengan spesifikasi yang ditunjukan pada tabel \ref{tab:test.env}. 
+Perangkat lunak dan pustaka yang digunakan pada pengujian ditunjukan pada Tabel \ref{tab:test.lib}. Pengujian dilakukan pada perangkat dengan spesifikasi yang ditunjukan pada Tabel \ref{tab:test.env}. 
 
 Pengujian dilakukan pada sistem operasi linux ditujukan untuk menggunakan fitur dari \emph{UNIX socket} yang telah disediakan oleh kernel linux. Pemilihan \emph{UNIX socket} dilibatkan dalam pengujian ini dikarenakan fitur tersebut dapat mensimulasikan proses TCP tanpa perlu membuka port. Oleh karena itu, fitur ini dapat memudahkan pengujian khususnya bila menggunakan \emph{unit testing}.
 
@@ -134,40 +134,17 @@ Pengujian dilakukan pada sistem operasi linux ditujukan untuk menggunakan fitur 
   \end{table}
     
 
-  Pengujian statistik dilakukan dengan memanfaatkan Fast Statistics Test yang telah diimplementasikan oleh \textcite{marek2016}. Perangkat lunak ini merupakan optimasi dari implementasi pengujian perangkat lunak yang telah dibuat oleh NIST. Oleh karena itu, proses pengujian diharapkan dapat menjadi lebih cepat dan efisien. 
+  Pengujian keacakan dilakukan dengan memanfaatkan Fast Statistics Test yang telah diimplementasikan oleh \textcite{marek2016}. Perangkat lunak ini merupakan optimasi dari implementasi pengujian perangkat lunak yang telah dibuat oleh NIST. Oleh karena itu, proses pengujian diharapkan dapat menjadi lebih cepat dan efisien. 
 
 \subsection{Skenario dan Hasil Pengujian}
 
 Bagian ini menjelaskan skenario pengujian yang dilakukan dan hasil dari pengujian yang telah disebutkan sebelumnya. Bagian ini dibagi menjadi dua bagian, yaitu pengujian \emph{cipher} dan pengujian implementasi protokol TLS.
 
-\subsubsection{Pengujian \emph{Cipher}}
+\subsubsection{Pengujian Skenario pada \emph{Cipher}}
 
-Pengujian \emph{cipher} dilakukan dengan dua tahap, yakni pengujian skenario dan pengujian statistik. Pengujian berbasis skenario dilakukan dengan beberapa skenario yang ditunjukan pada tabel \emph{test.case.cipher}. Pengujian statistik dilakukan dengan menggunakan Fast Statistics Test yang telah diimplementasikan oleh \textcite{marek2016}. Pengujian statistik ditujukan untuk menguji solusi S1 dan S4.
+Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Pengujian ini dilakukan dengan menggunakan skenario yang telah dijelaskan pada Tabel \ref{tab:test.case.cipher}. Pengujian skenario dikatakan berhasil apabila semua skenario yang telah dijalankan mendapatkan hasil \emph{pass}.
 
-\begin{table}[!h]
-  \centering
-  \caption{Skenario Uji Cipher} \label{tab:test.case.cipher}
-  \begin{tabular}{|c|p{7cm}|c|}
-    \hline
-    \textbf{Kode Kasus Uji} & \textbf{Deskripsi} & \textbf{ID Solusi Terkait} \\ \hline
-    \multicolumn{3}{|l|}{Pengujian Fungsionalitas} \\ \hline
-    T1.1 & \emph{Cipher} dapat melakukan proses enkripsi pada pesan teks rahasia dengan menggunakan cipher AES-256 kunci blok dinamis.  & S1, S4, dan S5\\ \hline
-    T1.2 & \emph{Cipher} dapat mendekripsi kembali pesan menggunakan cipher AES-256 kunci blok dinamis. & S1, S4, dan S5\\ \hline
-    \multicolumn{3}{|l|}{Pengujian Keamanan} \\ \hline
-    T1.3 & Hasil dekripsi pada pesan yang dilakukan \emph{replay attack} haruslah gagal. & S1 dan S4\\ \hline
-    T1.4 & Hasil enkripsi dari \emph{Cipher} pada dua blok yang memiliki pesan yang sama memiliki hasil blok yang berbeda. & S1 dan S4\\ \hline
-  \end{tabular}
-\end{table}
-
-Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Pengujian ini dilakukan dengan menggunakan skenario yang telah dijelaskan pada tabel \ref{tab:test.case.cipher}. Pengujian skenario dikatakan berhasil apabila semua skenario yang telah dijalankan mendapatkan hasil \emph{pass}.
-
-Pengujian statistik pada dasarnya dilakukan dengan menguji keteracakan dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher}. Alasan dilakukannya pengujian keteracakan pada \emph{cipher} adalah memastikan bahwa cipher tidak memiliki pola-pola statistik yang memungkinkan melemahkan \emph{cipher} yang digunakan. Hasil dari pengujian statistik akan dibandingkan dengan acuan yang dipilih. Uji statistik ini berhasil apabila kualitas dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher} memiliki kualitas yang setara atau lebih baik dengan acuan yang dipilih. Kualitas ditentukan berdasarkan proporsi \emph{pass} dari uji statistik yang dilakukan. Pengujian kesetaraan dilakukan dengan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%.
-
-Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos} adalah sistem acak \texttt{/dev/urandom} yang ada pada sistem linux. Acuan ini dipilih dikarenakan sistem acak \texttt{urandom} termasuk sistem acak aman yang sering digunakan dalam proses kriptografi. 
-
-Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang diusulkan pada penelitian ini.
-
-Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritma dari pengujian ini dapat dilihat pada lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan dapat berjalan dengan baik pada skenario yang telah dijalankan.
+Hasil dari pengujian skenario ditunjukan pada Tabel \ref{tab:test.result.cipher}. Hasil tersebut menunjukan bahwa semua syarat yang dijalankan terpenuhi. Bukti serta algoritma dari pengujian ini dapat dilihat pada Lampiran \ref{appendix:unit.test.cipher}. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan dapat berjalan dengan baik pada skenario yang telah dijalankan.
 
 \begin{table}[!h]
   \centering
@@ -182,14 +159,24 @@ Hasil dari pengujian skenario ditunjukan pada tabel \ref{tab:test.result.cipher}
   \end{tabular}
 \end{table}
 
-Pengujian statistik CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} pada CSPRNG berbasis Sine-Henon dan CSPRNG berbasis \texttt{/dev/urandom}. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} CSPRNG berbasis sistem \emph{chaos} Sine-Henon map sama dengan atau lebih besar dari proporsi \emph{pass} dari CSPRNG \texttt{/dev/urandom}. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari Sine-Henon map lebih kecil dari proporsi \emph{pass} dari \texttt{/dev/urandom}. Nilai titik kritis dari pengujian ini adalah -1.64.
+\subsubsection{Pengujian Keacakan}
+
+Pengujian keacakan pada dasarnya dilakukan dengan menguji keteracakan dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher}.  Alasan dilakukannya pengujian keteracakan pada \emph{cipher} adalah memastikan bahwa cipher tidak memiliki pola-pola statistik yang memungkinkan melemahkan \emph{cipher} yang digunakan. Hasil dari pengujian keacakan akan dibandingkan dengan acuan yang dipilih. Pengujian keacakan ditujukan untuk menguji solusi S1 dan S4.
+
+Uji keacakan ini berhasil apabila kualitas dari \emph{bytestream} yang dihasilkan oleh sistem \emph{chaos} dan \emph{cipher} memiliki kualitas yang setara atau lebih baik dengan acuan yang dipilih. Kualitas ditentukan berdasarkan proporsi \emph{pass} dari uji keacakan yang dilakukan. Pengujian kesetaraan dilakukan dengan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%. Nilai titik kritis dari pengujian ini adalah -1.64 ($\alpha = 0.05$).
+
+Acuan yang digunakan untuk menilai kualitas dari keteracakan sistem \emph{chaos} adalah sistem acak \texttt{/dev/urandom} yang ada pada sistem linux. Acuan ini dipilih dikarenakan sistem acak \texttt{urandom} termasuk sistem acak aman yang sering digunakan dalam proses kriptografi. 
+
+Acuan yang digunakan untuk menilai kualitas dari keteracakan \emph{cipher} adalah \emph{cipher} AES-256 kunci blok statis dengan blok CTR yang ada pada pustaka \texttt{pycryptodome}. Pemilihan acuan ini dikarenakan AES-256 kunci blok statis dengan blok CTR merupakan \emph{cipher} yang setara dengan implementasi \emph{cipher} yang diusulkan pada penelitian ini.
+
+Pengujian keacakan CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} pada CSPRNG berbasis Sine-Henon dan CSPRNG berbasis \texttt{/dev/urandom}. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} CSPRNG berbasis sistem \emph{chaos} Sine-Henon map sama dengan atau lebih besar dari proporsi \emph{pass} dari CSPRNG \texttt{/dev/urandom}. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari Sine-Henon map lebih kecil dari proporsi \emph{pass} dari \texttt{/dev/urandom}. Nilai titik kritis dari pengujian ini adalah -1.64 ($\alpha = 0.05$).
 
 \begin{table}[!h]
   \centering
-  \caption{Hasil Pengujian Statistik pada CSPRNG Berbasis Sistem \emph{Chaos} Sine-Henon Map dan \texttt{/dev/urandom}} \label{tab:test.statistic.chaos}
-  \begin{tabular}{|c|c|c|c|}
+  \caption{Hasil Pengujian Keacakan pada CSPRNG Berbasis Sistem \emph{Chaos} Sine-Henon Map dan \texttt{/dev/urandom}} \label{tab:test.statistic.chaos}
+  \begin{tabular}{|p{3.5cm}|c|c|c|}
     \hline
-    \textbf{Nama Pengujian }& \textbf{\texttt{/dev/urandom}} & \textbf{Sine-Henon Map} & \textbf{P-Value} \\ \hline
+    \textbf{Nama Pengujian}& \textbf{\texttt{/dev/urandom}} & \textbf{Sine-Henon Map} & \textbf{P-Value} \\ \hline
     Uji Entropi & 98,8\% & 99\% & 0,000606 \\ \hline
     Uji Frekuensi Blok & 99,2\% & 99,2\% & 0,000000 \\ \hline
     Uji Jumlah Kumulatif & 98,9\% & 99,7\% & 0,003034 \\ \hline
@@ -208,13 +195,13 @@ Pengujian statistik CSPRNG dilakukan dengan membandingkan proporsi \emph{pass} p
   \end{tabular}
 \end{table}
 
-Hasil dari pengujian statistik pada \emph{cipher} ditunjukan pada tabel \ref{tab:test.statistic.chaos}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa CSPRNG berbasis sistem \emph{chaos} Sine-Henon map yang dibangun memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}.
+Hasil dari pengujian keacakan pada \emph{cipher} ditunjukan pada Tabel \ref{tab:test.statistic.chaos}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa CSPRNG berbasis sistem \emph{chaos} Sine-Henon map yang dibangun memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}.
 
-Pengujian statistik pada \emph{cipher} dilakukan dengan membandingkan proporsi \emph{pass} pada \emph{cipher} berbasis AES-256 kunci blok dinamis dan \emph{cipher} berbasis AES-256 kunci blok statis dengan mode blok yang sama. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok dinamis sama dengan atau lebih besar dari proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok statis. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok dinamis lebih kecil dari proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci statis. Nilai titik kritis dari pengujian ini adalah -1.64. Nilai ini diambil berdasarkan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%.
+Pengujian keacakan pada \emph{cipher} dilakukan dengan membandingkan proporsi \emph{pass} pada \emph{cipher} berbasis AES-256 kunci blok dinamis dan \emph{cipher} berbasis AES-256 kunci blok statis dengan mode blok yang sama. Hipotesis nol ($\text{H}_0$) yang dipilih dalam pengujian ini adalah proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok dinamis sama dengan atau lebih besar dari proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok statis. Hipotesis alternatif ($\text{H}_1$) yang dipilih adalah proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci blok dinamis lebih kecil dari proporsi \emph{pass} dari \emph{cipher} berbasis AES-256 kunci statis. Nilai titik kritis dari pengujian ini adalah -1.64. Nilai ini diambil berdasarkan uji hipotesis perbandingan proporsi dengan \emph{confidence level} sebesar 95\%.
 
 \begin{table}[!h]
   \centering
-  \caption{Hasil Pengujian Statistik pada Cipher Blok Statis dan Blok Dinamis} \label{tab:test.statistic.cipher}
+  \caption{Hasil Pengujian Keacakan pada Cipher Blok Statis dan Blok Dinamis} \label{tab:test.statistic.cipher}
   \begin{tabular}{|c|c|c|c|}
     \hline
     \textbf{Nama Pengujian} & \textbf{Blok Statis} & \textbf{Blok Dinamis} & \textbf{P-Value} \\ \hline
@@ -236,11 +223,76 @@ Pengujian statistik pada \emph{cipher} dilakukan dengan membandingkan proporsi \
   \end{tabular}
 \end{table}
 
-Hasil dari pengujian statistik pada \emph{cipher} ditunjukan pada tabel \ref{tab:test.statistic.cipher}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis.
+Hasil dari pengujian keacakan pada \emph{cipher} ditunjukan pada Tabel \ref{tab:test.statistic.cipher}. Nilai P-value pada tabel tersebut menunjukan nilai yang lebih besar dari nilai titik kritis yang dipilih. Oleh karena itu, hipotesis nol ($\text{H}_0$) dapat diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis.
 
-\subsubsection{Pengujian Implementasi Protokol TLS}
+\subsubsection{Pengujian Ketahanan pada \emph{Ciphertext}}
 
-Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci blok dinamis dilakukan dengan pengujian skenario. Pengujian ini dilakukan secara \emph{end-to-end}. Pengujian ini dilakukan dengan tujuan untuk menguji fungsionalitas dan keamanan dari protokol TLS yang dibangun. Pengujian ini dikatakan berhasil apabila telah memenuhi semua skenario yang telah dijalankan. Skenario pengujian ditunjukan pada tabel \ref{tab:test.case.tls}.
+Pengujian ketahanan dilakukan dengan melakukan analisis terhadap nilai MAD (\emph{Mean Absolute Deviation}) dan CCA (\emph{Connected Component Analysis}). Pengujian ini ditujukan untuk mengamati pola yang mungkin muncul pada \emph{ciphertext} yang dihasilkan oleh \emph{cipher} yang diusulkan. Pengujian ini dilakukan dengan menggunakan gambar sebagai \emph{plaintext} yang dienkripsi. Hal ini dikarenakan \emph{plaintext} berupa gambar memiliki pola tertentu pada histogramnya serta tiap piksel yang berdekatan. Pengujian ini dilakukan untuk menguji solusi S1 dan S4. 
+
+\begin{table}[!h]
+  \centering
+  \caption{Hasil Pengujian MAD pada \emph{Cipher} Blok Statis dan Blok Dinamis} \label{tab:test.mad}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Jenis Cipher} & \textbf{Rata-rata MAD} & \textbf{Deviasi MAD} \\ \hline
+    Blok Statis & 201.077 & 59.976003 \\ \hline
+    Blok Dinamis & 203.470840 & 60.427154 \\ \hline
+  \end{tabular}
+\end{table}
+
+Pengujian ketahanan pertama yang dilakukan adalah pengujian MAD (\emph{Mean Absolute Deviation}) pada \emph{cipher} yang diusulkan. Pengujian ini dilakukan sebagai uji ketahanan terhadap analisis dari histogram pada \emph{ciphertext}. MAD dipilih sebagai salah satu pengujian ini dikarenakan MAD dapat merepresentasikan distribusi dari sebuah data. \emph{Cipher} yang baik memiliki nilai MAD yang kecil. Pengujian ini dilakukan dengan melakukan enkripsi pada \emph{plaintext} berupa pesan \emph{grayscale}. Pemilihan gambar sebagai pesan yang enkripsi adalah gambar memiliki histogram yang cenderung memiliki pola tertentu. Menurut \textcite{lin2021}, Perhitungan nilai MAD ditunjukan pada persamaan \ref{eq:mad}. Nilai $N$ merupakan jumlah dari nilai piksel yang mungkin ada, dalam hal ini $N$ bernilai $256$. Nilai $X_i$ merupakan jumlah piksel dengan nilai $i$. Nilai $\bar{X}$ merupakan rata-rata dari jumlah banyaknya piksel dari setiap nilai.
+
+\begin{equation}
+  \begin{array}{c}   
+    \text{MAD} = \frac{1}{N} \sum_{i=0}^{N - 1} |X_i - \bar{X}| \\
+    \bar{X} = \frac{1}{N} \sum_{i=0}^{N - 1} X_i
+  \end{array}
+  \label{eq:mad}
+\end{equation}
+
+Pengujian dilakukan dengan mengambil 10 citra secara acak yang diambil dari Unsplash. citra yang digunakan ditunjukan pada Lampiran \ref{appendix:image.test}. Pengujian ini dianggap berhasil apabila nilai rata-rata MAD yang dihasilkan oleh \emph{cipher} yang diusulkan lebih kecil atau sama dengan nilai MAD yang dihasilkan oleh \emph{cipher} AES-256 kunci blok statis. Pengambilan keputusan ini dilakukan dengan menjalankan uji statistik untuk membandingkan rata-rata dua buah nilai. Distribusi yang digunakan adalah distribusi T. Distribusi ini dipilih dikarenakan jumlah citra yang dilakukan pengujian cukup sedikit, yaitu 10 citra. Nilai \emph{confidence level} yang digunakan adalah 95\%. Hipotesis Nol ($H_0$) yang digunakan pada pengujian ini adalah selisih rata-rata dari MAD pada \emph{cipher} blok statis dikurangi \emph{cipher} blok dinamis lebih besar atau sama dengan nol. Hipotesis alternatif ($H_1$) yang digunakan pada pengujian ini adalah selisih rata-rata dari MAD pada \emph{cipher} blok statis dikurangi \emph{cipher} blok dinamis kurang dari nol. Titik kritis yang digunakan adalah -1.729 $(\alpha = 0.05)$ dengan derajat kebebasan 18. Hasil dari pengujian ini ditunjukan pada Tabel \ref{tab:test.mad}.
+
+Nilai $t$ yag dihasilkan dari pengujian ini adalah $-0.0889$. Karena nilai $t > -1.729$, maka hipotesis nol ($H_0$) diterima. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan memiliki ketahanan yang setara atau lebih baik bila dibandingkan dengan \emph{cipher} AES-256 kunci blok statis berdasarkan analisis MAD.
+
+Pengujian ketahanan kedua yang dilakukan adalah pengujian CCA (\emph{Connected Component Analysis}) pada \emph{cipher} yang diusulkan. Pengujian ini dilakukan sebagai uji ketahanan terhadap analisis dari piksel yang berdekatan pada \emph{ciphertext}. CCA dipilih sebagai salah satu pengujian ini dikarenakan CCA dapat merepresentasikan keterhubungan dari piksel yang berdekatan. \emph{Cipher} yang baik memiliki nilai CCA yang mendekati 0. Pengujian ini dilakukan dengan melakukan enkripsi pada \emph{plaintext} berupa pesan citra \emph{grayscale}. Pemilihan citra sebagai pesan yang enkripsi adalah citra memiliki pola piksel yang berdekatan yang cenderung memiliki pola tertentu. Menurut \textcite{lin2021}, Perhitungan nilai CCA ditunjukan pada persamaan \ref{eq:cca}. Hasil pengujian tersebut ditunjukan pada Tabel \ref{tab:test.cca}. 
+
+\begin{equation}
+  \text{CCA} = \frac{\sum_{i=1}^{N}{(x_i - \frac{1}{N} \sum_{i=1}^{N} {x_i})(y_i - \frac{1}{N} \sum_{i=1}^{N} {y_i})}}
+  {\sqrt{\sum_{i=1}^{N}{(x_i - \frac{1}{N} \sum_{i=1}^{N} {x_i})^2} \cdot \sum_{i=1}^{N}{(y_i - \frac{1}{N} \sum_{i=1}^{N} {y_i})^2}}}
+  \label{eq:cca}
+\end{equation}
+
+Pengujian ini dilakukan dengan menggunakan pengujian statistik. Distribusi yang digunakan dalam pengujian ini adalah distribusi t. Hal ini dikarenakan jumlah citra yang digunakan dalam pengujian ini cukup sedikit, yaitu 10 citra. Nilai \emph{confidence level} yang digunakan adalah 95\%. Hipotesis Nol ($H_0$) yang digunakan pada pengujian ini adalah selisih rata-rata dari nilai absolut CCA pada \emph{cipher} blok statis dikurangi \emph{cipher} blok dinamis lebih besar atau sama dengan nol. Hipotesis alternatif ($H_1$) yang digunakan pada pengujian ini adalah selisih rata-rata dari absolut nilai CCA pada \emph{cipher} blok statis dikurangi \emph{cipher} blok dinamis kurang dari nol. Absolut digunakan untuk merepresentasikan jarak antara nilai CCA dengan nilai ideal yaitu 0. Titik kritis yang digunakan adalah -1.729 $(\alpha = 0.05)$ dengan derajat kebebasan 18. Rata-rata dari nilai CCA ini ditunjukan pada Tabel \ref{tab:test.cca} serta deviasi dari CCA ditunjukan pada Tabel \ref{tab:test.dev.cca}.
+
+\begin{table}
+  \centering
+  \caption{Rata-rata Pengujian CCA pada \emph{Cipher} Blok Statis dan Blok Dinamis} \label{tab:test.cca}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Jenis Cipher}} & \multicolumn{3}{c|}{\textbf{Rata-rata CCA dengan arah}} \\ \cline{2-4}
+    & \textbf{Horizontal} & \textbf{Vertikal} & \textbf{Diagonal} \\ \hline
+    Blok Statis & 0.000165 & 0.000207 & 0.000278 \\ \hline
+    Blok Dinamis & 0.000150 & 0.000193 & 0.000310 \\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \centering
+  \caption{Nilai Deviasi Pengujian CCA pada \emph{Cipher} Blok Statis dan Blok Dinamis} \label{tab:test.dev.cca}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Jenis Cipher}} & \multicolumn{3}{c|}{\textbf{Deviasi nilai CCA dengan arah}} \\ \cline{2-4}
+    & \textbf{Horizontal} & \textbf{Vertikal} & \textbf{Diagonal} \\ \hline
+    Blok Statis & 0.000183 & 0.000251 & 0.000337 \\ \hline
+    Blok Dinamis & 0.000199 & 0.000232 & 0.000346 \\ \hline
+  \end{tabular}
+\end{table}
+
+Nilai $t$ yang dihasilkan pada arah horizontal, vertikal, dan diagonal sedara berturut-turut adalah 0.277, 0.218, dan -0.324. Karena nilai $t > -1.729$ , maka hipotesis nol ($H_0$) diterima untuk setiap arah. Oleh karena itu, dapat disimpulkan bahwa \emph{cipher} yang diusulkan memiliki ketahanan setara atau lebih baik dari pada \emph{cipher} AES-256 kunci blok statis menurut analisis CCA.
+
+\subsubsection{Pengujian Skenario pada Implementasi Protokol TLS}
+
+Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci blok dinamis dilakukan dengan pengujian skenario. Pengujian ini dilakukan secara \emph{end-to-end}. Pengujian ini dilakukan dengan tujuan untuk menguji fungsionalitas dan keamanan dari protokol TLS yang dibangun. Pengujian ini dikatakan berhasil apabila telah memenuhi semua skenario yang telah dijalankan. Skenario pengujian ditunjukan pada Tabel \ref{tab:test.case.tls}.
 
 \begin{table}[!h]
   \centering
@@ -267,7 +319,7 @@ Pengujian implementasi protokol TLS dan integrasi dengan \emph{cipher} AES kunci
 \end{table}
 
 
-Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Detail implementasi dan bukti dari pengujian ini dijelaskan pada Lampiran \ref{appendix:unit.test.tls}. Hasil pengujian skenario ditunjukan pada tabel \ref{tab:test.result.tls}
+Pengujian skenario dilakukan dengan menggunakan \emph{unit testing} yang telah diimplementasikan pada pustaka yang dibangun. Pengujian ini dilakukan dengan menggunakan pustaka \texttt{pytest} yang telah dijelaskan pada bagian sebelumnya. Detail implementasi dan bukti dari pengujian ini dijelaskan pada Lampiran \ref{appendix:unit.test.tls}. Hasil pengujian skenario ditunjukan pada Tabel \ref{tab:test.result.tls}
 
 \begin{table}[!h]
   \centering
@@ -300,7 +352,7 @@ Bagian ini akan membahas terkait hasil pengujian serta ancaman validitas dari ha
 
 Pengujian berbasis skenario memiliki dua kelompok pengujian. Kelompok pertama adalah pengujian fungsionalitas yang dilakukan dengan skenario T1.1 dan T1.2. Kelompok kedua adalah pengujian keamanan berbasis skenario yang dilakukan pada skenario T1.3 dan T1.4. Hasil kedua kelompok pengujian tersebut menunjukan bahwa \emph{cipher} AES blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat bekerja dengan baik baik pada keamanan maupun fungsionalitas.
 
-Pengujian statistik yang dilakukan pada CSPRNG menunjukan bahwa sistem random berbasis Sine-Henon map memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}. Selain itu, pengujian statistik yang dilakukan pada \emph{cipher} AES-256 kunci blok dinamis menunjukan bahwa \emph{cipher} yang diusulkan memiliki kualitas keteracakan yang setara dengan \emph{cipher} AES-256 kunci blok statis. Oleh karena itu, kualitas keamanan dari \emph{cipher} yang diusulkan dapat dikatakan setara dengan \emph{cipher} AES-256 kunci blok statis.
+Pengujian statistik yang dilakukan pada CSPRNG menunjukan bahwa sistem random berbasis Sine-Henon map memiliki kualitas keteracakan yang setara dengan sistem random \texttt{/dev/urandom}. Selain itu, pengujian statistik dan pengujian ketahanan yang dilakukan pada \emph{cipher} AES-256 kunci blok dinamis menunjukan bahwa \emph{cipher} yang diusulkan memiliki kualitas yang setara dengan \emph{cipher} AES-256 kunci blok statis. Oleh karena itu, kualitas keamanan dari \emph{cipher} yang diusulkan dapat dikatakan setara dengan \emph{cipher} AES-256 kunci blok statis.
 
 Berdasarkan kedua pengujian tersebut, enkripsi dengan menggunakan AES kunci blok dinamis berbasis sistem \emph{chaos} Sine-Henon map dapat digunakan sebagai \emph{cipher} yang aman dan fungsional. Metode enkripsi ini dapat digunakan dalam melakukan enkripsi pesan rahasia. Oleh karena itu, dapat disimpulkan bahwa rumusan masalah pertama dapat terjawab dengan menggunakan sistem \emph{chaos} Sine-Henon map sebagai CSPRNG penghasil kunci blok dinamis.
 
